@@ -23,7 +23,7 @@ const SwitchTheme = () => {
 
   return (
     <button
-      className="border relative mt-4 h-[1.2rem] w-[1.2rem] p-4 rounded-md hover:opacity-70"
+      className="border relative h-[1.2rem] w-[1.2rem] p-4 rounded-md hover:opacity-70"
       onClick={handleSwitchTheme}
     >
       <SunIcon className="absolute top-2 left-2 scale-0 dark:scale-100 " />

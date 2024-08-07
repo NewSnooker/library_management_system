@@ -90,12 +90,12 @@ export function NavAvatar() {
           </div>
         </div>
         <SheetFooter>
+            <SheetClose>
           <div className="mt-4 sm:mt-6 flex justify-end gap-4">
             <Button>Edit profile</Button>
-            <SheetClose>
               <Button>Logout</Button>
-            </SheetClose>
           </div>
+            </SheetClose>
         </SheetFooter>
       </SheetContent>
     </Sheet>

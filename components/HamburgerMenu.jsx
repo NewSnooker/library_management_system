@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,34 +12,22 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import Image from "next/image";
+import { Menu } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { BorderBeam } from "./magicui/border-beam";
 import SwitchTheme from "./SwitchTheme";
-export function NavAvatar() {
+import Image from "next/image";
+
+export default function HamburgerMenu() {
   return (
     <Sheet>
       <SheetTrigger>
-        {" "}
-        <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback className="text-xl">CN</AvatarFallback>
-        </Avatar>
+        <div className="flex items-center p-2 rounded-sm bg-zinc-50 dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors border" >
+          <Menu />
+        </div>
       </SheetTrigger>
-      <SheetContent side="right">
-        <SheetHeader>
-          <div className="mb-2 sm:mb-4 flex items-center justify-center  ">
-            <div className="relative overflow-hidden rounded-full border bg-background">
-              {" "}
-              <Image
-                src="https://github.com/shadcn.png"
-                alt="@shadcn"
-                width={100}
-                height={100}
-                className="rounded-full p-1"
-              />
-              <BorderBeam size={250} duration={12} delay={9} />
-            </div>
-          </div>
+      <SheetContent side="left">
+      <SheetHeader>
           <SheetTitle>User profile</SheetTitle>
           <SheetDescription>
             Make changes to your profile here. Click save when you're done.
@@ -91,14 +79,7 @@ export function NavAvatar() {
             />
           </div>
         </div>
-        <SheetFooter>
-          <SheetClose className="mt-4 sm:mt-6 flex justify-end gap-2">
-            <SwitchTheme customClass="block sm:hidden" inSheet={true} />
-            <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
-              Edit Profile
-            </div>
-          </SheetClose>
-        </SheetFooter>
+
       </SheetContent>
     </Sheet>
   );

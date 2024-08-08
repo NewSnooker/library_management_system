@@ -58,6 +58,7 @@ const ParticlesDemo = () => {
         className="hidden sm:block "
         width={500}
         height={500}
+        alt="Bibliophile-bro"
       />
       <Particles
         className="absolute inset-0"

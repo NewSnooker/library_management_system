@@ -6,7 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Particles from "@/components/magicui/particles";
 import Image from "next/image";
-import { BookText, Library } from "lucide-react";
+import { BookText } from "lucide-react";
 
 const ParticlesDemo = () => {
   const { theme } = useTheme();

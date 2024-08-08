@@ -1,5 +1,5 @@
 
-import ParticlesDemo from "@/components/font/ParticlesDemo";
+import ParticlesDemo from "@/components/fontend/ParticlesDemo";
 import ShinyButton from "@/components/magicui/shiny-button";
 
 export default function Home() {

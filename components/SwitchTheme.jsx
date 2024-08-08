@@ -23,7 +23,7 @@ const SwitchTheme = () => {
   };
 
   return (
-    <Button variant="outline" onClick={handleSwitchTheme}>
+    <Button variant="outline"  onClick={handleSwitchTheme}>
       {theme === "dark" ? (
         <MoonIcon className=" w-4 sm:w-3 " />
       ) : (

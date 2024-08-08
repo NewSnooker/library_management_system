@@ -21,7 +21,7 @@ export function NavAvatar() {
         {" "}
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback className="text-xl">CN</AvatarFallback>
         </Avatar>
       </SheetTrigger>
       <SheetContent>
@@ -31,6 +31,7 @@ export function NavAvatar() {
               {" "}
               <Image
                 src="https://github.com/shadcn.png"
+                alt="@shadcn"
                 width={100}
                 height={100}
                 className="rounded-full p-1"
@@ -90,12 +91,10 @@ export function NavAvatar() {
           </div>
         </div>
         <SheetFooter>
-            <SheetClose>
-          <div className="mt-4 sm:mt-6 flex justify-end gap-4">
-            <Button>Edit profile</Button>
+          <SheetClose className="mt-4 sm:mt-6 flex justify-end gap-4">
+              <Button>Edit profile</Button>
               <Button>Logout</Button>
-          </div>
-            </SheetClose>
+          </SheetClose>
         </SheetFooter>
       </SheetContent>
     </Sheet>

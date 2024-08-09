@@ -11,7 +11,7 @@ export default function Sidebar() {
   // const router = useRouter();
 
   return (
-    <div className=" border py-2 px-4 rounded-sm sticky top-20">
+    <div className=" border bg-card py-2 px-4 rounded-sm sticky top-20">
       <h2 className="text-lg font-bold flex items-center justify-start border-b pb-2">
         <BookText className="mr-1 w-4" /> UDVC
       </h2>

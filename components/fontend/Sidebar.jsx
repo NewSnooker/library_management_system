@@ -9,7 +9,6 @@ import { sidebarLinks } from "@/lib/sidebarLink";
 export default function Sidebar() {
   const pathname = usePathname();
   // const router = useRouter();
-
   return (
     <div className=" border bg-card py-2 px-4 rounded-sm sticky top-20">
       <h2 className="text-lg font-bold flex items-center justify-start border-b pb-2">

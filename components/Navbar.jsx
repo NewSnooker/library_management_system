@@ -5,6 +5,7 @@ import { BookOpen } from "lucide-react";
 import { NavAvatar } from "./NavAvatar";
 import { CommandDialogDemo } from "./fontend/CommandDialogDemo";
 import HamburgerMenu from "./HamburgerMenu";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
@@ -12,11 +13,11 @@ export default function Navbar() {
       <div className="block sm:hidden">
         <HamburgerMenu />
       </div>
-      <div className="text-3xl flex items-center gap-2">
+      <Link href="/" className="text-3xl flex items-center gap-2">
         <BookOpen width={26} height={26} />
         <SparklesTextDemo text={"LMS"} />
-      </div>
-      <div className="text-3xl flex items-center justify-center gap-2 sm:gap-4">
+      </Link>
+      <div className="text-3xl flex items-center justify-center gap-1 sm:gap-4">
         <CommandDialogDemo />
         <SwitchTheme customClass={"hidden sm:block"} />
         <NavAvatar />

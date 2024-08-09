@@ -1,85 +1,57 @@
+"use client";
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { BorderBeam } from "./magicui/border-beam";
-import SwitchTheme from "./SwitchTheme";
-import Image from "next/image";
+import { BookText } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { sidebarLinks } from "@/lib/sidebarLink";
 
 export default function HamburgerMenu() {
+  const pathname = usePathname();
   return (
     <Sheet>
       <SheetTrigger>
-        <div className="flex items-center p-2 rounded-sm bg-zinc-50 dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors border" >
+        <div className="flex items-center p-2 rounded-sm bg-zinc-50 dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-800 border">
           <Menu />
         </div>
       </SheetTrigger>
       <SheetContent side="left">
-      <SheetHeader>
-          <SheetTitle>User profile</SheetTitle>
-          <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
-          </SheetDescription>
+        <SheetHeader>
+          <SheetTitle className="flex items-center justify-center border-b text-2xl pb-2">
+            <BookText className="mr-1 w-5" /> UDVC
+          </SheetTitle>
         </SheetHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              ชื่อผู้ใช้
-            </Label>
-            <Input
-              disabled
-              id="name"
-              value="Pedro Duarte"
-              className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              อีเมล
-            </Label>
-            <Input
-              disabled
-              id="username"
-              value="@peduarte"
-              className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              รหัสนักศึกษา
-            </Label>
-            <Input
-              disabled
-              id="username"
-              value="@peduarte"
-              className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              เบอร์โทรศัพท์
-            </Label>
-            <Input
-              disabled
-              id="username"
-              value="@peduarte"
-              className="col-span-3"
-            />
+        <div className="flex flex-col items-center mt-4">
+          <div>
+            {sidebarLinks.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <Link href={item.href} key={i} className="flex flex-col">
+                  <SheetClose>
+                    <div
+                      className={
+                        item.href === pathname
+                          ? "flex border-l-4 pl-2.5 mb-5 font-bold border-zinc-600 text-zinc-700 dark:text-zinc-400"
+                          : "flex mb-4"
+                      }
+                    >
+                      <Icon className="mr-2 w-4" />
+                      <span>{item.title}</span>
+                    </div>
+                  </SheetClose>
+                </Link>
+              );
+            })}
           </div>
         </div>
-
       </SheetContent>
     </Sheet>
   );

@@ -9,8 +9,8 @@ export default function page() {
     <div className="">
       {/* <Banner  /> */}
       <div className="border bg-card py-2 px-4 rounded-sm">
-        <WideCard title={"หนังสือยอดนิยม"} books={books} href="/" />
-        <WideCard title={"หนังสือใหม่"} books={books} href="/" />
+        <WideCard title={"หนังสือยอดนิยม"} books={books} href="/books/popular-books" />
+        <WideCard title={"หนังสือใหม่"} books={books} href="/books/new-books" />
         <WideCard title={"หนังสือทั้งหมด"} books={books} href="/books" />
       </div>
     </div>

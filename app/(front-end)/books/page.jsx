@@ -1,15 +1,14 @@
-// import Banner from "@/components/fontend/Banner";
-import WideCard from "@/components/fontend/WideCard";
+import HeadTitleBreadcrumb from "@/components/fontend/HeadTitleBreadcrumb";
+import HorizontalCard from "@/components/fontend/HorizontalCard";
+import { books } from "@/lib/books";
+import { BookText } from "lucide-react";
 import React from "react";
-
 export default function page() {
-  //ถ้า fetch ข้อมูลไม่ได้ ลองไปเช็ค ความเป็น "use client"; ในไฟล์ leyout.jsx
   return (
     <div className="">
-      {/* <Banner  /> */}
+      <HeadTitleBreadcrumb icon={BookText} />
       <div className="border bg-card py-2 px-4 rounded-sm">
-        <WideCard title={"หนังสือที่แนะนำ"}/>
-        <WideCard title={"หนังสือใหม่"}/>
+        <HorizontalCard books={books} />
       </div>
     </div>
   );

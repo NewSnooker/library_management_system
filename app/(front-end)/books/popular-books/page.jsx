@@ -2,7 +2,7 @@ import HeadTitleBreadcrumb from "@/components/fontend/HeadTitleBreadcrumb";
 import HorizontalCard from "@/components/fontend/HorizontalCard";
 import { PaginationDemo } from "@/components/fontend/PaginationDemo";
 import { books } from "@/lib/books";
-import { BookCheck, BookText } from "lucide-react";
+import { BookCheck } from "lucide-react";
 import React from "react";
 export default function page() {
   return (

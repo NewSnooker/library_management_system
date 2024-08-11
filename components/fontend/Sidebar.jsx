@@ -1,13 +1,36 @@
 "use client";
-import React from "react";
-import { Album, Book, BookCheck, BookText, Heart, House, MessageSquareText, SquareLibrary } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import {
+  Album,
+  Book,
+  BookCheck,
+  BookText,
+  Heart,
+  House,
+  MessageSquareText,
+  SquareLibrary,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { sidebarLinks } from "@/lib/sidebarLink";
+import { Skeleton } from "../ui/skeleton";
 // import { useRouter } from 'next/router';
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading)
+    return (
+      <div className="hidden sm:block border bg-card h-72 py-2 px-4 rounded-sm sticky top-20">
+        <Skeleton className="w-full h-8 mb-2 rounded-sm" />
+        <Skeleton className="w-full h-56 rounded-sm" />
+      </div>
+    );
   // const router = useRouter();
   return (
     <div className=" border bg-card py-2 px-4 rounded-sm sticky top-20">

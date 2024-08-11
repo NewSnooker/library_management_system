@@ -1,13 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/scrollbar";
 import { Scrollbar, Autoplay } from "swiper/modules";
 import Image from "next/image";
+import { Skeleton } from "../ui/skeleton";
 export default function Banner() {
-  const images = [
+  const [loading, setLoading] = useState(true);
+
+  useEffect(()=>{
+    setLoading(false)
+  },[])
+
+  if (loading) return (
+    <div className="w-full mb-4">
+      <Skeleton className=" h-36 sm:h-96 rounded-sm" />
+    </div>
+  );
+
+  const banners = [
     {
       title: "Title",
       imageUrl:
@@ -19,6 +32,7 @@ export default function Banner() {
         "https://plus.unsplash.com/premium_photo-1677567996070-68fa4181775a?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
+
   return (
     // <div className="relative ">
       <Swiper
@@ -34,7 +48,7 @@ export default function Banner() {
         modules={[Scrollbar, Autoplay]}
         className="mb-4"
       >
-        {images.map((image, i) => (
+        {banners.map((image, i) => (
           <SwiperSlide key={i}>
             {" "}
             <div className=" h-36 sm:h-96 rounded-sm overflow-hidden">

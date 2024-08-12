@@ -1,6 +1,6 @@
-import HeadTitleBreadcrumb from "@/components/fontend/HeadTitleBreadcrumb";
-import HorizontalCard from "@/components/fontend/HorizontalCard";
-import { PaginationDemo } from "@/components/fontend/PaginationDemo";
+import HeadTitleBreadcrumb from "@/components/frontend/HeadTitleBreadcrumb";
+import HorizontalCard from "@/components/frontend/HorizontalCard";
+import { PaginationDemo } from "@/components/frontend/PaginationDemo";
 import { books } from "@/lib/books";
 import { Album, BookCheck, BookText } from "lucide-react";
 import React from "react";

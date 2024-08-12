@@ -1,4 +1,4 @@
-import ParticlesDemo from "@/components/fontend/ParticlesDemo";
+import ParticlesDemo from "@/components/frontend/ParticlesDemo";
 import ShinyButton from "@/components/magicui/shiny-button";
 import Link from "next/link";
 

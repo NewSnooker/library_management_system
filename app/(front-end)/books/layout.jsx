@@ -1,5 +1,5 @@
 "use client";
-import Sidebar from "@/components/fontend/Sidebar";
+import Sidebar from "@/components/frontend/Sidebar";
 import React from "react";
 
 export default function Layout({ children }) {

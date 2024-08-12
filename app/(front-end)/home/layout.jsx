@@ -1,6 +1,6 @@
 "use client";
-import Banner from "@/components/fontend/Banner";
-import Sidebar from "@/components/fontend/Sidebar";
+import Banner from "@/components/frontend/Banner";
+import Sidebar from "@/components/frontend/Sidebar";
 import React from "react";
 
 export default function Layout({ children }) {

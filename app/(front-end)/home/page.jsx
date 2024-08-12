@@ -1,5 +1,5 @@
 // import Banner from "@/components/fontend/Banner";
-import WideCard from "@/components/fontend/WideCard";
+import WideCard from "@/components/frontend/WideCard";
 import React from "react";
 import { books } from "@/lib/books";
 

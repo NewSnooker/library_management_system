@@ -8,9 +8,9 @@ import HamburgerMenu from "./HamburgerMenu";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
-export default function Navbar() {
+export default function Navbar({className}) {
   return (
-    <div className="flex  justify-between max-w-7xl mx-auto py-2 sm:py-3 px-4 sticky top-0 backdrop-blur-xl z-50 border-b">
+    <div className={`flex justify-between sticky top-0 backdrop-blur-xl z-50 w-full ${className}`}>
       <div className="block lg:hidden">
         <HamburgerMenu />
       </div>

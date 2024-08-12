@@ -57,7 +57,7 @@ export default function LoginForm() {
           type="email"
           name="email"
           id="email"
-          className=""
+          className="bg-card-transparent"
           placeholder="your@gmail.com"
         />
         {errors.email && (
@@ -79,7 +79,7 @@ export default function LoginForm() {
           name="password"
           id="password"
           placeholder="••••••••"
-          className=""
+          className="bg-card-transparent"
         />
         {errors.password && (
           <small className="text-red-600 text-sm ">
@@ -131,7 +131,7 @@ export default function LoginForm() {
         </Link>
       </div>
 
-      <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+      <p className="text-sm  dark:text-gray-400">
         Already have an account?{" "}
         <Link
           href="/register"

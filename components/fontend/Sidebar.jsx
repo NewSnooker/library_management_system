@@ -32,10 +32,10 @@ export default function Sidebar() {
       </div>
     );
   // const router = useRouter();
-  return (
-    <div className=" border bg-card py-2 px-4 rounded-sm sticky top-20">
-      <h2 className="text-lg font-bold flex items-center justify-start border-b pb-2">
-        <BookText className="mr-1 w-4" /> UDVC
+  return ( 
+    <div className=" border bg-card py-2 px-4 rounded-sm sticky top-20 ">
+      <h2 className="text-lg font-bold flex items-center justify-start border-b pb-2 text-custom-text">
+        <BookText className="mr-1 w-4 " /> UDVC
       </h2>
       <div className="mt-2">
         {sidebarLinks.map((item, i) => {
@@ -46,11 +46,11 @@ export default function Sidebar() {
               key={i}
               className={
                 item.href == pathname
-                  ? "flex border-l-4 pl-2 my-1.5 border-zinc-600 text-zinc-700 dark:text-zinc-400"
+                  ? "flex border-l-4 pl-2 my-1.5 font-thin border-custom-border text-custom-text dark:text-zinc-400"
                   : "flex mb-1 "
               }
             >
-              <Icon className="mr-1 w-4" />
+              <Icon className="mr-1 w-4 " />
               <span>{item.title}</span>
             </Link>
           );

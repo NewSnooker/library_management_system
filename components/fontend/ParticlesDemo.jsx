@@ -15,7 +15,7 @@ const ParticlesDemo = () => {
     AOS.init();
   }, []);
   useEffect(() => {
-    setColor(theme === "dark" ? "#ffffff" : "#190DC2");
+    setColor(theme === "dark" ? "#ffffff" : "#B81A1A");
   }, [theme]);
 
   return (
@@ -52,13 +52,13 @@ const ParticlesDemo = () => {
         </div>
       </div>
       <Image
-        src="/Bibliophile-bro.png"
+        src="/Bibliophile-amico.png"
         data-aos="fade-left"
         data-aos-duration="1400"
         className="hidden sm:block "
         width={500}
         height={500}
-        alt="Bibliophile-bro"
+        alt="Bibliophile-amico"
       />
       <Particles
         className="absolute inset-0"

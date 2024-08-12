@@ -19,7 +19,6 @@ export function NavAvatar() {
   return (
     <Sheet>
       <SheetTrigger>
-        {" "}
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback className="text-xl">CN</AvatarFallback>
@@ -27,7 +26,11 @@ export function NavAvatar() {
       </SheetTrigger>
       <SheetContent side="right">
         <SheetHeader>
-          <div className="mb-2 sm:mb-4 flex items-center justify-center  ">
+          <div className="mb-2 sm:mb-4 flex items-center justify-center relative ">
+            <SwitchTheme
+              customClass="block sm:hidden absolute -top-3 -left-3"
+              inSheet={true}
+            />
             <div className="relative overflow-hidden rounded-full border bg-background">
               {" "}
               <Image
@@ -93,9 +96,13 @@ export function NavAvatar() {
         </div>
         <SheetFooter>
           <SheetClose className="mt-4 sm:mt-6 flex justify-end gap-2">
-            <SwitchTheme customClass="block sm:hidden" inSheet={true} />
-            <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
-              Edit Profile
+            <div className="flex gap-2">
+              <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
+                แดชบอร์ด
+              </div>
+              <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
+                คั้งค่าโปรไฟล์
+              </div>
             </div>
           </SheetClose>
         </SheetFooter>

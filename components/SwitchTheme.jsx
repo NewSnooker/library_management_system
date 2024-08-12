@@ -27,7 +27,7 @@ const SwitchTheme = ({ customClass = "", inSheet = false }) => {
         <div className="flex items-center justify-center">
           <Button
             variant="outline"
-            className={customClass}
+            className={`${customClass} bg-custom-background border border-custom-border text-zinc-100` }
             onClick={handleSwitchTheme}
           >
             {theme === "dark" ? (
@@ -41,7 +41,7 @@ const SwitchTheme = ({ customClass = "", inSheet = false }) => {
         <div className="flex items-center justify-center">
           <div
             className={
-              "py-[13px] px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border" +
+              "py-1 px-1 rounded-lg text-black dark:text-white text-sm font-semibold transition-colors border" +
               customClass
             }
             onClick={handleSwitchTheme}

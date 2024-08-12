@@ -15,7 +15,7 @@ export default function Banner() {
   },[])
 
   if (loading) return (
-    <div className="w-full mb-4">
+    <div className="w-full mb-4 border bg-card rounded-sm">
       <Skeleton className=" h-36 sm:h-96 rounded-sm" />
     </div>
   );
@@ -51,13 +51,13 @@ export default function Banner() {
         {banners.map((image, i) => (
           <SwiperSlide key={i}>
             {" "}
-            <div className=" h-36 sm:h-96 rounded-sm overflow-hidden">
+            <div className="border bg-card h-36 sm:h-96 rounded-sm overflow-hidden">
               <Image
                 src={image.imageUrl}
                 alt={image.title}
                 width={1400}
                 height={400}
-                className="object-cover"
+                className="object-cover rounded-sm"
               />
             </div>
             {/* <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-10">

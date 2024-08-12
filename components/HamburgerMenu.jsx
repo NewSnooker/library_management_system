@@ -19,7 +19,7 @@ export default function HamburgerMenu() {
   return (
     <Sheet>
       <SheetTrigger>
-        <div className="flex items-center p-2 rounded-sm bg-zinc-50 dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-800 border">
+        <div className="flex items-center p-2 rounded-sm border border-custom-border bg-custom-background text-muted">
           <Menu />
         </div>
       </SheetTrigger>

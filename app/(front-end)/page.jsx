@@ -8,7 +8,7 @@ export default function Home() {
       <ParticlesDemo />
       <Link href="/home">
         <ShinyButton
-          className=" ml-10 absolute top-96 sm:top-[420px] border border-black"
+          className=" ml-10 absolute top-96 sm:top-[420px]  border border-custom-border text-custom-text"
           text="อ่านเพิ่มเติม "
         />
       </Link>

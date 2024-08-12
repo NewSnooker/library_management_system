@@ -61,7 +61,7 @@ const SparklesText = ({
         {sparkles.map((sparkle) => (
           <Sparkle key={sparkle.id} {...sparkle} />
         ))}
-        <strong>{text}</strong>
+        <strong className="text-custom-text">{text}</strong>
       </span>
     </div>)
   );

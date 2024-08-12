@@ -14,7 +14,7 @@ export default function Navbar() {
         <HamburgerMenu /> 
       </div>
       <Link href="/" className="text-3xl flex items-center gap-2">
-        <BookOpen width={26} height={26} />
+        <BookOpen width={26} height={26} className="text-custom-text" />
         <SparklesTextDemo text={"LMS"} />
       </Link>
       <div className="text-3xl flex items-center justify-center gap-1 sm:gap-4">

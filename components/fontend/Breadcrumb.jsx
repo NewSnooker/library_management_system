@@ -20,8 +20,8 @@ export default function Breadcrumb() {
 
   if (loading)
     return (
-      <div className="border bg-card py-2 px-10 rounded-sm">
-        <Skeleton className=" w-full h-full rounded-sm" />
+      <div className="border rounded-sm">
+        <Skeleton className=" py-2 px-10  rounded-sm" />
       </div>
     );
   return (

@@ -34,7 +34,7 @@ export default function WideCard({ title, books, href }) {
       <div className="flex justify-between items-center mb-4 ">
         <h1 className=" text-lg sm:text-xl  ml-4 ">{title}</h1>
         <Link href={href}>
-          <Button size="sm" variant="outline">
+          <Button size="sm" variant="outline" className="bg-custom-background border border-custom-border text-zinc-100 ">
             ดูทั้งหมด
           </Button>
         </Link>

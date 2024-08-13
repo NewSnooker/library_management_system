@@ -41,6 +41,7 @@ export default function Banner() {
         scrollbar={{
           hide: true,
         }}
+        rewind={true}
         autoplay={{
           delay: 8000,
           disableOnInteraction: false,

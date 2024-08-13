@@ -34,7 +34,7 @@ export default function WideCardCarousel({books}) {
     >
       {books.map((book, i) => (
         <SwiperSlide key={i}>
-          <Link href={"/"} className=" flex flex-col justify-center items-center overflow-hidden w-full">
+          <Link href={"/books/slug"} className=" flex flex-col justify-center items-center overflow-hidden w-full">
             <Image
               src={book.imageUrl}
               alt={book.title}

@@ -1,15 +1,15 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import AOS from "aos";
+// import React, { useEffect, useState } from "react";
+// import AOS from "aos";
 import "aos/dist/aos.css";
-import { Skeleton } from "../ui/skeleton";
+// import { Skeleton } from "../ui/skeleton";
 export default function BookCard({ book }) {
   // const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    AOS.init();
-  }, []);
+  // useEffect(() => {
+  //   AOS.init();
+  // }, []);
   // if (loading)
   //   return (
   //     <div className="flex flex-col justify-center items-center overflow-hidden w-full mb-6 ">
@@ -19,10 +19,10 @@ export default function BookCard({ book }) {
 
   return (
     <Link
-      data-aos="fade-up"
-      data-aos-duration="500"
+      // data-aos="fade-up"
+      // data-aos-duration="500"
       passHref
-      href={"/"}
+      href={"/books/slug"}
       className=" flex flex-col justify-center items-center overflow-hidden w-full mb-6 group "
     >
       <Image

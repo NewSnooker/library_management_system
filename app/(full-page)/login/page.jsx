@@ -9,7 +9,7 @@ export default function Login() {
     AOS.init();
   }, []);
   return (
-    <div className="w-full h-[80dvh] sm:h-full sm:mt-14 flex  justify-center items-center sm:mx-auto">
+    <div className="w-full h-[80dvh] sm:h-full mt-28 sm:mt-14 px-4 sm:flex sm:justify-center items-center sm:mx-auto">
       <div className="border sm:h-full shadow-xl overflow-hidden rounded-lg">
         <div className="grid grid-cols-12 ">
           <div className="sm:col-span-6 hidden sm:block bg-custom-background">
@@ -26,9 +26,9 @@ export default function Login() {
             </div>
           </div>
           <div className="col-span-12 sm:col-span-6 bg-card overflow-hidden ">
-            <div className="flex flex-col justify-center items-center sm:h-full ">
+            <div className="flex flex-col justify-center items-center sm:h-full w-full ">
               <div className="w-full md:mt-0 sm:max-w-md">
-                <div className="px-10 py-10 space-y-4 md:space-y-6 sm:p-8">
+                <div className="px-8 py-10 space-y-4 md:space-y-6 sm:p-8">
                   <h1 className=" text-lg sm:text-2xl font-bold leading-tight tracking-tight text-center mb-6 sm:mb-10">
                     Login to Account
                   </h1>

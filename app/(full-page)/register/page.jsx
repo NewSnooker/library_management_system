@@ -9,7 +9,7 @@ export default function Register() {
     AOS.init();
   }, []);
   return (
-    <div className="w-full h-[80dvh] sm:h-full mt-28 sm:my-14 px-4 sm:flex sm:justify-center sm:items-center sm:mx-auto">
+    <div className="w-full h-[80dvh] sm:h-full mt-28 sm:my-5 px-4 sm:flex sm:justify-center sm:items-center sm:mx-auto">
       <div className="border sm:h-full shadow-xl overflow-hidden rounded-lg">
         <div className="grid grid-cols-12 ">
           <div className="sm:col-span-6 hidden sm:block bg-custom-background">

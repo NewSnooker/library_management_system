@@ -9,49 +9,33 @@ export default function Login() {
     AOS.init();
   }, []);
   return (
-    // <div className="grid grid-cols-12 h-[80dvh] sm:h-full sm:mt-12">
-    //   <div className="sm:col-span-6 hidden sm:block">
-    //     <div className="flex justify-center">
-    //       <Image
-    //         src="/Bibliophile-amico.png"
-    //         data-aos="fade-left"
-    //         data-aos-duration="1400"
-    //         className="hidden sm:block "
-    //         width={500}
-    //         height={500}
-    //         alt="Bibliophile-amico"
-    //       />
-    //     </div>
-    //   </div>
-    //   <div className="col-span-12 sm:col-span-6 h-full">
-    //     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 h-full">
-    //       <div className="w-full bg-card rounded-lg shadow-2xl dark:border md:mt-0 sm:max-w-md xl:p-0">
-    //         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-    //           <h1 className="text-xl font-bold leading-tight tracking-tight  text-center">
-    //             Login to Account
-    //           </h1>
-    //           <LoginForm />
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
-
-    <div className=" relative w-full h-full">
-      <Image
-        src="/1234.jpeg"
-        className="w-full h-screen object-cover"
-        width={500}
-        height={500}
-        alt="Bibliophile-amico"
-      />
-      <div className="absolute top-0 flex flex-col items-center justify-center h-full w-full">
-        <div className=" rounded-sm overflow-hidden border bg-card-transparent md:mt-0 xl:p-0">
-          <div className="backdrop-blur-md p-6 space-y-4 md:space-y-6 sm:p-10 z-10">
-            <h1 className="text-xl font-bold leading-tight tracking-tight  text-center">
-              Login to Account
-            </h1>
-            <LoginForm />
+    <div className="w-full h-[80dvh] sm:h-full sm:mt-14 flex  justify-center items-center sm:mx-auto">
+      <div className="border sm:h-full shadow-xl overflow-hidden rounded-lg">
+        <div className="grid grid-cols-12 ">
+          <div className="sm:col-span-6 hidden sm:block bg-custom-background">
+            <div className="h-full">
+              <Image
+                src="/Bibliophile-amico.png"
+                data-aos="fade-left"
+                data-aos-duration="1000"
+                className="hidden sm:block p-5 object-cover "
+                width={600}
+                height={600}
+                alt="Bibliophile-amico"
+              />
+            </div>
+          </div>
+          <div className="col-span-12 sm:col-span-6 bg-card overflow-hidden ">
+            <div className="flex flex-col justify-center items-center sm:h-full ">
+              <div className="w-full md:mt-0 sm:max-w-md">
+                <div className="px-16 py-10 space-y-4 md:space-y-6 sm:p-8">
+                  <h1 className=" text-lg sm:text-2xl font-bold leading-tight tracking-tight text-center mb-6 sm:mb-10">
+                    Login to Account
+                  </h1>
+                  <LoginForm />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -116,7 +116,7 @@ export default function LoginForm() {
         ) : (
           <Button
             type="submit"
-            className="w-full mt-2"
+            className="w-full mt-2 sm:text-lg"
           >
             Login
           </Button>

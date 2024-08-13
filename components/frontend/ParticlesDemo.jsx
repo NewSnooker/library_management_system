@@ -19,7 +19,7 @@ const ParticlesDemo = () => {
   }, [theme]);
 
   return (
-    <div className="relative px-4 sm:px-60 flex h-[500px] w-full items-center justify-between overflow-hidden rounded-lg  bg-background ">
+    <div className="relative px-4 sm:px-60 flex h-[690px] w-full items-center justify-between overflow-hidden rounded-lg  bg-background ">
       <div className=" ml-10  ">
         <div className=" text-4xl sm:text-6xl font-bold">
           <div data-aos="fade-up" data-aos-duration="1000">

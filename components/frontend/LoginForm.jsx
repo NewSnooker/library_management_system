@@ -46,10 +46,7 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 ">
       <div>
-        <Label
-          htmlFor="email"
-          className=""
-        >
+        <Label htmlFor="email" className="block text-sm font-medium leading-6 mb-1">
           Your Email
         </Label>
         <Input
@@ -57,7 +54,7 @@ export default function LoginForm() {
           type="email"
           name="email"
           id="email"
-          className="bg-card-transparent"
+          className=""
           placeholder="your@gmail.com"
         />
         {errors.email && (
@@ -67,10 +64,7 @@ export default function LoginForm() {
         )}
       </div>
       <div>
-        <Label
-          htmlFor="password"
-          className=""
-        >
+        <Label htmlFor="password" className="block text-sm font-medium leading-6 mb-1">
           Password
         </Label>
         <Input
@@ -79,7 +73,7 @@ export default function LoginForm() {
           name="password"
           id="password"
           placeholder="••••••••"
-          className="bg-card-transparent"
+          className=""
         />
         {errors.password && (
           <small className="text-red-600 text-sm ">
@@ -89,11 +83,7 @@ export default function LoginForm() {
       </div>
       <div className="">
         {loading ? (
-          <button
-            disabled
-            type="button"
-            className="w-full"
-          >
+          <button disabled type="button" className="w-full">
             <svg
               aria-hidden="true"
               role="status"
@@ -114,32 +104,31 @@ export default function LoginForm() {
             Signing you in please wait...
           </button>
         ) : (
-          <Button
-            type="submit"
-            className="w-full mt-2 sm:text-lg"
-          >
+          <Button type="submit" className="w-full mt-2 sm:text-lg">
             Login
           </Button>
         )}
       </div>
       <div className="mt-2">
-        <Link
-          href="/forgot-password"
-          className="font-medium text-sm "
-        >
+        <Link href="/forgot-password" className="font-medium text-sm ">
           Forgot Password
         </Link>
       </div>
 
-      <p className="text-sm  dark:text-gray-400">
-        Already have an account?{" "}
-        <Link
-          href="/register"
-          className="font-medium"
-        >
-          Sign Up
-        </Link>
-      </p>
+      <div className="flex items-center ">
+        <div className="w-full bg-border h-[1px]"></div>
+        <span className="mx-2">or</span>
+        <div className="w-full bg-border h-[1px]"></div>
+      </div>
+
+      <div className="flex gap-2 justify-center sm:justify-between">
+        <p className="  text-[0.75rem] font-light text-gray-500 dark:text-gray-400">
+          Already have an account?{" "}
+          <Link href="/register" className="font-medium text-custom-text">
+            Sign Up
+          </Link>
+        </p>
+      </div>
     </form>
   );
 }

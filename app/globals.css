@@ -4,12 +4,12 @@
 
 @layer base {
   :root {
-    --background: 0 0% 95%;
+    --background: 0 0% 90%;
     --custom-text: 0, 100%, 40%;
     --custom-background: 0, 100%, 32%;
     --custom-border: 0, 100%, 35%;
     --foreground: 240 10% 3.9%;
-    --card: 0 0% 97%;
+    --card: 0 0% 95%;
     --card-transparent:0 0% 97% / 0.6;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
@@ -24,7 +24,7 @@
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 85%;
+    --border: 240 5.9% 80%;
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
     --radius: 0.5rem;

@@ -27,7 +27,7 @@ const SwitchTheme = ({ customClass = "", inSheet = false }) => {
         <div className="flex items-center justify-center">
           <Button
             variant="outline"
-            className={`${customClass} bg-custom-background border border-custom-border text-zinc-100` }
+            className={`${customClass} bg-custom-text dark:bg-custom-background border border-custom-border text-zinc-100` }
             onClick={handleSwitchTheme}
           >
             {theme === "dark" ? (

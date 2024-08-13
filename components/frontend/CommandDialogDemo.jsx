@@ -41,7 +41,7 @@ export function CommandDialogDemo() {
 
   return (
     <>
-      <p className="text-sm sm:text-muted-foreground flex gap-2  group">
+      <p className="text-sm sm:text-muted-foreground flex gap-2 group">
         <Button className="py-4 px-2.5  " variant="outline" onClick={() => setOpen(true)}>
           {" "}
           <Search className="w-4 sm:w-3 sm:mr-2 " /> <span className="hidden sm:inline">ค้นหาหนังสือ...</span>

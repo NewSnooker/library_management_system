@@ -26,7 +26,7 @@ export default function CarouselBook({ book }) {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        <div className="flex justify-center">
+        <div className="flex justify-center w-full">
           {book.imageUrls.map((item, i) => {
             return (
               <SwiperSlide key={i} className="">
@@ -55,7 +55,7 @@ export default function CarouselBook({ book }) {
       >
         {book.imageUrls.map((item, i) => {
           return (
-            <SwiperSlide key={i} className="">
+            <SwiperSlide key={i} className="w-full">
               <Image
                 src={item}
                 alt={item}

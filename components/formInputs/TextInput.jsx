@@ -31,7 +31,7 @@ export default function TextInput({
           autoComplete={name}
           disabled={disabled}
           className={`${classNameInput}`}
-          placeholder={ `Type the ${label.toLowerCase()}`}
+          placeholder={ `ใส่ ${label.toLowerCase()}`}
         />
         {errors && errors[`${name}`] && (
           <span className="text-sm text-red-600 dark:text-red-400 ">

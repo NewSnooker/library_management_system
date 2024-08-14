@@ -56,13 +56,14 @@ export default function RegisterForm() {
       console.error("Network Error:", error);
       toast.error("Something Went wrong, Please Try Again");
     }
+    
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
       <TextInput
         label="Full Name"
-        name="name"
+        name="username"
         register={register}
         errors={errors}
         className=""

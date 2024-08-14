@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import SelectInput from "../formInputs/SelectInput";
 import { Button } from "../ui/button";
-import TextAreaInput from "../formInputs/TextArealInput";
+import ImageInput from "../formInputs/ImageInput";
 
 export default function OnboardingForm({ id }) {
   const prefix = [
@@ -58,7 +58,7 @@ export default function OnboardingForm({ id }) {
   };
 
   const selectedEducationLevel = watch("educationLevel");
-
+  const [imageUrl, setImageUrl] = useState("");
   useEffect(() => {
     if (selectedEducationLevel === "ปวช") {
       setAvailableYears(educationYear); // สามารถเลือกปี 1, 2, 3
@@ -70,6 +70,7 @@ export default function OnboardingForm({ id }) {
   }, [selectedEducationLevel]);
 
   const onSubmit = (data) => {
+    data.imageUrl = imageUrl;
     console.log(data); // ส่งข้อมูลที่กรอกในฟอร์ม
   };
 
@@ -145,14 +146,13 @@ export default function OnboardingForm({ id }) {
           errors={errors}
           className="w-full"
         />
-        <TextAreaInput
-          label="รายละเอียดเพิ่มเติม"
-          name="description"
-          type="number"
-          register={register}
-          errors={errors}
-          className="w-full"
+        <ImageInput
+          label="test"
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
+          endpoint="userProfileUploader"
         />
+        
       </div>
       <Button type="submit" className="mt-4">
         ยืนยัน

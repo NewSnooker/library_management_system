@@ -58,7 +58,6 @@ export async function POST(request) {
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
-      // host: "https://library-management-system-kohl.vercel.app",
       auth: {
         user: process.env.NODEMAILER_USER,
         pass: process.env.NODEMAILER_PASSWORD,

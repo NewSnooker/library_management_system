@@ -42,8 +42,7 @@ model UserProfile {
   username       String
   emailAddress   String
   prefix         String?
-  firstName      String?
-  lastName       String?
+  fullName       String?
   codeNumber     String?
   phoneNumber    String?
   educationLevel String?

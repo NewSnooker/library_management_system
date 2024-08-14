@@ -42,7 +42,7 @@ export default function ImageInput({
       ) : (
         <UploadDropzone
         className=" transition-all duration-300 cursor-pointer border-2 
-        hover:border-slate-700 dark:border-slate-500  hover:dark:border-slate-400 
+        hover:border-zinc-700 hover:dark:border-zinc-500 
         ut-upload-icon:text-slate-700
         dark:ut-upload-icon:text-slate-400
         ut-label:text-slate-800

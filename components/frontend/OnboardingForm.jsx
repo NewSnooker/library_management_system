@@ -76,8 +76,7 @@ export default function OnboardingForm({ id }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="text-xl font-semibold mb-4">Basic information</h2>
-      <div className="grid gap-2 sm:grid-cols-2 sm:gap-4">
+      <div className="grid gap-2 sm:gap-x-10 sm:gap-y-4">
         <TextInput
           label="ชื่อผู้ใช้"
           name="username"
@@ -92,52 +91,51 @@ export default function OnboardingForm({ id }) {
           errors={errors}
           className="w-full"
         />
-        <SelectInput
-          label="คำนำหน้า"
-          name="prefix"
-          register={register}
-          errors={errors}
-          className="w-full"
-          options={prefix}
-        />
-        <SelectInput
-          label="ระดับการศึกษา"
-          name="educationLevel"
-          register={register}
-          errors={errors}
-          className="w-full"
-          options={educationLevel}
-        />
-        <SelectInput
-          label="ชั้นปี"
-          name="educationYear"
-          register={register}
-          errors={errors}
-          className="w-full"
-          options={availableYears}
-        />
-        <TextInput
-          label="ชื่อจริง"
-          name="firstName"
-          register={register}
-          errors={errors}
-          className="w-full"
-        />
-        <TextInput
-          label="นามสกุล"
-          name="lastName"
-          register={register}
-          errors={errors}
-          className="w-full"
-        />
-        <TextInput
-          label="รหัสนักศึกษา"
-          name="codeNumber"
-          type="number"
-          register={register}
-          errors={errors}
-          className="w-full"
-        />
+        <div className="flex gap-2">
+          <SelectInput
+            label="คำนำหน้า"
+            name="prefix"
+            register={register}
+            errors={errors}
+            className=""
+            options={prefix}
+          />
+          <TextInput
+            label="ชื่อ นามสกุล"
+            name="fullName"
+            register={register}
+            errors={errors}
+            className="w-full"
+          />
+        </div>
+        <div className="flex gap-2">
+          <div className="flex gap-3 sm:gap-2"><SelectInput
+            label="ระดับ"
+            name="educationLevel"
+            register={register}
+            errors={errors}
+           className=""
+            options={educationLevel}
+          />
+          <SelectInput
+            label="ชั้นปี"
+            name="educationYear"
+            register={register}
+            errors={errors}
+            className="min-w-7"
+            options={availableYears}
+          /></div>
+
+          <TextInput
+            label="รหัสนักศึกษา"
+            name="codeNumber"
+            type="number"
+            register={register}
+            errors={errors}
+            className="w-full"
+          />
+        </div>
+
         <TextInput
           label="เบอร์โทรศัพท์"
           name="phoneNumber"
@@ -146,17 +144,13 @@ export default function OnboardingForm({ id }) {
           errors={errors}
           className="w-full"
         />
-        <ImageInput
-          label="test"
-          imageUrl={imageUrl}
-          setImageUrl={setImageUrl}
-          endpoint="userProfileUploader"
-        />
-        
+
       </div>
-      <Button type="submit" className="mt-4">
+<div className=" flex justify-end">
+<Button type="submit" className="mt-4">
         ยืนยัน
       </Button>
+</div>
     </form>
   );
 }

@@ -20,8 +20,7 @@ Table UserProfile {
   username String [not null]
   emailAddress String [not null]
   prefix String
-  firstName String
-  lastName String
+  fullName String
   codeNumber String
   phoneNumber String
   educationLevel String

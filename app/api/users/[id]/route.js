@@ -15,7 +15,7 @@ export async function GET(request, { params: { id } }) {
         userProfile: true,
       },
     });
-    console.log(user);
+    // console.log(user);
     return NextResponse.json(user);
   } catch (error) {
     console.log(error);

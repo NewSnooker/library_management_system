@@ -97,8 +97,7 @@ export async function POST(request) {
 
     return NextResponse.json(
       {
-        data: "",
-        // data: newUser,
+        data: newUser,
         message: "User Created Successfully",
       },
       { status: 201 }

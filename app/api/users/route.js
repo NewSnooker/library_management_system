@@ -98,7 +98,8 @@ export async function POST(request) {
 
     return NextResponse.json(
       {
-        data: newUser,
+        data: "",
+        // data: newUser,
         message: "User Created Successfully",
       },
       { status: 201 }
@@ -114,4 +115,6 @@ export async function POST(request) {
     );
   }
 }
+
+
 

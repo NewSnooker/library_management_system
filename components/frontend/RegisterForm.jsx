@@ -45,7 +45,6 @@ export default function RegisterForm() {
         router.push(`/verify-email`);
       }
       if (!response.ok) {
-        console.error("Server Error:", response.statusText);
         throw new Error(`HTTP error! status: ${response.status}`);
       } else {
         setLoading(false);

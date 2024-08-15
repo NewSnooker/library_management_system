@@ -18,10 +18,13 @@ export default function RegisterForm() {
   const [loading, setLoading] = useState(false);
   const [emailErr, setEmailErr] = useState("");
   async function onSubmit(data) {
+    
     try {
       // console.log(data);
       setLoading(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      console.log("baseUrl:", baseUrl);
+      
       const response = await fetch(`${baseUrl}/api/users`, {
         method: "POST",
         headers: {
@@ -40,6 +43,10 @@ export default function RegisterForm() {
         reset();
 
         router.push(`/verify-email`);
+      }
+      if (!response.ok) {
+        console.error("Server Error:", response.statusText);
+        throw new Error(`HTTP error! status: ${response.status}`);
       } else {
         setLoading(false);
         if (response.status === 409) {
@@ -56,7 +63,6 @@ export default function RegisterForm() {
       console.error("Network Error:", error);
       toast.error("Something Went wrong, Please Try Again");
     }
-    
   }
 
   return (

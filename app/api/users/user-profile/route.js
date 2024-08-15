@@ -75,22 +75,4 @@ export async function PUT(request) {
     );
   }
 }
-// export async function GET(request) {
-//   try {
-//     const profiles = await db.user.findMany({
-//       orderBy: {
-//         createdAt: "desc",
-//       },
-//       include: {
 
-//       },
-//     });
-//     return NextResponse.json(profiles);
-//   } catch (error) {
-//     console.log(error);
-//     return NextResponse.json(
-//       { message: "Failed to Fetch Profiles", error },
-//       { status: 500 }
-//     );
-//   }
-// }

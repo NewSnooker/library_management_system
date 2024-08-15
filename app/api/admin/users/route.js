@@ -8,6 +8,17 @@ export async function GET(request) {
         createdAt: "desc",
       },
     });
+    if (!users) {
+      return NextResponse.json(
+        {
+          data: null,
+          message: "Users Not Found",
+        },
+        { status: 404 }
+      );
+    }
+    console.log(users);
+
     return NextResponse.json(users);
   } catch (error) {
     console.log(error);

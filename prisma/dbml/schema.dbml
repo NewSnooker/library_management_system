@@ -24,7 +24,7 @@ Table UserProfile {
   codeNumber String
   phoneNumber String
   educationLevel String
-  educationYear Float
+  educationYear String
   description String
   profileImage String
   userId String [unique, not null]

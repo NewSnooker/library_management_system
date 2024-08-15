@@ -8,9 +8,8 @@ import EmailTemplate from "@/components/ui/email-template";
 import db from "@/lib/db";
 
 export async function POST(request) {
-  const { username, email, password } = await request.json();
+  const { username, email, password, id } = await request.json();
   try {
-
     const existingUser = await db.user.findUnique({
       where: {
         email,
@@ -38,6 +37,7 @@ export async function POST(request) {
         email,
         password: hashedPassword,
         verificationToken: token,
+        userId: id,
       },
     });
 
@@ -47,6 +47,14 @@ export async function POST(request) {
         username,
         emailAddress: email,
         userId,
+        prefix: "",
+        fullName: "",
+        codeNumber: "",
+        phoneNumber: "",
+        educationLevel: "",
+        educationYear: "",
+        description: "",
+        profileImage: "",
       },
     });
     const nameWebsite = "Library Management System";

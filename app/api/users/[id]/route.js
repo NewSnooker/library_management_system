@@ -12,9 +12,10 @@ export async function GET(request, { params: { id } }) {
         id: true,
         email: true,
         username: true,
+        userProfile: true,
       },
-
     });
+    
     return NextResponse.json(user);
   } catch (error) {
     console.log(error);
@@ -24,4 +25,3 @@ export async function GET(request, { params: { id } }) {
     );
   }
 }
-

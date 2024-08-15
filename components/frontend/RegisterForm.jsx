@@ -19,7 +19,7 @@ export default function RegisterForm() {
   const [emailErr, setEmailErr] = useState("");
   async function onSubmit(data) {
     try {
-      console.log(data);
+      // console.log(data);
       setLoading(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
       const response = await fetch(`${baseUrl}/api/users`, {
@@ -33,7 +33,7 @@ export default function RegisterForm() {
       const responseData = await response.json();
 
       if (response.ok) {
-        console.log(responseData);
+        console.log(responseData.message);
         setEmailErr("");
         setLoading(false);
         toast.success("User Created Successfully");

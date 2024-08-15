@@ -46,7 +46,7 @@ model UserProfile {
   codeNumber     String?
   phoneNumber    String?
   educationLevel String?
-  educationYear  Float?
+  educationYear  String?
   description    String?
   profileImage   String?
 

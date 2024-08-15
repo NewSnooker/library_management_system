@@ -62,7 +62,7 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
       <TextInput
-        label="Full Name"
+        label="User name"
         name="username"
         register={register}
         errors={errors}

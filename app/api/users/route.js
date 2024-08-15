@@ -114,3 +114,16 @@ export async function POST(request) {
     );
   }
 }
+export async function GET(request) {
+  try {
+    console.log("test");
+    
+    return NextResponse.json("test");
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { message: "Failed to Fetch User", error },
+      { status: 500 }
+    );
+  }
+}

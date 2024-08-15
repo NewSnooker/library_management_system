@@ -44,9 +44,7 @@ export default function RegisterForm() {
 
         router.push(`/verify-email`);
       }
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      } else {
+       else {
         setLoading(false);
         if (response.status === 409) {
           setEmailErr("User with this Email already exists");

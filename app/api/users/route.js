@@ -8,8 +8,8 @@ import EmailTemplate from "@/components/ui/email-template";
 import db from "@/lib/db";
 
 export async function POST(request) {
-  const { username, email, password, id } = await request.json();
   try {
+    const { username, email, password } = await request.json();
     const existingUser = await db.user.findUnique({
       where: {
         email,
@@ -37,7 +37,6 @@ export async function POST(request) {
         email,
         password: hashedPassword,
         verificationToken: token,
-        userId: id,
       },
     });
 

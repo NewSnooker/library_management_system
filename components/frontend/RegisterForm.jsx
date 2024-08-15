@@ -17,14 +17,12 @@ export default function RegisterForm() {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const [emailErr, setEmailErr] = useState("");
+
   async function onSubmit(data) {
-    
     try {
-      // console.log(data);
       setLoading(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-      console.log("baseUrl:", baseUrl);
-      
+
       const response = await fetch(`${baseUrl}/api/users`, {
         method: "POST",
         headers: {
@@ -36,22 +34,18 @@ export default function RegisterForm() {
       const responseData = await response.json();
 
       if (response.ok) {
-        console.log(responseData.message);
         setEmailErr("");
         setLoading(false);
         toast.success("User Created Successfully");
         reset();
-
         router.push(`/verify-email`);
-      }
-       else {
+      } else {
         setLoading(false);
         if (response.status === 409) {
           setEmailErr("User with this Email already exists");
           toast.error("User with this Email already exists");
         } else {
-          // Handle other errors
-          console.error("Server Error:", responseData.error);
+          console.error("Server Error:", responseData.error || responseData);
           toast.error("Oops Something Went wrong");
         }
       }
@@ -61,7 +55,6 @@ export default function RegisterForm() {
       toast.error("Something Went wrong, Please Try Again");
     }
   }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
       <TextInput

@@ -87,7 +87,7 @@ export async function POST(request) {
       },
     };
 
-    transporter.sendMail(options, (err, info) => {
+    await transporter.sendMail(options, (err, info) => {
       if (err) {
         console.log("err", err);
       } else {
@@ -113,6 +113,3 @@ export async function POST(request) {
     );
   }
 }
-
-
-

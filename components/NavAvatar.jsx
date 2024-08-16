@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import { BorderBeam } from "./magicui/border-beam";
 import SwitchTheme from "./SwitchTheme";
+import SignOutButton from "./frontend/SignOutButton";
 export function NavAvatar() {
   return (
     <Sheet>
@@ -95,7 +96,7 @@ export function NavAvatar() {
           </div>
         </div>
         <SheetFooter>
-          <SheetClose className="mt-4 sm:mt-6 flex justify-end gap-2">
+          <SheetClose className="mt-4 sm:mt-6 flex flex-col items-end justify-end gap-2">
             <div className="flex gap-2">
               <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
                 แดชบอร์ด
@@ -104,6 +105,7 @@ export function NavAvatar() {
                 คั้งค่าโปรไฟล์
               </div>
             </div>
+            <SignOutButton/>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

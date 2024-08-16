@@ -21,7 +21,7 @@ export default function LoginForm() {
   async function onSubmit(data) {
     try {
       setLoading(true);
-      console.log("Attempting to sign in with credentials:", data);
+      console.log("Attempting to sign in with credentials");
       const loginData = await signIn("credentials", {
         ...data,
         redirect: false,
@@ -32,9 +32,12 @@ export default function LoginForm() {
         toast.error("Sign-in error: Check your credentials");
       } else {
         // Sign-in was successful
-        toast.success("Login Successful");
         reset();
-        router.push("/");
+        router.push("/home");
+        setTimeout(()=>{
+          window.location.reload();
+        }, 900);
+        toast.success("Login Successful");
       }
     } catch (error) {
       setLoading(false);

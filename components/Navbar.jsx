@@ -7,10 +7,17 @@ import { CommandDialogDemo } from "./frontend/CommandDialogDemo";
 import HamburgerMenu from "./HamburgerMenu";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
-export default function Navbar({className}) {
+export default async function Navbar({ className }) {
+  const session = await getServerSession(authOptions);
+  console.log(session);
+
   return (
-    <div className={`flex justify-between sticky top-0 backdrop-blur-xl z-50 w-full ${className}`}>
+    <div
+      className={`flex justify-between sticky top-0 backdrop-blur-xl z-50 w-full ${className}`}
+    >
       <div className="block lg:hidden">
         <HamburgerMenu />
       </div>
@@ -21,10 +28,13 @@ export default function Navbar({className}) {
       <div className="text-3xl flex items-center justify-center gap-1 sm:gap-4">
         <CommandDialogDemo />
         <SwitchTheme customClass={"hidden sm:block"} />
-        {/* <NavAvatar /> */}
-        <Link href="/login" className="flex items-center">
-          <Button>Login</Button>
-        </Link>
+        {!session ? (
+          <Link href="/login" className="flex items-center">
+            <Button>Login</Button>
+          </Link>
+        ) : (
+          <NavAvatar />
+        )}
       </div>
     </div>
   );

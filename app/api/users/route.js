@@ -87,12 +87,15 @@ export async function POST(request) {
       },
     };
 
-    await transporter.sendMail(options, (err, info) => {
-      if (err) {
-        console.log("err", err);
-      } else {
-        console.log("Send: ", info.response);
-      }
+    await new Promise((resolve, reject) => {
+      transporter.sendMail(options, (err, info) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          resolve(info);
+        }
+      });
     });
 
     return NextResponse.json(

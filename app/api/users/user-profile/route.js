@@ -32,6 +32,7 @@ export async function PUT(request) {
         { status: 404 }
       );
     }
+
     const existingUserprofile = await db.userProfile.findUnique({
       where: {
         userId,
@@ -47,8 +48,16 @@ export async function PUT(request) {
       );
     }
 
+    const updateEmailVerified = await db.user.update({
+      where: {
+        id: existingUser.id,
+      },
+      data: {
+        emailVerified: true,
+      },
+    });
 
-     const updatedUserProfile =await db.userProfile.update({
+    const updatedUserProfile = await db.userProfile.update({
       where: {
         userId: existingUser.id,
       },
@@ -65,7 +74,7 @@ export async function PUT(request) {
         profileImage,
       },
     });
-
+    console.log(updateEmailVerified);
     return NextResponse.json(updatedUserProfile);
   } catch (error) {
     console.log(error);
@@ -75,4 +84,3 @@ export async function PUT(request) {
     );
   }
 }
-

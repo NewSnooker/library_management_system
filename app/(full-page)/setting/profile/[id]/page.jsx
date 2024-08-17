@@ -208,7 +208,7 @@ export default function SettingProfile({ params: { id } }) {
         </div>
         <div className="flex justify-end mx-4 mb-4">
           {loading ? (
-            <Button type="button" disabled className="btn btn-active   ">
+            <Button type="button" disabled className="w-full sm:w-[48%] mt-2   ">
               <svg
                 aria-hidden="true"
                 role="status"

@@ -18,7 +18,7 @@ export default function ImageInput({
         {label && (
           <label
             htmlFor="course-image"
-            className="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-50 mb-2 "
+            className="block text-sm font-medium leading-6 text-gray-900 dark:text-zinc-200 mb-2 "
           >
             {label}
           </label>
@@ -35,19 +35,19 @@ export default function ImageInput({
         />
       ) : (
         <UploadDropzone
-          className="mt-0 transition-all duration-300 cursor-pointer border 
-          hover:border-zinc-700 hover:dark:border-zinc-500 
-          ut-upload-icon:text-zinc-700
-          dark:ut-upload-icon:text-zinc-400
-          ut-label:text-zinc-800
-          dark:ut-label:text-zinc-300
-          dark:ut-allowed-content:ut-ready:text-zinc-300
-          dark:ut-allowed-content:ut-readying:text-zinc-300
-          dark:ut-allowed-content:ut-uploading:text-zinc-300
-          ut-button:text-zinc-800
-          ut-button:bg-zinc-700
-          dark:ut-button:text-zinc-900
-          dark:ut-button:bg-zinc-400"
+          className="mt-0 sm:h-[500px] cursor-pointer border transition-colors duration-300 border-zinc-500
+          hover:border-zinc-900 dark:border-zinc-500  hover:dark:border-zinc-400 
+          ut-upload-icon:text-zinc-900
+          dark:ut-upload-icon:text-zinc-200
+          ut-label:text-zinc-900
+          dark:ut-label:text-zinc-200
+          dark:ut-allowed-content:ut-ready:text-zinc-200
+          dark:ut-allowed-content:ut-readying:text-zinc-200
+          dark:ut-allowed-content:ut-uploading:text-zinc-200
+          ut-button:text-zinc-200
+          ut-button:bg-zinc-950
+          dark:ut-button:text-zinc-950
+          dark:ut-button:bg-zinc-200"
           endpoint={endpoint}
           onClientUploadComplete={(res) => {
             setImageUrl(res[0].url);

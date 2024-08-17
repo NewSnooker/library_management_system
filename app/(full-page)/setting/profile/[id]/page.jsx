@@ -101,10 +101,10 @@ export default function SettingProfile({ params: { id } }) {
       <div className="border sm:h-full shadow-xl overflow-hidden rounded-lg bg-card">
         <div className="flex flex-col-reverse sm:grid sm:grid-cols-12  ">
           <div className=" sm:col-span-6 overflow-hidden ">
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center sm:mt-20">
               <ImageInput
                 label=""
-                className="h-full w-full sm:w-[500px] p-4"
+                className="h-full w-full sm:w-[500px] pb-8 sm:py-8 px-8 sm:pr-0"
                 imageUrl={imageUrl}
                 setImageUrl={setImageUrl}
                 endpoint="userProfileUploader"
@@ -112,8 +112,7 @@ export default function SettingProfile({ params: { id } }) {
             </div>
           </div>
           <div className=" sm:col-span-6 bg-card overflow-hidden ">
-            <div className="flex flex-col justify-center items-center sm:h-full ">
-              <div className="w-full md:mt-0 sm:max-w-md">
+              <div className="w-full md:mt-0 sm:max-w-xl">
                 <div className="px-10 py-10 space-y-4 md:space-y-6 sm:p-8">
                   <h1 className=" text-lg sm:text-2xl font-bold leading-tight tracking-tight text-center mb-6 sm:mb-6">
                     ตั้งค่าโปรไฟล์
@@ -202,7 +201,6 @@ export default function SettingProfile({ params: { id } }) {
                   </form>
                 </div>
               </div>
-            </div>
           </div>
         </div>
         <div className="flex justify-end mx-4 mb-4">
@@ -228,12 +226,15 @@ export default function SettingProfile({ params: { id } }) {
               กำลังดำเนินการ
             </Button>
           ) : (
-            <div onClick={handleSubmit(onSubmit)}>
+            <div
+              onClick={handleSubmit(onSubmit)}
+              className="w-full sm:w-[48%] mt-2"
+            >
               <SubmitButton
                 isLoading={loading}
                 buttonTitle="อัพเดตโปรไฟล์"
                 LoadingButtonTitle="กําลังอัพเดตโปรไฟล์"
-                className="w-full sm:w-auto mt-2"
+                className="w-full"
               />
             </div>
           )}

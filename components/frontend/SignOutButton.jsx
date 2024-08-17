@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 export default function SignOutButton() {
     const router = useRouter();
   const handleLogout = async () => {
-    router.push("/login");
     await signOut();
+    router.push("/login");
   };
   return (
     <div

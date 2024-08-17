@@ -39,7 +39,7 @@ export default function LoginForm() {
         router.push("/home");
         setTimeout(()=>{
           window.location.reload();
-        }, 900);
+        }, 1500);
         toast.success("Login Successful");
       }
     } catch (error) {

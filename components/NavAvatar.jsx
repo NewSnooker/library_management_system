@@ -18,6 +18,7 @@ import SwitchTheme from "./SwitchTheme";
 import SignOutButton from "./frontend/SignOutButton";
 import { getData } from "@/lib/getData";
 import { generateInitials } from "@/lib/generateInitials";
+import Link from "next/link";
 export async function NavAvatar({ session }) {
   const { id, role } = session?.user;
   const {
@@ -39,8 +40,8 @@ export async function NavAvatar({ session }) {
     <Sheet>
       <SheetTrigger>
         <Avatar>
-          <AvatarImage src={profileImage} alt="@shadcn" />
-          <AvatarFallback className="text-xl">{initial}</AvatarFallback>
+          <AvatarImage src={profileImage} alt={username} />
+          <AvatarFallback className="text-xl border">{initial}</AvatarFallback>
         </Avatar>
       </SheetTrigger>
       <SheetContent side="right">
@@ -55,7 +56,7 @@ export async function NavAvatar({ session }) {
               {profileImage ? (
                 <Image
                   src={profileImage}
-                  alt="@profileImage"
+                  alt={username}
                   width={100}
                   height={100}
                   className="rounded-full p-1"
@@ -134,9 +135,9 @@ export async function NavAvatar({ session }) {
                 </div>
               )}
 
-              <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
-                คั้งค่าโปรไฟล์
-              </div>
+              <Link href={`setting/profile/${id}`} className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
+                ตั้งค่าโปรไฟล์
+              </Link>
             </div>
             <SignOutButton />
           </SheetClose>

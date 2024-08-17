@@ -41,15 +41,15 @@ const SwitchTheme = ({ customClass = "", inSheet = false }) => {
         <div className="flex items-center justify-center">
           <div
             className={
-              "py-1 px-1 cursor-pointer rounded-lg text-black dark:text-white text-sm font-semibold transition-colors border" +
+              "py-1 px-1 cursor-pointer rounded-lg text-black dark:text-white text-sm font-semibold transition-colors " +
               customClass
             }
             onClick={handleSwitchTheme}
           >
             {theme === "dark" ? (
-              <SunIcon className=" w-4 sm:w-3 " />
+              <SunIcon className=" w-4 h-4 sm:w-5 sm:h-5 " />
             ) : (
-              <MoonIcon className=" w-4 sm:w-3 " />
+              <MoonIcon className=" w-4 h-4 sm:w-5 sm:h-5 " />
             )}
           </div>
         </div>

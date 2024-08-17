@@ -89,7 +89,7 @@ export default function LoginForm() {
       </div>
       <div className="">
         {loading ? (
-          <Button disabled type="button" className="w-full">
+          <Button disabled type="button" className="w-full mt-2 sm:text-lg">
             <svg
               aria-hidden="true"
               role="status"

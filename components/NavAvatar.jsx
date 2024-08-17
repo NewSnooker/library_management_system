@@ -16,96 +16,129 @@ import Image from "next/image";
 import { BorderBeam } from "./magicui/border-beam";
 import SwitchTheme from "./SwitchTheme";
 import SignOutButton from "./frontend/SignOutButton";
-export function NavAvatar() {
+import { getData } from "@/lib/getData";
+import { generateInitials } from "@/lib/generateInitials";
+export async function NavAvatar({ session }) {
+  const { id, role } = session?.user;
+  const {
+    username,
+    emailAddress,
+    prefix,
+    fullName,
+    codeNumber,
+    phoneNumber,
+    educationLevel,
+    educationYear,
+    description,
+    profileImage,
+  } = await getData(`users/user-profile/${id}`);
+  const roleAdmin = role === "ADMIN";
+  const initial = generateInitials(username);
+
   return (
     <Sheet>
       <SheetTrigger>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback className="text-xl">CN</AvatarFallback>
+          <AvatarImage src={profileImage} alt="@shadcn" />
+          <AvatarFallback className="text-xl">{initial}</AvatarFallback>
         </Avatar>
       </SheetTrigger>
       <SheetContent side="right">
         <SheetHeader>
           <div className="mb-2 sm:mb-4 flex items-center justify-center relative ">
             <SwitchTheme
-              customClass="block sm:hidden absolute -top-3 -left-3"
+              customClass=" absolute -top-3 -left-3"
               inSheet={true}
             />
             <div className="relative overflow-hidden rounded-full border bg-background">
               {" "}
-              <Image
-                src="https://github.com/shadcn.png"
-                alt="@shadcn"
-                width={100}
-                height={100}
-                className="rounded-full p-1"
-              />
+              {profileImage ? (
+                <Image
+                  src={profileImage}
+                  alt="@profileImage"
+                  width={100}
+                  height={100}
+                  className="rounded-full p-1"
+                />
+              ) : (
+                <Avatar className="w-[100px] h-[100px]">
+                  <AvatarFallback className="text-5xl font-bold rounded-full ">
+                    {initial}
+                  </AvatarFallback>
+                </Avatar>
+              )}
               <BorderBeam size={250} duration={12} delay={9} />
             </div>
           </div>
-          <SheetTitle>User profile</SheetTitle>
-          <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
-          </SheetDescription>
+          <div className="flex justify-center items-center pb-4">
+            <SheetTitle>{username}</SheetTitle>
+          </div>
+            <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              ชื่อผู้ใช้
+            <Label htmlFor="fullName" className="text-right">
+              ชื่อ
             </Label>
             <Input
               disabled
-              id="name"
-              value="Pedro Duarte"
+              id="fullName"
+              value={fullName}
               className="col-span-3"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
+            <Label htmlFor="emailAddress" className="text-right">
               อีเมล
             </Label>
             <Input
               disabled
-              id="username"
-              value="@peduarte"
+              id="emailAddress"
+              value={emailAddress}
               className="col-span-3"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
+            <Label htmlFor="codeNumber" className="text-right">
               รหัสนักศึกษา
             </Label>
             <Input
               disabled
-              id="username"
-              value="@peduarte"
+              id="codeNumber"
+              value={codeNumber}
               className="col-span-3"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
+            <Label htmlFor="phoneNumber" className="text-right">
               เบอร์โทรศัพท์
             </Label>
             <Input
               disabled
-              id="username"
-              value="@peduarte"
+              id="phoneNumber"
+              value={phoneNumber}
               className="col-span-3"
             />
           </div>
         </div>
         <SheetFooter>
-          <SheetClose className="mt-4 sm:mt-6 flex flex-col items-end justify-end gap-2">
+          <SheetClose
+            className={`mt-4 sm:mt-6 flex ${
+              roleAdmin ? "flex-col" : ""
+            } items-end justify-end gap-2`}
+          >
             <div className="flex gap-2">
-              <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
-                แดชบอร์ด
-              </div>
+              {roleAdmin && (
+                <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
+                  แดชบอร์ด
+                </div>
+              )}
+
               <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
                 คั้งค่าโปรไฟล์
               </div>
             </div>
-            <SignOutButton/>
+            <SignOutButton />
           </SheetClose>
         </SheetFooter>
       </SheetContent>

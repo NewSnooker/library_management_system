@@ -11,9 +11,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
 export default async function Navbar({ className }) {
-  const session = await getServerSession(authOptions);
-  console.log(session);
-
+  const session = await getServerSession(authOptions);  
   return (
     <div
       className={`flex justify-between sticky top-0 backdrop-blur-xl z-50 w-full ${className}`}
@@ -33,7 +31,7 @@ export default async function Navbar({ className }) {
             <Button>Login</Button>
           </Link>
         ) : (
-          <NavAvatar />
+          <NavAvatar session={session} />
         )}
       </div>
     </div>

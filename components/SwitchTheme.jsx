@@ -41,7 +41,7 @@ const SwitchTheme = ({ customClass = "", inSheet = false }) => {
         <div className="flex items-center justify-center">
           <div
             className={
-              "py-1 px-1 rounded-lg text-black dark:text-white text-sm font-semibold transition-colors border" +
+              "py-1 px-1 cursor-pointer rounded-lg text-black dark:text-white text-sm font-semibold transition-colors border" +
               customClass
             }
             onClick={handleSwitchTheme}

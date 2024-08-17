@@ -85,6 +85,9 @@ export default function SettingProfile({ params: { id } }) {
         toast.success("User Profile Updated Successfully");
         reset();
         router.push(`/home`);
+        setTimeout(()=>{
+          window.location.reload();
+        }, 1500);
       } else {
         setLoading(false);
         console.error("Server Error:", responseData.error || responseData);

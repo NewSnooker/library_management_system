@@ -79,7 +79,7 @@ export async function NavAvatar({ session }) {
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="fullName" className="text-right">
-              ชื่อ
+            ชื่อผู้ใช้
             </Label>
             <Input
               disabled
@@ -135,7 +135,7 @@ export async function NavAvatar({ session }) {
                 </div>
               )}
 
-              <Link href={`setting/profile/${id}`} className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
+              <Link href={`/setting/profile/${id}`} className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
                 ตั้งค่าโปรไฟล์
               </Link>
             </div>

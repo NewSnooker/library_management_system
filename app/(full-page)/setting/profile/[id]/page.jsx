@@ -228,13 +228,14 @@ export default function SettingProfile({ params: { id } }) {
               กำลังดำเนินการ
             </Button>
           ) : (
-            <SubmitButton
-              onClick={handleSubmit(onSubmit)}
-              isLoading={loading}
-              buttonTitle="อัพเดตโปรไฟล์"
-              LoadingButtonTitle="กําลังอัพเดตโปรไฟล์"
-              className="w-full sm:w-auto mt-2"
-            />
+            <div onClick={handleSubmit(onSubmit)}>
+              <SubmitButton
+                isLoading={loading}
+                buttonTitle="อัพเดตโปรไฟล์"
+                LoadingButtonTitle="กําลังอัพเดตโปรไฟล์"
+                className="w-full sm:w-auto mt-2"
+              />
+            </div>
           )}
         </div>
       </div>

@@ -12,7 +12,7 @@ export default function SignOutButton() {
   return (
     <div
       onClick={() => handleLogout()}
-      className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border"
+      className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold border"
     >
       ออกจากระบบ
     </div>

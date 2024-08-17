@@ -74,12 +74,12 @@ export async function NavAvatar({ session }) {
           <div className="flex justify-center items-center pb-4">
             <SheetTitle>{username}</SheetTitle>
           </div>
-            <SheetDescription>{description}</SheetDescription>
+          <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="fullName" className="text-right">
-            ชื่อผู้ใช้
+              ชื่อผู้ใช้
             </Label>
             <Input
               disabled
@@ -130,13 +130,15 @@ export async function NavAvatar({ session }) {
           >
             <div className="flex gap-2">
               {roleAdmin && (
-                <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
+                <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold border">
                   แดชบอร์ด
                 </div>
               )}
 
-              <Link href={`/setting/profile/${id}`} className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold transition-colors border">
-                ตั้งค่าโปรไฟล์
+              <Link href={`/setting/profile/${id}`}>
+                <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold border">
+                  ตั้งค่าโปรไฟล์
+                </div>
               </Link>
             </div>
             <SignOutButton />

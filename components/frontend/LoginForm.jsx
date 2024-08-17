@@ -71,12 +71,12 @@ export default function LoginForm() {
       </div>
       <div>
         <Label htmlFor="password" className="block text-sm font-medium leading-6 mb-1">
-          Password
+          รหัสผ่าน
         </Label>
         <Input
           {...register("password", { required: true })}
           type="password"
-          name="รหัสผ่าน"
+          name="password"
           id="password"
           placeholder="••••••••"
           className=""

@@ -29,8 +29,9 @@ export default function ImageInput({
           src={imageUrl}
           alt="Item image"
           width={1000}
-          height={667}
-          className="w-full h-64 object-contain"
+          height={1000}
+          loading="lazy"
+          className="w-full h-96 object-contain"
         />
       ) : (
         <UploadDropzone
@@ -65,10 +66,7 @@ export default function ImageInput({
 
       {imageUrl && (
         <div className="flex justify-end mt-5 w-full">
-          <Button
-            onClick={() => setImageUrl("")}
-            className="flex space-x-2"
-          >
+          <Button onClick={() => setImageUrl("")} className="flex space-x-2">
             <Pencil className="w-5 h-5" />
             <span>เปลี่ยนรูปภาพ</span>
           </Button>

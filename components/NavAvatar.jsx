@@ -51,7 +51,7 @@ export async function NavAvatar({ session }) {
               customClass=" absolute -top-3 -left-3"
               inSheet={true}
             />
-            <div className="relative overflow-hidden rounded-full border bg-background">
+            <div className="relative overflow-hidden w-[100px] h-[100px] rounded-full border bg-background">
               {" "}
               {profileImage ? (
                 <Image
@@ -59,7 +59,8 @@ export async function NavAvatar({ session }) {
                   alt={username}
                   width={100}
                   height={100}
-                  className="rounded-full p-1"
+                  loading="lazy"
+                  className="rounded-full w-[100px] h-[100px] p-1"
                 />
               ) : (
                 <Avatar className="w-[100px] h-[100px]">
@@ -135,11 +136,11 @@ export async function NavAvatar({ session }) {
                 </div>
               )}
 
-              <Link href={`/setting/profile/${id}`}>
+              <a href={`/setting/profile/${id}`}>
                 <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold border">
                   ตั้งค่าโปรไฟล์
                 </div>
-              </Link>
+              </a>
             </div>
             <SignOutButton />
           </SheetClose>

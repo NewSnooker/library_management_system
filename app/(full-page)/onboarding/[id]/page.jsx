@@ -14,6 +14,7 @@ export default function page({ params: { id } }) {
                 className="hidden sm:block p-5 object-cover "
                 width={600}
                 height={600}
+                loading="lazy"
                 alt="Bibliophile-amico"
               />
             </div>
@@ -22,7 +23,9 @@ export default function page({ params: { id } }) {
             <div className="flex flex-col justify-center items-center sm:h-full ">
               <div className="w-full md:mt-0 sm:max-w-md">
                 <div className="px-10 py-10 space-y-4 md:space-y-6 sm:p-2">
-                  <h1 className=" text-xl sm:text-3xl font-bold leading-tight tracking-tight text-center mb-6 sm:mb-5">ข้อมูลส่วนตัว</h1>
+                  <h1 className=" text-xl sm:text-3xl font-bold leading-tight tracking-tight text-center mb-6 sm:mb-5">
+                    ข้อมูลส่วนตัว
+                  </h1>
                   <OnboardingForm id={id} />
                 </div>
               </div>

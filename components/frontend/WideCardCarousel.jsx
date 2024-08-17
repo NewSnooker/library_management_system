@@ -40,6 +40,7 @@ export default function WideCardCarousel({books}) {
               alt={book.title}
               width={200}
               height={100}
+              loading="lazy"
               className="object-cover w-28 h-36 rounded-sm "
             />
               <p className="text-sm sm:text-lg line-clamp-1 mt-2">

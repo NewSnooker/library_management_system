@@ -10,15 +10,16 @@ import { Skeleton } from "../ui/skeleton";
 export default function Banner() {
   const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-    setLoading(false)
-  },[])
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
-  if (loading) return (
-    <div className="w-full mb-4 border bg-card rounded-sm">
-      <Skeleton className=" h-36 sm:h-96 rounded-sm" />
-    </div>
-  );
+  if (loading)
+    return (
+      <div className="w-full mb-4 border bg-card rounded-sm">
+        <Skeleton className=" h-36 sm:h-96 rounded-sm" />
+      </div>
+    );
 
   const banners = [
     {
@@ -35,38 +36,39 @@ export default function Banner() {
 
   return (
     // <div className="relative ">
-      <Swiper
-        spaceBetween={50}
-        slidesPerView={1}
-        scrollbar={{
-          hide: true,
-        }}
-        rewind={true}
-        autoplay={{
-          delay: 8000,
-          disableOnInteraction: false,
-        }}
-        modules={[Scrollbar, Autoplay]}
-        className="mb-4"
-      >
-        {banners.map((image, i) => (
-          <SwiperSlide key={i}>
-            {" "}
-            <div className="border bg-card h-36 sm:h-96 rounded-sm overflow-hidden">
-              <Image
-                src={image.imageUrl}
-                alt={image.title}
-                width={1400}
-                height={400}
-                className="object-cover rounded-sm"
-              />
-            </div>
-            {/* <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-10">
+    <Swiper
+      spaceBetween={50}
+      slidesPerView={1}
+      scrollbar={{
+        hide: true,
+      }}
+      rewind={true}
+      autoplay={{
+        delay: 8000,
+        disableOnInteraction: false,
+      }}
+      modules={[Scrollbar, Autoplay]}
+      className="mb-4"
+    >
+      {banners.map((image, i) => (
+        <SwiperSlide key={i}>
+          {" "}
+          <div className="border bg-card h-36 sm:h-96 rounded-sm overflow-hidden">
+            <Image
+              src={image.imageUrl}
+              alt={image.title}
+              width={1400}
+              height={400}
+              loading="lazy"
+              className="object-cover rounded-sm"
+            />
+          </div>
+          {/* <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-10">
               <div className="text-black text-3xl sm:text-5xl font-bold">{image.title}</div>
             </div> */}
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        </SwiperSlide>
+      ))}
+    </Swiper>
     // </div>
   );
 }

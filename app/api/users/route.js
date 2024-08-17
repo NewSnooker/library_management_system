@@ -6,6 +6,7 @@ import { render } from "@react-email/render";
 import nodemailer from "nodemailer";
 import EmailTemplate from "@/components/ui/email-template";
 import db from "@/lib/db";
+import { nameWebsite } from "@/lib/nameWebsite";
 
 export async function POST(request) {
   try {
@@ -56,7 +57,7 @@ export async function POST(request) {
         profileImage: "",
       },
     });
-    const nameWebsite = "Library Management System";
+
     const subject = `คุณได้สมัครเป็นสมาชิกในเว็บไซต์ของ ${nameWebsite} โปรดยืนยันบัญชีของคุณ`;
     const linkText = "ยืนยันบัญชีของคุณ";
     const description = "ขอขอบคุณที่สร้างบัญชีกับเรา โปรดยืนยันบัญชีของคุณ";

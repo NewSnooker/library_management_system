@@ -59,7 +59,7 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
       <TextInput
-        label="User name"
+        label="ชื่อผู้ใช้"
         name="username"
         register={register}
         errors={errors}
@@ -67,7 +67,7 @@ export default function RegisterForm() {
       />
 
       <TextInput
-        label="Email Address"
+        label="Email "
         name="email"
         register={register}
         errors={errors}
@@ -75,7 +75,7 @@ export default function RegisterForm() {
         className=""
       />
       <TextInput
-        label="Password"
+        label="รหัสผ่าน"
         name="password"
         register={register}
         errors={errors}
@@ -90,15 +90,15 @@ export default function RegisterForm() {
       <div className="w-full">
         <SubmitButton
           isLoading={loading}
-          buttonTitle="Register"
-          LoadingButtonTitle="Creating please wait..."
+          buttonTitle="ลงทะเบียน"
+          LoadingButtonTitle="กําลังสร้างบัญชี..."
           className="w-full mt-2 sm:text-lg"
         />
       </div>
 
       <div className="mt-2">
         <Link href="/forgot-password" className="font-medium text-sm ">
-          Forgot Password
+          ลืมรหัสผ่าน
         </Link>
       </div>
 
@@ -110,9 +110,9 @@ export default function RegisterForm() {
 
       <div className="flex gap-2 justify-center sm:justify-between">
         <p className="  text-[0.75rem] font-light text-gray-500 dark:text-gray-400">
-          Already have an Account?{" "}
+          มีบัญชีอยู่แล้ว?{" "}
           <Link href="/login" className="font-medium text-custom-text">
-            Login
+            เข้าสู่ระบบ
           </Link>
         </p>
       </div>

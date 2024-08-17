@@ -30,7 +30,7 @@ export default function Login() {
               <div className="w-full md:mt-0 sm:max-w-md">
                 <div className="px-8 py-10 space-y-4 md:space-y-6 sm:p-8">
                   <h1 className=" text-lg sm:text-2xl font-bold leading-tight tracking-tight text-center mb-6 sm:mb-10">
-                    Login to Account
+                  เข้าสู่ระบบบัญชี
                   </h1>
                   <LoginForm />
                 </div>

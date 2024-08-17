@@ -31,11 +31,11 @@ export default function TextInput({
           autoComplete={name}
           disabled={disabled}
           className={`${classNameInput}`}
-          placeholder={ `ใส่${label.toLowerCase()}`}
+          placeholder={ `ใส่ ${label.toLowerCase()}`}
         />
         {errors && errors[`${name}`] && (
           <span className="text-sm text-red-600 dark:text-red-400 ">
-            {label} is required
+            {label} จำเป็นต้องกรอกข้อมูล
           </span>
         )}
       </div>

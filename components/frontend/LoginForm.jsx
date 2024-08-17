@@ -27,10 +27,13 @@ export default function LoginForm() {
         redirect: false,
       });
       console.log("SignIn response:", loginData);
+  
       if (loginData?.error) {
         setLoading(false);
-        toast.error("Sign-in error: Check your credentials");
-      } else {
+        toast.error(`Sign-in error: ${loginData.error}`);
+      } 
+
+      else {
         // Sign-in was successful
         reset();
         router.push("/home");
@@ -50,7 +53,7 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 ">
       <div>
         <Label htmlFor="email" className="block text-sm font-medium leading-6 mb-1">
-          Your Email
+          Email
         </Label>
         <Input
           {...register("email", { required: true })}
@@ -62,7 +65,7 @@ export default function LoginForm() {
         />
         {errors.email && (
           <small className="text-red-600 text-sm ">
-            This field is required
+            จำเป็นต้องกรอกข้อมูล
           </small>
         )}
       </div>
@@ -73,24 +76,24 @@ export default function LoginForm() {
         <Input
           {...register("password", { required: true })}
           type="password"
-          name="password"
+          name="รหัสผ่าน"
           id="password"
           placeholder="••••••••"
           className=""
         />
         {errors.password && (
           <small className="text-red-600 text-sm ">
-            This field is required
+            จำเป็นต้องกรอกข้อมูล
           </small>
         )}
       </div>
       <div className="">
         {loading ? (
-          <button disabled type="button" className="w-full">
+          <Button disabled type="button" className="w-full">
             <svg
               aria-hidden="true"
               role="status"
-              className="inline w-4 h-4 mr-3 text-white animate-spin"
+              className="inline w-4 h-4 mr-3 text-white dark:text-black animate-spin"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -104,17 +107,17 @@ export default function LoginForm() {
                 fill="currentColor"
               />
             </svg>
-            Signing you in please wait...
-          </button>
+            กำลังเข้าสู่ระบบ
+          </Button>
         ) : (
           <Button type="submit" className="w-full mt-2 sm:text-lg">
-            Login
+           เข้าสู่ระบบ
           </Button>
         )}
       </div>
       <div className="mt-2">
         <Link href="/forgot-password" className="font-medium text-sm ">
-          Forgot Password
+          ลืมรหัสผ่าน
         </Link>
       </div>
 
@@ -126,9 +129,9 @@ export default function LoginForm() {
 
       <div className="flex gap-2 justify-center sm:justify-between">
         <p className="  text-[0.75rem] font-light text-gray-500 dark:text-gray-400">
-          Already have an account?{" "}
+        ยังไม่ได้เป็นสมาชิก? {" "}
           <Link href="/register" className="font-medium text-custom-text">
-            Sign Up
+          สมัครสมาชิก
           </Link>
         </p>
       </div>

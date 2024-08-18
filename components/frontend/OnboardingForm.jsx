@@ -93,7 +93,8 @@ export default function OnboardingForm({ id }) {
       data,
       "User Profile",
       reset,
-      redirect
+      redirect,
+      dispatch
     );
   };
 

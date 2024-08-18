@@ -9,10 +9,13 @@ import { Button } from "../ui/button";
 import { makePutRequest } from "@/lib/apiRequest";
 import { CircleChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
 
 export default function OnboardingForm({ id }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
   
   const prefix = [
     { id: "นาย", title: "นาย" },
@@ -46,17 +49,21 @@ export default function OnboardingForm({ id }) {
 
   const getUser = async () => {
     try {
+      dispatch(isLoading(true));
       const userResponse = await getData(`users/${id}`);
       if (userResponse.status === 500) {
         console.error("ID ของคุณไม่ถูกต้อง");
         toast.error("ID ของคุณไม่ถูกต้อง");
+        dispatch(isLoading(false));
         return;
       }
       reset({
         username: userResponse.username,
         emailAddress: userResponse.email,
       });
+      dispatch(isLoading(false));
     } catch (error) {
+      dispatch(isLoading(false));
       console.error("ID ของคุณไม่ถูกต้อง", error);
       toast.error("ID ของคุณไม่ถูกต้อง");
     }
@@ -73,9 +80,9 @@ export default function OnboardingForm({ id }) {
     }
   }, [selectedEducationLevel]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     data.userId = id;
-    makePutRequest(setLoading, "api/users/user-profile", data, "User Profile");
+    await makePutRequest(setLoading, "api/users/user-profile", data, "User Profile");
     router.replace("/login");
   };
 

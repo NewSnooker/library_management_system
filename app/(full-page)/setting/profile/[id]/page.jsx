@@ -13,7 +13,10 @@ import { Button } from "@/components/ui/button";
 import SelectInput from "@/components/formInputs/SelectInput";
 import TextAreaInput from "@/components/formInputs/TextArealInput";
 import { getData } from "@/lib/getData";
+import { useDispatch } from "react-redux";
+import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
 export default function SettingProfile({ params: { id } }) {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -70,6 +73,7 @@ export default function SettingProfile({ params: { id } }) {
   async function onSubmit(data) {
     try {
       setLoading(true);
+      dispatch(isLoading(true));
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
       data.profileImage = imageUrl;
       const response = await fetch(`${baseUrl}/api/users/user-profile/${id}`, {
@@ -82,6 +86,7 @@ export default function SettingProfile({ params: { id } }) {
       const responseData = await response.json();
       if (response.ok) {
         setLoading(false);
+        dispatch(isLoading(false));
         toast.success("User Profile Updated Successfully");
         reset();
         router.push(`/home`);
@@ -90,11 +95,13 @@ export default function SettingProfile({ params: { id } }) {
         }, 1500);
       } else {
         setLoading(false);
+        dispatch(isLoading(false));
         console.error("Server Error:", responseData.error || responseData);
         toast.error("Oops Something Went wrong");
       }
     } catch (error) {
       setLoading(false);
+      dispatch(isLoading(false));
       console.error("Network Error:", error);
       toast.error("Something Went wrong, Please Try Again");
     }

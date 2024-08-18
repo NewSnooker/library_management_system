@@ -22,6 +22,7 @@ export default function RootLayout({ children }) {
           fontSans.variable
         )}
       >
+        
         <Providers attribute="class" defaultTheme="system" enableSystem>
           {children}
         </Providers>

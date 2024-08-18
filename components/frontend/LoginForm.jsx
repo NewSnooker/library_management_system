@@ -8,6 +8,8 @@ import Link from "next/link";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
+import { useDispatch } from "react-redux";
 export default function LoginForm() {
   const router = useRouter();
   const {
@@ -17,10 +19,12 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   async function onSubmit(data) {
     try {
       setLoading(true);
+      dispatch(isLoading(true));
       console.log("Attempting to sign in with credentials");
       const loginData = await signIn("credentials", {
         ...data,
@@ -30,20 +34,25 @@ export default function LoginForm() {
   
       if (loginData?.error) {
         setLoading(false);
+        dispatch(isLoading(false));
         toast.error(`Sign-in error: ${loginData.error}`);
       } 
 
       else {
         // Sign-in was successful
+        setLoading(false);
         reset();
         router.push("/home");
         setTimeout(()=>{
           window.location.reload();
-        }, 1500);
+        }, 2000);
+        
+        dispatch(isLoading(false));
         toast.success("Login Successful");
       }
     } catch (error) {
       setLoading(false);
+      dispatch(isLoading(false));
       console.error("Network Error:", error);
       toast.error("Its seems something is wrong with your Network");
     }

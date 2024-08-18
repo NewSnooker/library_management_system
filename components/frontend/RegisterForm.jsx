@@ -6,9 +6,12 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import SubmitButton from "../formInputs/SubmitButton";
 import TextInput from "../formInputs/TextInput";
+import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
+import { useDispatch } from "react-redux";
 
 export default function RegisterForm() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -21,6 +24,7 @@ export default function RegisterForm() {
   async function onSubmit(data) {
     try {
       setLoading(true);
+      dispatch(isLoading(true));
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
       console.log(baseUrl);
 
@@ -37,11 +41,13 @@ export default function RegisterForm() {
       if (response.ok) {
         setEmailErr("");
         setLoading(false);
+        dispatch(isLoading(false));
         toast.success("User Created Successfully");
         reset();
         router.push(`/verify-email`);
       } else {
         setLoading(false);
+        dispatch(isLoading(false));
         if (response.status === 409) {
           setEmailErr("User with this Email already exists");
           toast.error("User with this Email already exists");
@@ -52,6 +58,7 @@ export default function RegisterForm() {
       }
     } catch (error) {
       setLoading(false);
+      dispatch(isLoading(false));
       console.error("Network Error:", error);
       toast.error("Something Went wrong, Please Try Again");
     }

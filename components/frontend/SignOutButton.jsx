@@ -2,12 +2,20 @@
 import React from "react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
 
 export default function SignOutButton() {
     const router = useRouter();
+    const dispatch = useDispatch();
+
   const handleLogout = async () => {
+    dispatch(isLoading(true));
+
     await signOut();
     router.push("/login");
+    dispatch(isLoading(false));
+
   };
   return (
     <div

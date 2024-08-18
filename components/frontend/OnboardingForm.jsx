@@ -17,6 +17,7 @@ export default function OnboardingForm({ id }) {
   const router = useRouter();
   const dispatch = useDispatch();
 
+
   const prefix = [
     { id: "นาย", title: "นาย" },
     { id: "นาง", title: "นาง" },
@@ -44,12 +45,12 @@ export default function OnboardingForm({ id }) {
   const [availableYears, setAvailableYears] = useState(educationYear);
 
   useEffect(() => {
-    dispatch(isLoading(true));
     getUser();
   }, []);
 
   const getUser = async () => {
     try {
+      dispatch(isLoading(true));
       const userResponse = await getData(`users/${id}`);
       if (userResponse.status === 500) {
         console.error("ID ของคุณไม่ถูกต้อง");

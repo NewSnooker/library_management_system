@@ -57,11 +57,14 @@ export default function SettingProfile({ params: { id } }) {
 
   async function fetchProfileData() {
     try {
-      const data = await await getData(`users/user-profile/${id}`);
+      dispatch(isLoading(true));
+      const data = await getData(`users/user-profile/${id}`);
       setImageUrl(data?.profileImage);
       reset(data);
+      dispatch(isLoading(false));   
     } catch (error) {
       console.error("Error fetching profile data:", error);
+      dispatch(isLoading(false));   
       toast.error("Failed to load profile data");
     }
   }

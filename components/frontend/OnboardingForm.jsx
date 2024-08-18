@@ -16,9 +16,7 @@ export default function OnboardingForm({ id }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
-  dispatch(isLoading(true));
 
-  
   const prefix = [
     { id: "นาย", title: "นาย" },
     { id: "นาง", title: "นาง" },
@@ -46,6 +44,7 @@ export default function OnboardingForm({ id }) {
   const [availableYears, setAvailableYears] = useState(educationYear);
 
   useEffect(() => {
+    dispatch(isLoading(true));
     getUser();
   }, []);
 
@@ -81,10 +80,20 @@ export default function OnboardingForm({ id }) {
     }
   }, [selectedEducationLevel]);
 
-  const onSubmit = async(data) => {
-    data.userId = id;
-    await makePutRequest(setLoading, "api/users/user-profile", data, "User Profile");
+  const redirect = () => {
     router.replace("/login");
+  };
+
+  const onSubmit = async (data) => {
+    data.userId = id;
+    await makePutRequest(
+      setLoading,
+      "api/users/user-profile",
+      data,
+      "User Profile",
+      reset,
+      redirect
+    );
   };
 
   return (

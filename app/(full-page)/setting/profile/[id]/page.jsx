@@ -61,10 +61,10 @@ export default function SettingProfile({ params: { id } }) {
       const data = await getData(`users/user-profile/${id}`);
       setImageUrl(data?.profileImage);
       reset(data);
-      dispatch(isLoading(false));   
+      dispatch(isLoading(false));
     } catch (error) {
       console.error("Error fetching profile data:", error);
-      dispatch(isLoading(false));   
+      dispatch(isLoading(false));
       toast.error("Failed to load profile data");
     }
   }
@@ -93,7 +93,7 @@ export default function SettingProfile({ params: { id } }) {
         toast.success("User Profile Updated Successfully");
         reset();
         router.push(`/home`);
-        setTimeout(()=>{
+        setTimeout(() => {
           window.location.reload();
         }, 1500);
       } else {
@@ -125,100 +125,104 @@ export default function SettingProfile({ params: { id } }) {
             </div>
           </div>
           <div className=" sm:col-span-6 bg-card overflow-hidden ">
-              <div className="w-full md:mt-0 sm:max-w-xl">
-                <div className="px-10 py-10 space-y-4 md:space-y-6 sm:p-8">
-                  <h1 className=" text-lg sm:text-2xl font-bold leading-tight tracking-tight text-center mb-6 sm:mb-6">
-                    ตั้งค่าโปรไฟล์
-                  </h1>
-                  <form>
-                    <div className="grid gap-2 sm:gap-x-10 sm:gap-y-4">
-                      <TextInput
-                        label="ชื่อผู้ใช้"
-                        name="username"
+            <div className="w-full md:mt-0 sm:max-w-xl">
+              <div className="px-10 py-10 space-y-4 md:space-y-6 sm:p-8">
+                <h1 className=" text-lg sm:text-2xl font-bold leading-tight tracking-tight text-center mb-6 sm:mb-6">
+                  ตั้งค่าโปรไฟล์
+                </h1>
+                <form>
+                  <div className="grid gap-2 sm:gap-x-10 sm:gap-y-4">
+                    <TextInput
+                      label="ชื่อผู้ใช้"
+                      name="username"
+                      register={register}
+                      errors={errors}
+                      className="w-full"
+                    />
+                    <TextInput
+                      label="อีเมล"
+                      name="emailAddress"
+                      register={register}
+                      errors={errors}
+                      className="w-full"
+                    />
+                    <div className="flex gap-2">
+                      <SelectInput
+                        label="คำนำหน้า"
+                        name="prefix"
                         register={register}
                         errors={errors}
-                        className="w-full"
+                        className=""
+                        options={prefix}
                       />
                       <TextInput
-                        label="อีเมล"
-                        name="emailAddress"
-                        register={register}
-                        errors={errors}
-                        className="w-full"
-                      />
-                      <div className="flex gap-2">
-                        <SelectInput
-                          label="คำนำหน้า"
-                          name="prefix"
-                          register={register}
-                          errors={errors}
-                          className=""
-                          options={prefix}
-                        />
-                        <TextInput
-                          label="ชื่อ นามสกุล"
-                          name="fullName"
-                          register={register}
-                          errors={errors}
-                          className="w-full"
-                        />
-                      </div>
-                      <div className="flex gap-2">
-                        <div className="flex gap-3 sm:gap-2">
-                          <SelectInput
-                            label="ระดับ"
-                            name="educationLevel"
-                            register={register}
-                            errors={errors}
-                            className=""
-                            options={educationLevel}
-                          />
-                          <SelectInput
-                            label="ชั้นปี"
-                            name="educationYear"
-                            register={register}
-                            errors={errors}
-                            className="min-w-7"
-                            options={availableYears}
-                          />
-                        </div>
-
-                        <TextInput
-                          label="รหัสนักศึกษา"
-                          name="codeNumber"
-                          type="number"
-                          register={register}
-                          errors={errors}
-                          className="w-full"
-                        />
-                      </div>
-
-                      <TextInput
-                        label="เบอร์โทรศัพท์"
-                        name="phoneNumber"
-                        type="number"
-                        register={register}
-                        errors={errors}
-                        className="w-full"
-                      />
-                      <TextAreaInput
-                        label="รายละเอียด"
-                        name="description"
-                        type="text"
-                        isRequired={false}
+                        label="ชื่อ นามสกุล"
+                        name="fullName"
                         register={register}
                         errors={errors}
                         className="w-full"
                       />
                     </div>
-                  </form>
-                </div>
+                    <div className="flex gap-2">
+                      <div className="flex gap-3 sm:gap-2">
+                        <SelectInput
+                          label="ระดับ"
+                          name="educationLevel"
+                          register={register}
+                          errors={errors}
+                          className=""
+                          options={educationLevel}
+                        />
+                        <SelectInput
+                          label="ชั้นปี"
+                          name="educationYear"
+                          register={register}
+                          errors={errors}
+                          className="min-w-7"
+                          options={availableYears}
+                        />
+                      </div>
+
+                      <TextInput
+                        label="รหัสนักศึกษา"
+                        name="codeNumber"
+                        type="number"
+                        register={register}
+                        errors={errors}
+                        className="w-full"
+                      />
+                    </div>
+
+                    <TextInput
+                      label="เบอร์โทรศัพท์"
+                      name="phoneNumber"
+                      type="number"
+                      register={register}
+                      errors={errors}
+                      className="w-full"
+                    />
+                    <TextAreaInput
+                      label="รายละเอียด"
+                      name="description"
+                      type="text"
+                      isRequired={false}
+                      register={register}
+                      errors={errors}
+                      className="w-full"
+                    />
+                  </div>
+                </form>
               </div>
+            </div>
           </div>
         </div>
         <div className="flex justify-end mx-4 mb-4">
           {loading ? (
-            <Button type="button" disabled className="w-full sm:w-[48%] mt-2   ">
+            <Button
+              type="button"
+              disabled
+              className="w-full sm:w-[48%] mt-2   "
+            >
               <svg
                 aria-hidden="true"
                 role="status"

@@ -87,7 +87,7 @@ export default function OnboardingForm({ id }) {
 
   const onSubmit = async (data) => {
     data.userId = id;
-    await makePutRequest(
+     makePutRequest(
       setLoading,
       "api/users/user-profile",
       data,

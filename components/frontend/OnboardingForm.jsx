@@ -16,6 +16,8 @@ export default function OnboardingForm({ id }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
+  dispatch(isLoading(true));
+
   
   const prefix = [
     { id: "นาย", title: "นาย" },
@@ -49,7 +51,6 @@ export default function OnboardingForm({ id }) {
 
   const getUser = async () => {
     try {
-      dispatch(isLoading(true));
       const userResponse = await getData(`users/${id}`);
       if (userResponse.status === 500) {
         console.error("ID ของคุณไม่ถูกต้อง");

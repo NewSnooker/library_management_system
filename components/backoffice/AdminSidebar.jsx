@@ -12,8 +12,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { sidebarLinks } from "@/lib/sidebarLink";
+
 import { Skeleton } from "../ui/skeleton";
+import { adminSidebarLinks } from "@/lib/adminSidebarLinks";
 // import { useRouter } from 'next/router';
 
 export default function AdminSidebar() {
@@ -38,7 +39,7 @@ export default function AdminSidebar() {
         <BookText className="mr-1 w-4 " /> UDVC
       </h2>
       <div className="mt-2">
-        {sidebarLinks.map((item, i) => {
+        {adminSidebarLinks.map((item, i) => {
           const Icon = item.icon;
           return (
             <Link

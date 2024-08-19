@@ -13,7 +13,7 @@ export default function SignOutButton() {
     dispatch(isLoading(true));
 
     await signOut();
-    router.push("/login");
+    router.replace("/login");
     dispatch(isLoading(false));
 
   };

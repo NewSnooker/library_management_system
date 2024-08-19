@@ -1,6 +1,5 @@
-import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/backoffice/AdminSidebar";
-import Navbar from "@/components/Navbar";
+import AdminNavbar from "@/components/backoffice/navbar/AdminNavbar";
 
 export default function Layout({ children }) {
   return (

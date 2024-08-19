@@ -13,7 +13,7 @@ import { BookText } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { sidebarLinks } from "@/lib/sidebarLink";
-import SwitchTheme from "./SwitchTheme";
+import SwitchTheme from "@/components/SwitchTheme";
 
 export default function HamburgerMenu() {
   const pathname = usePathname();

@@ -1,16 +1,16 @@
 import React from "react";
-import SwitchTheme from "./SwitchTheme";
-import { SparklesTextDemo } from "./frontend/SparklesTextDemo";
 import { BookOpen } from "lucide-react";
-import { NavAvatar } from "./NavAvatar";
-import { CommandDialogDemo } from "./frontend/CommandDialogDemo";
 import Link from "next/link";
-import { Button } from "./ui/button";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
-import AdminHamburgerMenu from "./AdminHamburgerMenu";
+import HamburgerMenu from "./HamburgerMenu";
+import { NavAvatar } from "./NavAvatar";
+import SwitchTheme from "@/components/SwitchTheme";
+import { SparklesTextDemo } from "../SparklesTextDemo";
+import { CommandDialogDemo } from "../CommandDialogDemo";
+import { Button } from "@/components/ui/button";
 
-export default async function AdminNavbar({ className }) {
+export default async function Navbar({ className }) {
   const session = await getServerSession(authOptions);
 
   return (
@@ -18,7 +18,7 @@ export default async function AdminNavbar({ className }) {
       className={`flex justify-between sticky top-0 backdrop-blur-xl z-40 w-full ${className}`}
     >
       <div className="block lg:hidden">
-        <AdminHamburgerMenu />
+        <HamburgerMenu />
       </div>
       <Link href="/" className="text-3xl flex items-center gap-2">
         <BookOpen width={26} height={26} className="text-custom-text" />

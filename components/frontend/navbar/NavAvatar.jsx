@@ -13,12 +13,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
-import { BorderBeam } from "./magicui/border-beam";
-import SwitchTheme from "./SwitchTheme";
-import SignOutButton from "./frontend/SignOutButton";
 import { getData } from "@/lib/getData";
 import { generateInitials } from "@/lib/generateInitials";
 import Link from "next/link";
+import SwitchTheme from "@/components/SwitchTheme";
+import SignOutButton from "../SignOutButton";
+import { BorderBeam } from "@/components/magicui/border-beam";
 export async function NavAvatar({ session }) {
   const { id, role } = session?.user;
   const {
@@ -73,7 +73,7 @@ export async function NavAvatar({ session }) {
             </div>
           </div>
           <div className="flex justify-center items-center pb-4">
-            <SheetTitle>{username}</SheetTitle>
+            <SheetTitle>{roleAdmin?("Admin"):""} {username}</SheetTitle>
           </div>
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>

@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/frontend/navbar/Navbar";
 
 // app/(front-end)/login/layout.js
 export default function Layout({ children }) {
@@ -6,8 +6,7 @@ export default function Layout({ children }) {
     <div className="relative">
       <Navbar className={"py-2 sm:py-3 px-4 sm:px-60"} />
       {/* <div className="
-         absolute inset-0 
-      "> */}
+         absolute inset-0"> */}
         <div>{children}</div>
       {/* </div> */}
     </div>

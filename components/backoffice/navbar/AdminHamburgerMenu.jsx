@@ -12,8 +12,8 @@ import { Menu } from "lucide-react";
 import { BookText } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { sidebarLinks } from "@/lib/sidebarLink";
-import SwitchTheme from "./SwitchTheme";
+import { adminSidebarLinks } from "@/lib/adminSidebarLinks";
+import SwitchTheme from "@/components/SwitchTheme";
 
 export default function AdminHamburgerMenu() {
   const pathname = usePathname();
@@ -36,7 +36,7 @@ export default function AdminHamburgerMenu() {
         </SheetHeader>
         <div className="flex flex-col items-center mt-4 relative">
           <div>
-            {sidebarLinks.map((item, i) => {
+            {adminSidebarLinks.map((item, i) => {
               const Icon = item.icon;
               return (
                 <Link href={item.href} key={i} className="flex flex-col">

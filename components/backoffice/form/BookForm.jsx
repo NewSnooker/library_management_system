@@ -1,16 +1,16 @@
 "use client";
-import MultipleImageInput from "@/components/formInputs/MultipleImageInput";
-import SelectInput from "@/components/formInputs/SelectInput";
-import SubmitButton from "@/components/FormInputs/SubmitButton";
-import TextAreaInput from "@/components/FormInputs/TextArealInput";
-import TextInput from "@/components/FormInputs/TextInput";
 import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { generateSlug } from "@/lib/generateSlug";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import MultipleImageInput from "@/components/formInputs/MultipleImageInput";
+import SelectInput from "@/components/formInputs/SelectInput";
+import SubmitButton from "@/components/formInputs/SubmitButton";
+import TextAreaInput from "@/components/formInputs/TextArealInput";
+import TextInput from "@/components/formInputs/TextInput";
 
 export default function BookForm({
   updateData = {},

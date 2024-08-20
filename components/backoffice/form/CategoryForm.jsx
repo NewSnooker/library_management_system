@@ -1,16 +1,14 @@
 "use client";
-import ImageInput from "@/components/FormInputs/ImageInput";
-import SubmitButton from "@/components/FormInputs/SubmitButton";
-import TextAreaInput from "@/components/FormInputs/TextArealInput";
-import TextInput from "@/components/FormInputs/TextInput";
-import ToggleInput from "@/components/FormInputs/ToggleInput";
 import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { generateSlug } from "@/lib/generateSlug";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import ImageInput from "@/components/formInputs/ImageInput";
+import SubmitButton from "@/components/FormInputs/SubmitButton";
+import TextAreaInput from "@/components/FormInputs/TextArealInput";
+import TextInput from "@/components/FormInputs/TextInput";
 
 export default function CategoryForm({ updateData = {}, adminId }) {
   const dispatch = useDispatch();

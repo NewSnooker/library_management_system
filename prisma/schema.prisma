@@ -56,3 +56,53 @@ model UserProfile {
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 }
+
+model Category {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  slug        String  @unique
+  imageUrl    String?
+  description String?
+
+  book Book[] // 1 to Many  Category => Product
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+enum BookStatus {
+  AVAILABLE      // หนังสือพร้อมให้ยืม
+  BORROWED       // หนังสือถูกยืมไปแล้ว
+  OVERDUE        // หนังสือค้างคืนเกินกำหนด
+  LOST           // หนังสือสูญหาย
+  DAMAGED        // หนังสือชำรุดเสียหาย
+  NOT_AVAILABLE   // หนังสือไม่พร้อมให้ยืม
+}
+
+model Book {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  slug        String       @unique
+  author      String
+  status      BookStatus   @default(NOT_AVAILABLE)
+  imageUrl    String?
+  imagesUrl   ImageItems[]
+  description String?
+  categoryId  String       @db.ObjectId 
+  category    Category?    @relation(fields: [categoryId], references: [id]) 
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model ImageItems {
+  id  String  @id @default(auto()) @map("_id") @db.ObjectId
+  key String?
+  url String?
+
+  bookId String? @db.ObjectId
+  book   Book?   @relation(fields: [bookId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}

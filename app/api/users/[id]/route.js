@@ -20,7 +20,7 @@ export async function GET(request, { params: { id } }) {
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { message: "Failed to Fetch User", error },
+      { message: "เกิดข้อผิดพลาดในการดึงข้อมูลผู้ใช้งาน", error },
       { status: 500 }
     );
   }

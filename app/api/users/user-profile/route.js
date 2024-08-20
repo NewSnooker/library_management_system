@@ -27,7 +27,7 @@ export async function PUT(request) {
       return NextResponse.json(
         {
           data: null,
-          message: "Not User Found",
+          message: "ไม่พบผู้ใช้งาน",
         },
         { status: 404 }
       );
@@ -42,7 +42,7 @@ export async function PUT(request) {
       return NextResponse.json(
         {
           data: null,
-          message: "Not User Profile Found",
+          message: "ไม่พบโปรไฟล์ผู้ใช้งาน",
         },
         { status: 404 }
       );
@@ -79,7 +79,7 @@ export async function PUT(request) {
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { message: "Failed to create User Profile", error },
+      { message: "เกิดข้อผิดพลาดในการอัพเดทผู้ใช้งาน", error },
       { status: 500 }
     );
   }

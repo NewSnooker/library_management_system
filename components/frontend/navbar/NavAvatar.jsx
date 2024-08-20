@@ -34,6 +34,7 @@ export async function NavAvatar({ session }) {
     profileImage,
   } = await getData(`users/user-profile/${id}`);
   const roleAdmin = role === "ADMIN";
+
   const initial = generateInitials(username);
 
   return (

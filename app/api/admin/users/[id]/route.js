@@ -21,7 +21,7 @@ export async function GET(request, { params: { id } }) {
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { message: "Failed to Fetch User", error },
+      { message: "เกิดข้อผิดพลาดในการดึงข้อมูลผู้ใช้", error },
       { status: 500 }
     );
   }
@@ -37,7 +37,7 @@ export async function DELETE(request, { params: { id } }) {
       return NextResponse.json(
         {
           data: null,
-          message: "User Not Found",
+          message: "ไม่พบผู้ใช้งาน",
         },
         { status: 404 }
       );
@@ -51,7 +51,7 @@ export async function DELETE(request, { params: { id } }) {
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { message: "Failed to Delete User", error },
+      { message: "เกิดข้อผิดพลาดในการลบผู้ใช้งาน", error },
       { status: 500 }
     );
   }

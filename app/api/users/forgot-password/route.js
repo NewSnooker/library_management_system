@@ -19,7 +19,7 @@ export async function PUT(request) {
       return NextResponse.json(
         {
           data: null,
-          message: `Email Not Verified`,
+          message: `อีเมลนี้ยังไม่ได้ยืนยัน`,
         },
         { status: 404 }
       );
@@ -34,7 +34,7 @@ export async function PUT(request) {
       return NextResponse.json(
         {
           data: null,
-          message: `User Not Found`,
+          message: `ไม่พบผู้ใช้งานนี้`,
         },
         { status: 404 }
       );
@@ -89,7 +89,7 @@ export async function PUT(request) {
     return NextResponse.json(
       {
         data: null,
-        message: "User Updated Successfully",
+        message: "อีเมลของคุณได้ถูกส่งเรียบร้อยแล้ว",
       },
       { status: 201 }
     );

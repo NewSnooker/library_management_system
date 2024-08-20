@@ -33,9 +33,58 @@ Table UserProfile {
   updatedAt DateTime
 }
 
+Table Category {
+  id String [pk]
+  title String [not null]
+  slug String [unique, not null]
+  imageUrl String
+  description String
+  book Book [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime
+}
+
+Table Book {
+  id String [pk]
+  title String [not null]
+  slug String [unique, not null]
+  author String [not null]
+  status BookStatus [not null, default: 'NOT_AVAILABLE']
+  imageUrl String
+  imagesUrl ImageItems [not null]
+  description String
+  categoryId String [not null]
+  category Category
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime
+}
+
+Table ImageItems {
+  id String [pk]
+  key String
+  url String
+  bookId String
+  book Book
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime
+}
+
 Enum UserRole {
   ADMIN
   USER
 }
 
+Enum BookStatus {
+  AVAILABLE
+  BORROWED
+  OVERDUE
+  LOST
+  DAMAGED
+  NOT_AVAILABLE
+}
+
 Ref: UserProfile.userId - User.id [delete: Cascade]
+
+Ref: Book.categoryId > Category.id
+
+Ref: ImageItems.bookId > Book.id [delete: Cascade]

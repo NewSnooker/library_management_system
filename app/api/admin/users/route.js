@@ -12,7 +12,7 @@ export async function GET(request) {
       return NextResponse.json(
         {
           data: null,
-          message: "Users Not Found",
+          message: "ไม่พบผู้ใช้งาน",
         },
         { status: 404 }
       );
@@ -23,7 +23,7 @@ export async function GET(request) {
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { message: "Failed to Fetch Users", error },
+      { message: "เกิดข้อผิดพลาดในการดึงข้อมูลผู้ใช้งาน", error },
       { status: 500 }
     );
   }

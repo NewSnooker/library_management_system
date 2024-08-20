@@ -102,7 +102,7 @@ export async function POST(request) {
     return NextResponse.json(
       {
         data: newUser,
-        message: "User Created Successfully",
+        message: "สร้างบัญชีสําเร็จ",
       },
       { status: 201 }
     );
@@ -111,7 +111,7 @@ export async function POST(request) {
     return NextResponse.json(
       {
         error,
-        message: "Server Error: Something Went wrong",
+        message: "เกิดข้อผิดพลาด",
       },
       { status: 500 }
     );

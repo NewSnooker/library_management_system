@@ -12,16 +12,17 @@ export async function GET(request, { params: { id } }) {
       return NextResponse.json(
         {
           data: null,
-          message: "User Profile Not Found",
+          message: "ไม่พบโปรไฟล์ผู้ใช้งาน",
         },
         { status: 409 }
       );
     }
+    
     return NextResponse.json(userProfile);
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { message: "Failed to Fetch User", error },
+      { message: "เกิดข้อผิดพลาดในการดึงข้อมูลโปรไฟล์ผู้ใช้งาน", error },
       { status: 500 }
     );
   }
@@ -50,7 +51,7 @@ export async function PUT(request, { params: { id } }) {
       return NextResponse.json(
         {
           data: null,
-          message: "User Profile Not Found",
+          message: "ไม่พบโปรไฟล์ผู้ใช้งาน",
         },
         { status: 409 }
       );
@@ -76,7 +77,7 @@ export async function PUT(request, { params: { id } }) {
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { message: "Failed to Update User Profile", error },
+      { message: "เกิดข้อผิดพลาดในการอัพเดทโปรไฟลผู้ใช้งาน", error },
       { status: 500 }
     );
   }

@@ -13,7 +13,7 @@ export async function PUT(request) {
       return NextResponse.json(
         {
           data: null,
-          message: "No User Found",
+          message: "ไม่พบผู้ใช้งาน",
         },
         { status: 404 }
       );
@@ -33,7 +33,7 @@ export async function PUT(request) {
     console.log(error);
     return NextResponse.json(
       {
-        message: "Failed to Update User",
+        message: "เกิดข้อผิดพลาดในการอัพเดทรหัสผ่าน",
         error,
       },
       { status: 500 }

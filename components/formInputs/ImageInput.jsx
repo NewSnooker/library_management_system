@@ -14,7 +14,7 @@ export default function ImageInput({
 }) {
   return (
     <div className={className}>
-      <div className="flex justify-between items-center h-full ">
+      <div className="flex ">
         {label && (
           <label
             htmlFor="course-image"

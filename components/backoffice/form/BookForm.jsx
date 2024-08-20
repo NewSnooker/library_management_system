@@ -1,34 +1,29 @@
 "use client";
-import ImageInput from "@/components/FormInputs/ImageInput";
-import SelectInput from "@/components/FormInputs/SelectInput";
+import MultipleImageInput from "@/components/formInputs/MultipleImageInput";
+import SelectInput from "@/components/formInputs/SelectInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import TextAreaInput from "@/components/FormInputs/TextArealInput";
 import TextInput from "@/components/FormInputs/TextInput";
-import ToggleInput from "@/components/FormInputs/ToggleInput";
 import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { generateSlug } from "@/lib/generateSlug";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
-const QuillEditor = dynamic(
-  () => import("@/components/FormInputs/QuillEditor"),
-  {
-    ssr: false,
-    loading: () => <p>Loading...</p>,
-  }
-);
-
-export default function BookForm({ categories, updateData = {} }) {
+export default function BookForm({
+  updateData = {},
+  categories,
+  setLoading,
+  loading,
+  adminId,
+}) {
+  const dispatch = useDispatch();
+  const initialImageUrls = updateData?.imageUrls ?? "";
   const id = updateData?.id ?? "";
-  const initialImageUrl = updateData?.imageUrl ?? "";
-  const initialContent = updateData?.content ?? "";
-
-  const [imageUrl, setImageUrl] = useState(initialImageUrl);
-  const [content, setContent] = useState(initialContent);
-  const [loading, setLoading] = useState(false);
-
+  const [imageUrls, setImageUrls] = useState(initialImageUrls);
+  
   const {
     register,
     reset,
@@ -37,105 +32,123 @@ export default function BookForm({ categories, updateData = {} }) {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      isActive: true,
       ...updateData,
     },
   });
 
-  const isActive = watch("isActive");
   const router = useRouter();
   const redirect = () => {
-    router.push("/dashboard/community");
+    router.push("/dashboard/books");
     router.refresh();
   };
 
   const onSubmit = async (data) => {
     setLoading(true);
+    if (imageUrls === undefined || imageUrls.length === 0) {
+      toast.error("กรุณาเลือกรูปภาพ");
+      setLoading(false);
+      return;
+    };
+
     const slug = generateSlug(data.title);
     data.slug = slug;
-    data.imageUrl = imageUrl;
-    data.content = content;
+    data.imageUrls = imageUrls;
+    data.adminId = adminId;
 
     if (id) {
       makePutRequest(
         setLoading,
-        `api/trainings/${id}`,
+        `api/admin/books/${id}`,
         data,
-        "Training",
+        "หนังสือ",
         reset,
-        redirect
+        redirect,
+        dispatch
       );
     } else {
       makePostRequest(
         setLoading,
-        "api/trainings",
+        "api/admin/books",
         data,
-        "Training",
+        "หนังสือ",
         reset,
-        redirect
+        redirect,
+        dispatch
       );
-      setImageUrl("");
-      setContent("");
     }
+
+    setImageUrls("");
   };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full max-w-4xl p-4 bg-white border rounded-lg shadow-md
-        sm:p-6 md:p-8 dark:bg-slate-700  mx-auto "
+      className="w-full p-4 border rounded-sm
+      sm:p-6 md:p-8 mx-auto "
     >
       <div className="grid gap-2 sm:grid-cols-2 sm:gap-4">
         <TextInput
-          label="Training Title"
+          label="ชื่อหนังสือ"
           name="title"
           register={register}
           errors={errors}
-          className="w-full"
+        />
+        <div className="grid gap-2 grid-cols-2">
+          {" "}
+          <TextInput
+            label="ราคาหนังสือ"
+            name="price"
+            type="number"
+            className=""
+            register={register}
+            errors={errors}
+          />
+          <TextInput
+            label="จำนวนหนังสือ"
+            name="quantity"
+            type="number"
+            register={register}
+            errors={errors}
+          />
+        </div>
+        <TextInput
+          label="ชื่อผู้แต่ง"
+          name="author"
+          register={register}
+          errors={errors}
         />
         <SelectInput
-          label="Select Category"
+          label="หมวดหมู่"
           name="categoryId"
           register={register}
           errors={errors}
-          className="w-full"
+          className="w-1/2"
           options={categories}
-          multiple={false}
         />
+
         <TextAreaInput
-          label="Training Description"
+          label="รายละเอียดหนังสือ"
           name="description"
+          className="sm:col-span-2"
           register={register}
           errors={errors}
         />
-        <ImageInput
-          label="Training thumbnail"
-          imageUrl={imageUrl}
-          setImageUrl={setImageUrl}
-          endpoint="trainingImageUploader"
-        />
-        {/* Content */}
-        <QuillEditor
-          label="Training Content"
-          value={content}
-          onChange={setContent}
-        />
-        {/* Content End */}
-
-        <ToggleInput
-          label="Training Status"
-          name="isActive"
-          trueTitle="Active"
-          falseTitle="Draft"
-          register={register}
+        <MultipleImageInput
+          label="ภาพหมวดหมู่"
+          imageUrls={imageUrls}
+          setImageUrls={setImageUrls}
+          endpoint="bookImageUploader"
+          className="sm:col-span-2"
         />
 
-        <SubmitButton
-          isLoading={loading}
-          buttonTitle={id ? "Update Training" : "Create Training"}
-          LoadingButtonTitle={
-            id ? "Update Training please wait..." : "Create Training please wait..."
-          }
-        />
+        <div className="col-span-full flex justify-end">
+          <SubmitButton
+            isLoading={loading}
+            buttonTitle={id ? "อัพเดตหนังสือ" : "เพิ่มหนังสือ"}
+            LoadingButtonTitle={
+              id ? "กำลังอัพเดตหนังสือ" : "กำลังเพิ่มหนังสือ"
+            }
+          />
+        </div>
       </div>
     </form>
   );

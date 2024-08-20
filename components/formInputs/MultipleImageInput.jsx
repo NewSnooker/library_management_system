@@ -1,44 +1,38 @@
-import { deleteImage } from "@/app/server/deleteImage";
 import { UploadDropzone } from "@/lib/uploadthing";
-import { Pencil, XCircle } from "lucide-react";
+import { XCircle } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 
 export default function MultipleImageInput({
   label,
-  imagesUrl = [],
-  setImagesUrl,
+  imageUrls = [],
+  setImageUrls,
   className = "col-span-full",
   endpoint = "",
 }) {
-  const handleImageRemove = (imageIndex) => {
+  const handleImageRemove = async (imageIndex) => {
     try {
-      const newImages = imagesUrl.filter((_, index) => index !== imageIndex);
-      const keyImageItem = imagesUrl[imageIndex].key;
-      deleteImage(keyImageItem);
-      setImagesUrl(newImages);
-      // toast.success("Image removed successfully");
+      const filteredImages = imageUrls.filter(
+        (_, index) => index !== imageIndex
+      );
+      setImageUrls(filteredImages);
+
+      toast.success("ลบรูปภาพสำเร็จ");
     } catch (error) {
-      // toast.error("Failed to remove image, try again");
+      toast.error("ลบรูปภาพไม่สำเร็จ");
       console.error(`ERROR! ${error.message}`, error);
     }
   };
 
   const handleUploadComplete = (res) => {
-    const newImages = res.map((item) => ({
-      url: item.url,
-      key: item.key,
-    }));
-    setImagesUrl((prevImages) => [...prevImages, ...newImages]);
-    toast.success("Upload Completed");
-    console.log("Files: ", res);
-    console.log("Upload Completed");
-  };
+    const urls = res.map((item) => item.url);
+    console.log(urls);
+    setImageUrls(urls);
 
-  const handleUploadError = (error) => {
-    toast.error(`Upload Failed ${error.message}`);
-    console.log(`ERROR! ${error.message}`, error);
+    toast.success("อัพโหลดรูปภาพสำเร็จ");
+    console.log("Files: ", res);
+    console.log("อัพโหลดรูปภาพสำเร็จ");
   };
 
   return (
@@ -51,9 +45,9 @@ export default function MultipleImageInput({
           {label}
         </label>
       </div>
-      {imagesUrl.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-4">
-          {imagesUrl.map((image, i) => (
+      {imageUrls.length > 0 ? (
+        <div className="flex sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-4">
+          {imageUrls.map((image, i) => (
             <div className="relative" key={i}>
               <button
                 type="button"
@@ -64,33 +58,37 @@ export default function MultipleImageInput({
               </button>
 
               <Image
-                src={image.url}
+                src={image}
                 alt="Item image"
                 width={1000}
                 height={667}
-                className="w-full h-auto sm:h-32 object-cover"
+                className="w-full h-auto sm:h-32 object-cover rounded-sm"
               />
             </div>
           ))}
         </div>
       ) : (
         <UploadDropzone
-          className="transition-all duration-300 cursor-pointer border-2 
-            hover:border-slate-700 dark:border-slate-500 hover:dark:border-slate-400 
-            ut-upload-icon:text-slate-700
-            dark:ut-upload-icon:text-slate-400
-            ut-label:text-slate-800
-            dark:ut-label:text-slate-300
-            dark:ut-allowed-content:ut-ready:text-slate-300
-            dark:ut-allowed-content:ut-readying:text-slate-300
-            dark:ut-allowed-content:ut-uploading:text-slate-300
-            ut-button:text-slate-50
-            ut-button:bg-slate-700
-            dark:ut-button:text-slate-900
-            dark:ut-button:bg-slate-400"
+          className="mt-0 sm:h-[500px] cursor-pointer border transition-colors duration-300 border-zinc-500
+          hover:border-zinc-900 dark:border-zinc-500  hover:dark:border-zinc-400 
+          ut-upload-icon:text-zinc-900
+          dark:ut-upload-icon:text-zinc-200
+          ut-label:text-zinc-900
+          dark:ut-label:text-zinc-200
+          dark:ut-allowed-content:ut-ready:text-zinc-200
+          dark:ut-allowed-content:ut-readying:text-zinc-200
+          dark:ut-allowed-content:ut-uploading:text-zinc-200
+          ut-button:text-zinc-200
+          ut-button:bg-zinc-950
+          dark:ut-button:text-zinc-950
+          dark:ut-button:bg-zinc-200"
           endpoint={endpoint}
           onClientUploadComplete={handleUploadComplete}
-          onUploadError={handleUploadError}
+          onUploadError={(error) => {
+            // Do something with the error.
+            toast.error("อัพโหลดรูปภาพไม่สำเร็จ");
+            console.log(`ERROR! ${error.message}`, error);
+          }}
         />
       )}
     </div>

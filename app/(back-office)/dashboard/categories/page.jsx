@@ -9,14 +9,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 const Page = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getData("admin/categories");
         setCategories(data);
       } catch (error) {
-        console.error("Failed to fetch categories:", error);
+        console.error("เกิดความเสียบางอย่างเกี่ยวกับข้อมูล:", error);
       } finally {
         setLoading(false);
       }
@@ -34,7 +33,6 @@ const Page = () => {
         linkTitle="เพิ่มหมวดหมู่"
         href="/dashboard/categories/new"
       />
-
       <div className="py-2">
         {loading ? (
           <Skeleton className="w-full h-96 mb-2 " />

@@ -7,6 +7,12 @@ export async function GET(request, { params: { id } }) {
       where: {
         userId: id,
       },
+      include: {
+        updaterBook: true,
+        creatorBook: true,
+        updaterCategory: true,
+        creatorCategory: true,
+      },
     });
     if (!userProfile) {
       return NextResponse.json(
@@ -17,7 +23,7 @@ export async function GET(request, { params: { id } }) {
         { status: 409 }
       );
     }
-    
+
     return NextResponse.json(userProfile);
   } catch (error) {
     console.log(error);

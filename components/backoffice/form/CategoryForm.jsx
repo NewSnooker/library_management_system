@@ -6,12 +6,13 @@ import TextInput from "@/components/FormInputs/TextInput";
 import ToggleInput from "@/components/FormInputs/ToggleInput";
 import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { generateSlug } from "@/lib/generateSlug";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
-export default function CategoryForm({ updateData = {} }) {
+export default function CategoryForm({ updateData = {}, adminId }) {
   const dispatch = useDispatch();
   const initialImageUrl = updateData?.imageUrl ?? "";
   const id = updateData?.id ?? "";
@@ -31,11 +32,10 @@ export default function CategoryForm({ updateData = {} }) {
     },
   });
 
-
   const router = useRouter();
   const redirect = () => {
     router.push("/dashboard/categories");
-    router.refresh()
+    router.refresh();
   };
 
   const onSubmit = async (data) => {
@@ -43,13 +43,15 @@ export default function CategoryForm({ updateData = {} }) {
     const slug = generateSlug(data.title);
     data.slug = slug;
     data.imageUrl = imageUrl;
+    data.adminId = adminId;
+    // console.log(data);
 
     if (id) {
       makePutRequest(
         setLoading,
         `api/admin/categories/${id}`,
         data,
-        "Category",
+        "หมู่หมวดหมู่",
         reset,
         redirect,
         dispatch
@@ -59,7 +61,7 @@ export default function CategoryForm({ updateData = {} }) {
         setLoading,
         "api/admin/categories",
         data,
-        "Category",
+        "หมู่หมวดหมู่",
         reset,
         redirect,
         dispatch
@@ -97,15 +99,13 @@ export default function CategoryForm({ updateData = {} }) {
         />
 
         <div className="col-span-full flex justify-end">
-        <SubmitButton
-          isLoading={loading}
-          buttonTitle={id ? "อัพเดตหมวดหมู่" : "สร้างหมวดหมู่"}
-          LoadingButtonTitle={
-            id
-              ? "กำลังอัพเดตหมวดหมู่"
-              : "กำลังสร้างหมวดหมู่"
-          }
-        />
+          <SubmitButton
+            isLoading={loading}
+            buttonTitle={id ? "อัพเดตหมวดหมู่" : "สร้างหมวดหมู่"}
+            LoadingButtonTitle={
+              id ? "กำลังอัพเดตหมวดหมู่" : "กำลังสร้างหมวดหมู่"
+            }
+          />
         </div>
       </div>
     </form>

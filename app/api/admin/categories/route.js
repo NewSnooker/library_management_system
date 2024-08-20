@@ -3,16 +3,18 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   try {
-    const { title, slug, imageUrl, description } =
-      await request.json();
+    const { title, slug, imageUrl, description, adminId } = await request.json();
+    console.log(adminId);
     const newCategory = {
       title,
       slug,
       imageUrl,
       description,
+      creatorId: adminId,
     };
-    console.log(newCategory);
+    console.log("newCategory", newCategory);
     
+
     const exitingCategory = await db.category.findUnique({
       where: {
         slug,
@@ -30,6 +32,8 @@ export async function POST(request) {
     const category = await db.category.create({
       data: newCategory,
     });
+    console.log(category);
+    
     return NextResponse.json(category);
   } catch (error) {
     console.log(error);
@@ -46,11 +50,18 @@ export async function GET(request) {
       orderBy: {
         title: "desc",
       },
-      include:{
-        book: true
-      }
+      include: {
+        book: true,
+        creator: true,
+        updater: true,
+      },
     });
-    return NextResponse.json(category);
+    const processedCategory = category.map((item) => ({
+      ...item,
+      creator: item.creator?.username || null,
+      updater: item.updater?.username || null,
+    }));
+    return NextResponse.json(processedCategory);
   } catch (error) {
     console.log(error);
     return NextResponse.json(
@@ -59,4 +70,3 @@ export async function GET(request) {
     );
   }
 }
-

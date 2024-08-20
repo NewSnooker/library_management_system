@@ -27,6 +27,10 @@ Table UserProfile {
   educationYear String
   description String
   profileImage String
+  updaterBook Book [not null]
+  creatorBook Book [not null]
+  creatorCategory Category [not null]
+  updaterCategory Category [not null]
   userId String [unique, not null]
   user User [not null]
   createdAt DateTime [default: `now()`, not null]
@@ -40,6 +44,10 @@ Table Category {
   imageUrl String
   description String
   book Book [not null]
+  creatorId String
+  updaterId String
+  creator UserProfile
+  updater UserProfile
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
 }
@@ -48,25 +56,21 @@ Table Book {
   id String [pk]
   title String [not null]
   slug String [unique, not null]
+  price Int [not null]
+  quantity Int [not null]
   author String [not null]
   status BookStatus [not null, default: 'NOT_AVAILABLE']
   imageUrl String
-  imagesUrl ImageItems [not null]
+  imageUrls String[] [not null]
   description String
+  updaterId String
   categoryId String [not null]
-  category Category
+  creatorId String
+  creator UserProfile
+  updater UserProfile
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
-}
-
-Table ImageItems {
-  id String [pk]
-  key String
-  url String
-  bookId String
-  book Book
-  createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime
+  category Category [not null]
 }
 
 Enum UserRole {
@@ -85,6 +89,12 @@ Enum BookStatus {
 
 Ref: UserProfile.userId - User.id [delete: Cascade]
 
-Ref: Book.categoryId > Category.id
+Ref: Category.creatorId > UserProfile.userId
 
-Ref: ImageItems.bookId > Book.id [delete: Cascade]
+Ref: Category.updaterId > UserProfile.userId
+
+Ref: Book.creatorId > UserProfile.userId
+
+Ref: Book.updaterId > UserProfile.userId
+
+Ref: Book.categoryId > Category.id

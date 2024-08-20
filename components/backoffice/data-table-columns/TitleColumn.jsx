@@ -11,7 +11,7 @@ export default function TitleColumn({column,title}) {
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           {title}
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ml-2 h-4 w-4 " />
         </Button>
       );
 }

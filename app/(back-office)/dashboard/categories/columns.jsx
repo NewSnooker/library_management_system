@@ -3,6 +3,7 @@
 import ActionColumn from "@/components/backoffice/data-table-columns/ActionColumn";
 import DateCreatedColumn from "@/components/backoffice/data-table-columns/DateCreatedColumn";
 import DateCreatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnCell";
+import DateUpdatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnUpdatedCell";
 import ImageColumn from "@/components/backoffice/data-table-columns/ImageColumn";
 import TitleColumn from "@/components/backoffice/data-table-columns/TitleColumn";
 
@@ -24,6 +25,10 @@ export const columns = [
     header: ({ column }) => <TitleColumn column={column} title="รายละเอียด" />,
   },
   {
+    accessorKey: "creator",
+    header: ({ column }) => <TitleColumn column={column} title="ผู้สร้าง" />,
+  },
+  {
     accessorKey: "createdAt",
     header: ({ column }) => (
       <DateCreatedColumn column={column} title="วันที่สร้าง" />
@@ -32,19 +37,32 @@ export const columns = [
       <DateCreatedColumnCell row={row} accessorKey="createdAt" />
     ),
   },
-  // {
-  //   header: "Actions",
-  //   id: "actions",
-  //   cell: ({ row }) => {
-  //     const category = row.original;
-  //     return (
-  //       <ActionColumn
-  //         row={row}
-  //         title="Category"
-  //         endpoint={`admin/categories/${category.id}`}
-  //         editEndpoint={`admin/categories/update/${category.id}`}
-  //       />
-  //     );
-  //   },
-  // },
+  {
+    accessorKey: "updater",
+    header: ({ column }) => <TitleColumn column={column} title="ผู้อัพเดท" />,
+  },
+  {
+    accessorKey: "updatedAt",
+    header: ({ column }) => (
+      <DateCreatedColumn column={column} title="อัพเดท" />
+    ),
+    cell: ({ row }) => (
+      <DateUpdatedColumnCell row={row} accessorKey="updatedAt" />
+    ),
+  },
+  {
+    header: "จัดการ",
+    id: "actions",
+    cell: ({ row }) => {
+      const category = row.original;
+      return (
+        <ActionColumn
+          row={row}
+          title="หมวดหมู่"
+          endpoint={`admin/categories/${category.id}`}
+          editEndpoint={`categories/update/${category.id}`}
+        />
+      );
+    },
+  },
 ];

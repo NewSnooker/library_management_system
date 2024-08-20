@@ -23,7 +23,7 @@ export default function SelectInput({
           id={name}
           name={name}
           multiple={multiple}
-          className="appearance-none border bg-background text-muted-foreground px-1.5 sm:px-3 py-2 text-sm rounded-md"
+          className="appearance-none border bg-background text-muted-foreground px-1.5 sm:px-3 py-2 text-sm rounded-md w-full"
         >
           {options.map((option, i) => {
             return (

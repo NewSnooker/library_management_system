@@ -38,17 +38,21 @@ model User {
 }
 
 model UserProfile {
-  id             String  @id @default(auto()) @map("_id") @db.ObjectId
-  username       String
-  emailAddress   String
-  prefix         String?
-  fullName       String?
-  codeNumber     String?
-  phoneNumber    String?
-  educationLevel String?
-  educationYear  String?
-  description    String?
-  profileImage   String?
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
+  username        String
+  emailAddress    String
+  prefix          String?
+  fullName        String?
+  codeNumber      String?
+  phoneNumber     String?
+  educationLevel  String?
+  educationYear   String?
+  description     String?
+  profileImage    String?
+  updaterBook     Book[]     @relation(name: "updaterBook")
+  creatorBook     Book[]     @relation(name: "creatorBook")
+  creatorCategory Category[] @relation(name: "creatorCategory")
+  updaterCategory Category[] @relation(name: "updaterCategory")
 
   userId String @unique @db.ObjectId
   user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
@@ -64,45 +68,44 @@ model Category {
   imageUrl    String?
   description String?
 
-  book Book[] // 1 to Many  Category => Product
+  book      Book[]
+  creatorId String?      @db.ObjectId
+  updaterId String?      @db.ObjectId
+  creator   UserProfile? @relation(name: "creatorCategory", fields: [creatorId], references: [userId])
+  updater   UserProfile? @relation(name: "updaterCategory", fields: [updaterId], references: [userId])
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 }
 
 enum BookStatus {
-  AVAILABLE      // หนังสือพร้อมให้ยืม
-  BORROWED       // หนังสือถูกยืมไปแล้ว
-  OVERDUE        // หนังสือค้างคืนเกินกำหนด
-  LOST           // หนังสือสูญหาย
-  DAMAGED        // หนังสือชำรุดเสียหาย
-  NOT_AVAILABLE   // หนังสือไม่พร้อมให้ยืม
+  AVAILABLE // หนังสือพร้อมให้ยืม
+  BORROWED // หนังสือถูกยืมไปแล้ว
+  OVERDUE // หนังสือค้างคืนเกินกำหนด
+  LOST // หนังสือสูญหาย
+  DAMAGED // หนังสือชำรุดเสียหาย
+  NOT_AVAILABLE // หนังสือไม่พร้อมให้ยืม
 }
 
 model Book {
-  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
   title       String
-  slug        String       @unique
+  slug        String     @unique
+  price       Int
+  quantity    Int
   author      String
-  status      BookStatus   @default(NOT_AVAILABLE)
+  status      BookStatus @default(NOT_AVAILABLE)
   imageUrl    String?
-  imagesUrl   ImageItems[]
+  imageUrls   String[]
   description String?
-  categoryId  String       @db.ObjectId 
-  category    Category?    @relation(fields: [categoryId], references: [id]) 
+
+  updaterId  String?      @db.ObjectId
+  categoryId String       @db.ObjectId
+  creatorId  String?      @db.ObjectId
+  creator    UserProfile? @relation(name: "creatorBook", fields: [creatorId], references: [userId])
+  updater    UserProfile? @relation(name: "updaterBook", fields: [updaterId], references: [userId])
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-}
-
-model ImageItems {
-  id  String  @id @default(auto()) @map("_id") @db.ObjectId
-  key String?
-  url String?
-
-  bookId String? @db.ObjectId
-  book   Book?   @relation(fields: [bookId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  category  Category  @relation(fields: [categoryId], references: [id])
 }

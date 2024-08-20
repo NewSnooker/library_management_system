@@ -52,13 +52,13 @@ export default function ImageInput({
           onClientUploadComplete={(res) => {
             setImageUrl(res[0].url);
             // Do something with the response
-            toast.success("Upload Completed");
+            toast.success("อัพโหลดรูปภาพสำเร็จ");
             console.log("Files: ", res);
-            console.log("Upload Completed");
+            console.log("อัพโหลดรูปภาพสำเร็จ");
           }}
           onUploadError={(error) => {
             // Do something with the error.
-            toast.error("Upload Failed, Try Again");
+            toast.error("อัพโหลดรูปภาพไม่สำเร็จ");
             console.log(`ERROR! ${error.message}`, error);
           }}
         />

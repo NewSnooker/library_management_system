@@ -8,7 +8,7 @@ export async function GET(request, { params: { id } }) {
         id,
       },
       include: {
-        products: true,
+        book: true,
       },
     });
     if (!existingCategory) {
@@ -49,10 +49,6 @@ export async function DELETE(request, { params: { id } }) {
       where: {
         id,
       },
-      include: {
-        //เป็นการ cascade
-        products: true,
-      },
     });
     return NextResponse.json(deletedCategory);
   } catch (error) {
@@ -65,8 +61,7 @@ export async function DELETE(request, { params: { id } }) {
 }
 export async function PUT(request, { params: { id } }) {
   try {
-    const { title, slug, imageUrl, description } =
-      await request.json();
+    const { title, slug, imageUrl, description, adminId } = await request.json();
 
     const existingCategory = await db.category.findUnique({
       where: {
@@ -86,7 +81,7 @@ export async function PUT(request, { params: { id } }) {
       where: {
         id,
       },
-      data: { title, slug, imageUrl, description, },
+      data: { title, slug, imageUrl, description, updaterId: adminId },
     });
     return NextResponse.json(updateCategory);
   } catch (error) {

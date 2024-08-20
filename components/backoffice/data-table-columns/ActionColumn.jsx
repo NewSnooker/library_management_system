@@ -22,7 +22,7 @@ export default function ActionColumn({ row, title, endpoint, editEndpoint,images
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuLabel>{title}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <DeleteBtn endpoint={endpoint} title={title} imagesUrl={imagesUrl}/>

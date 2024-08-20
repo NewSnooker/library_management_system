@@ -1,50 +1,47 @@
 "use client";
 import { deleteImage } from "@/app/server/deleteImage";
+import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 
-export default function DeleteBtn({
-  endpoint,
-  title,
-  imagesUrl,
-}) {
+export default function DeleteBtn({ endpoint, title, imagesUrl }) {
   const [loading, setLoading] = useState(false);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const router = useRouter();
-
+  const dispatch = useDispatch();
   async function handleDelete() {
     setLoading(true);
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "คุณแน่ใจมั้ย??",
+      text: "คุณจะไม่สามารถย้อนกลับสิ่งนี้ได้!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "ใช่ ยืนยัน!",
+      cancelButtonText: "ยกเลิก",
     }).then(async (result) => {
       if (result.isConfirmed) {
-
-       if(imagesUrl && imagesUrl.length > 0 ){
-        const keyImageItems = imagesUrl.map((imageItem)=> imageItem.key)
-        deleteImage(keyImageItems);
-       }
+        dispatch(isLoading(true));
         const res = await fetch(`${baseUrl}/api/${endpoint}`, {
           method: "DELETE",
         });
-        console.log(res);
         if (res.ok) {
+          dispatch(isLoading(false));
           router.refresh();
           setLoading(false);
-          toast.success(`${title} Successfully Deleted`);
+          window.location.reload();
+          toast.success(`ลบ${title} สำเร็จ`);
         }
       } else {
+        dispatch(isLoading(false));
         router.refresh();
         setLoading(false);
-        toast.error(`Failed to Delete ${title}`);
+        toast.error(`ลบ${title} ไม่สำเร็จ`);
       }
     });
   }
@@ -73,7 +70,7 @@ export default function DeleteBtn({
               fill="currentColor"
             />
           </svg>
-          Deleting Please wait...
+          กำลังลบ{title}
         </button>
       ) : (
         <button
@@ -81,7 +78,7 @@ export default function DeleteBtn({
           className="font-medium text-red-600 dark:text-red-500 flex items-center "
         >
           <Trash2 className="mr-2 w-4 h-4" />
-          <span>Delete {title}</span>
+          <span>ลบ{title}</span>
         </button>
       )}
     </>

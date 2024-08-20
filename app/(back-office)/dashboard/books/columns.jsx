@@ -4,50 +4,62 @@ import ActionColumn from "@/components/backoffice/data-table-columns/ActionColum
 import DateCreatedColumn from "@/components/backoffice/data-table-columns/DateCreatedColumn";
 import DateCreatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnCell";
 import DateUpdatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnUpdatedCell";
+import ImageColumn from "@/components/backoffice/data-table-columns/ImageColumn";
 import TitleColumn from "@/components/backoffice/data-table-columns/TitleColumn";
 
 export const columns = [
   {
-    accessorKey: "name",
-    header: ({ column }) => <TitleColumn column={column} title="Name" />,
+    accessorKey: "imageUrl",
+    header: "รูปภาพ",
+    cell: ({ row }) => <ImageColumn row={row} accessorKey="imageUrl" />,
   },
   {
-    accessorKey: "email",
-    header: ({ column }) => <TitleColumn column={column} title="Email" />,
+    accessorKey: "title",
+    header: ({ column }) => <TitleColumn column={column} title="ชื่อ" />,
   },
+  //   {
+  //   accessorKey: "author",
+  //   header: ({ column }) => <TitleColumn column={column} title="ชื่อผู้แต่ง" />,
+  // },
   {
-    accessorKey: "role",
-    header: ({ column }) => <TitleColumn column={column} title="Role" />,
+    accessorKey: "creator",
+    header: ({ column }) => <TitleColumn column={column} title="ผู้สร้าง" />,
   },
   {
     accessorKey: "createdAt",
     header: ({ column }) => (
-      <DateCreatedColumn column={column} title="Date Created" />
+      <DateCreatedColumn column={column} title="สร้าง" />
     ),
     cell: ({ row }) => (
       <DateCreatedColumnCell row={row} accessorKey="createdAt" />
     ),
   },
   {
+    accessorKey: "updater",
+    header: ({ column }) => <TitleColumn column={column} title="ผู้อัพเดท" />,
+  },
+  {
     accessorKey: "updatedAt",
     header: ({ column }) => (
-      <DateCreatedColumn column={column} title="Updated" />
+      <DateCreatedColumn column={column} title="อัพเดท" />
     ),
     cell: ({ row }) => (
       <DateUpdatedColumnCell row={row} accessorKey="updatedAt" />
     ),
   },
+
+
   {
-    header: "Actions",
+    header: "จัดการ",
     id: "actions",
     cell: ({ row }) => {
-      const customer = row.original;
+      const book = row.original;
       return (
         <ActionColumn
           row={row}
-          title="Book"
-          endpoint={`users/${customer.id}`}
-          editEndpoint={`customers/update/${customer.id}`}
+          title="หนังสือ"
+          endpoint={`admin/books/${book.id}`}
+          editEndpoint={`books/update/${book.id}`}
           
         />
       );

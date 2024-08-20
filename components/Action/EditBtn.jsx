@@ -7,7 +7,7 @@ export default function EditBtn({ editEndpoint, title }) {
   return (
     <Link href={`${baseUrl}/dashboard/${editEndpoint}`} className=" flex items-center">
       <Pencil className="mr-2 w-4 h-4" />
-      <span>Edit {title}</span>
+      <span>แก้ไข{title}</span>
     </Link>
   );
 }

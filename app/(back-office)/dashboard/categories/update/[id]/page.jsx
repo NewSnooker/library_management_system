@@ -1,22 +1,41 @@
+"use client";
 import FormHeader from "@/components/backoffice/FormHeader";
 import CategoryForm from "@/components/backoffice/form/CategoryForm";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getData } from "@/lib/getData";
-import React, { Suspense } from "react";
-import Loading from "@/app/api/loading"; // นำเข้า Loading component
+import { useSession } from "next-auth/react";
+import React, { useEffect, useState } from "react";
 export const dynamic = "force-dynamic";
 // คอมโพเนนต์สำหรับดึงข้อมูลหมวดหมู่
-const CategoryData = async ({ id }) => {
-  const category = await getData(`/categories/${id}`);
-  return <CategoryForm updateData={category} />;
-};
 
 export default function UpdateCategory({ params: { id } }) {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { data: session, status } = useSession();
+  const adminId = session?.user?.id;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getData(`admin/categories/${id}`);
+        setCategories(data);
+      } catch (error) {
+        console.error("เกิดความเสียบางอย่างเกี่ยวกับข้อมูล:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div>
-      <FormHeader title="Update Category" />
-      <Suspense fallback={<Loading />}>
-        <CategoryData id={id} />
-      </Suspense>
+      <FormHeader title="แก้ไขหมวดหมู่" loading={loading} />
+      {loading ? (
+        <Skeleton className="w-full h-96 mb-2 " />
+      ) : (
+        <CategoryForm updateData={categories} adminId={adminId} />
+      )}
     </div>
   );
 }

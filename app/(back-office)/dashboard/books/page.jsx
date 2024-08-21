@@ -14,7 +14,7 @@ const Page = () => {
     const fetchData = async () => {
       try {
         const data = await getData("admin/books");
-        console.log(data);
+        // console.log(data);
         
         setBooks(data);
       } catch (error) {

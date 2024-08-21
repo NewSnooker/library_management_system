@@ -57,7 +57,7 @@ export const columns = [
       return (
         <ActionColumn
           row={row}
-          title="หมวดหมู่"
+          title="จัดการ"
           endpoint={`admin/categories/${category.id}`}
           editEndpoint={`categories/update/${category.id}`}
         />

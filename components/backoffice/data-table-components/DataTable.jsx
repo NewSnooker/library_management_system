@@ -88,7 +88,7 @@ export default function DataTable({ columns, data, filterKeys=[] }) {
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell className="max-w-12 overflow-hidden" key={cell.id}>
+                    <TableCell className=" overflow-hidden" key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

@@ -23,7 +23,7 @@ export default function UpdateBook({ params: { id } }) {
         const category = await getData("admin/categories");
         setCategories(category);
         setLoading(true);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("เกิดความเสียบางอย่างเกี่ยวกับข้อมูล:", error);
       } finally {

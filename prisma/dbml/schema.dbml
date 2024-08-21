@@ -60,7 +60,7 @@ Table Book {
   quantity Int [not null]
   remaining Int [not null]
   author String [not null]
-  status BookStatus [not null, default: 'NOT_AVAILABLE']
+  status BookStatus [not null, default: 'AVAILABLE']
   imageUrl String
   imageUrls String[] [not null]
   description String

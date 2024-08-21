@@ -1,6 +1,7 @@
 "use client";
 
 import ActionColumn from "@/components/backoffice/data-table-columns/ActionColumn";
+import ActionStatusColumn from "@/components/backoffice/data-table-columns/ActionStatusColumn";
 import DateCreatedColumn from "@/components/backoffice/data-table-columns/DateCreatedColumn";
 import DateCreatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnCell";
 import DateUpdatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnUpdatedCell";
@@ -32,8 +33,24 @@ export const columns = [
   {
     accessorKey: "status",
     header: ({ column }) => <TitleColumn column={column} title="สถานะ" />,
-    cell: ({ row }) => <StatusColumn row={row} accessorKey="status" />,
+    id: "status",
+    cell: ({ row }) => {
+      const book = row.original;
+      return (
+        <ActionStatusColumn
+          row={row}
+          title="สถานะ"
+          accessorKey="status"
+          bookId={book.id}
+        />
+      );
+    },
   },
+  // {
+  //   accessorKey: "status",
+  //   header: ({ column }) => <TitleColumn column={column} title="สถานะ" />,
+  //   cell: ({ row }) => <StatusColumn row={row} accessorKey="status" />,
+  // },
 
   //   {
   //   accessorKey: "author",
@@ -72,7 +89,7 @@ export const columns = [
       return (
         <ActionColumn
           row={row}
-          title="หนังสือ"
+          title="จัดการ"
           endpoint={`admin/books/${book.id}`}
           editEndpoint={`books/update/${book.id}`}
         />

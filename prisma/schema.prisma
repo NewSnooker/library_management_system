@@ -95,7 +95,7 @@ model Book {
   quantity    Int
   remaining    Int
   author      String
-  status      BookStatus @default(NOT_AVAILABLE)
+  status      BookStatus @default(AVAILABLE)
   imageUrl    String?
   imageUrls   String[]
   description String?

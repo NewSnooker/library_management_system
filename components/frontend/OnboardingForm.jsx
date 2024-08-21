@@ -121,7 +121,7 @@ export default function OnboardingForm({ id }) {
             name="prefix"
             register={register}
             errors={errors}
-            className=""
+            className="20"
             options={prefix}
           />
           <TextInput
@@ -139,7 +139,7 @@ export default function OnboardingForm({ id }) {
               name="educationLevel"
               register={register}
               errors={errors}
-              className=""
+              className="w-9"
               options={educationLevel}
             />
             <SelectInput
@@ -147,7 +147,7 @@ export default function OnboardingForm({ id }) {
               name="educationYear"
               register={register}
               errors={errors}
-              className="min-w-7"
+              className="w-16"
               options={availableYears}
             />
           </div>

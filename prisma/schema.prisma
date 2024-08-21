@@ -93,6 +93,7 @@ model Book {
   slug        String     @unique
   price       Int
   quantity    Int
+  remaining    Int
   author      String
   status      BookStatus @default(NOT_AVAILABLE)
   imageUrl    String?

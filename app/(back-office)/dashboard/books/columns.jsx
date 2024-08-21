@@ -5,6 +5,8 @@ import DateCreatedColumn from "@/components/backoffice/data-table-columns/DateCr
 import DateCreatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnCell";
 import DateUpdatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnUpdatedCell";
 import ImageColumn from "@/components/backoffice/data-table-columns/ImageColumn";
+import NumberColumn from "@/components/backoffice/data-table-columns/NumberColumn";
+import StatusColumn from "@/components/backoffice/data-table-columns/StatusColumn";
 import TitleColumn from "@/components/backoffice/data-table-columns/TitleColumn";
 
 export const columns = [
@@ -17,6 +19,22 @@ export const columns = [
     accessorKey: "title",
     header: ({ column }) => <TitleColumn column={column} title="ชื่อ" />,
   },
+  {
+    accessorKey: "price",
+    header: ({ column }) => <TitleColumn column={column} title="ราคา" />,
+    cell: ({ row }) => <NumberColumn row={row} accessorKey="price" />,
+  },
+  {
+    accessorKey: "quantity",
+    header: ({ column }) => <TitleColumn column={column} title="จํานวน" />,
+    cell: ({ row }) => <NumberColumn row={row} accessorKey="quantity" />,
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => <TitleColumn column={column} title="สถานะ" />,
+    cell: ({ row }) => <StatusColumn row={row} accessorKey="status" />,
+  },
+
   //   {
   //   accessorKey: "author",
   //   header: ({ column }) => <TitleColumn column={column} title="ชื่อผู้แต่ง" />,
@@ -27,9 +45,7 @@ export const columns = [
   },
   {
     accessorKey: "createdAt",
-    header: ({ column }) => (
-      <DateCreatedColumn column={column} title="สร้าง" />
-    ),
+    header: ({ column }) => <DateCreatedColumn column={column} title="สร้าง" />,
     cell: ({ row }) => (
       <DateCreatedColumnCell row={row} accessorKey="createdAt" />
     ),
@@ -48,7 +64,6 @@ export const columns = [
     ),
   },
 
-
   {
     header: "จัดการ",
     id: "actions",
@@ -60,7 +75,6 @@ export const columns = [
           title="หนังสือ"
           endpoint={`admin/books/${book.id}`}
           editEndpoint={`books/update/${book.id}`}
-          
         />
       );
     },

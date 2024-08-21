@@ -20,6 +20,7 @@ export async function POST(request) {
       slug,
       price: parseInt(price),
       quantity: parseInt(quantity),
+      remaining: parseInt(quantity),
       author,
       imageUrl,
       imageUrls,

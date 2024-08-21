@@ -19,11 +19,10 @@ export const columns = [
     accessorKey: "title",
     header: ({ column }) => <TitleColumn column={column} title="ชื่อหมวดหมู่" />,
   },
-
-  {
-    accessorKey: "description",
-    header: ({ column }) => <TitleColumn column={column} title="รายละเอียด" />,
-  },
+  // {
+  //   accessorKey: "description",
+  //   header: ({ column }) => <TitleColumn column={column} title="รายละเอียด" />,
+  // },
   {
     accessorKey: "creator",
     header: ({ column }) => <TitleColumn column={column} title="ผู้สร้าง" />,

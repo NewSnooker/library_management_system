@@ -23,7 +23,7 @@ export default function BookForm({
   const initialImageUrls = updateData?.imageUrls ?? "";
   const id = updateData?.id ?? "";
   const [imageUrls, setImageUrls] = useState(initialImageUrls);
-  
+
   const {
     register,
     reset,
@@ -48,7 +48,7 @@ export default function BookForm({
       toast.error("กรุณาเลือกรูปภาพ");
       setLoading(false);
       return;
-    };
+    }
 
     const slug = generateSlug(data.title);
     data.slug = slug;
@@ -116,14 +116,25 @@ export default function BookForm({
           register={register}
           errors={errors}
         />
-        <SelectInput
-          label="หมวดหมู่"
-          name="categoryId"
-          register={register}
-          errors={errors}
-          className="w-1/2"
-          options={categories}
-        />
+        <div className="grid gap-2 grid-cols-2">
+          <SelectInput
+            label="หมวดหมู่"
+            name="categoryId"
+            register={register}
+            errors={errors}
+            className="w-full"
+            options={categories}
+          />
+          {id && (
+            <TextInput
+              label="จำนวนคงเหลือ"
+              name="remaining"
+              type="number"
+              register={register}
+              errors={errors}
+            />
+          )}
+        </div>
 
         <TextAreaInput
           label="รายละเอียดหนังสือ"
@@ -144,9 +155,7 @@ export default function BookForm({
           <SubmitButton
             isLoading={loading}
             buttonTitle={id ? "อัพเดตหนังสือ" : "เพิ่มหนังสือ"}
-            LoadingButtonTitle={
-              id ? "กำลังอัพเดตหนังสือ" : "กำลังเพิ่มหนังสือ"
-            }
+            LoadingButtonTitle={id ? "กำลังอัพเดตหนังสือ" : "กำลังเพิ่มหนังสือ"}
           />
         </div>
       </div>

@@ -42,15 +42,15 @@ export default function RegisterForm() {
         setEmailErr("");
         setLoading(false);
         dispatch(isLoading(false));
-        toast.success("User Created Successfully");
+        toast.success("สร้างบัญชีผู้ใช้สําเร็จ");
         reset();
         router.push(`/verify-email`);
       } else {
         setLoading(false);
         dispatch(isLoading(false));
         if (response.status === 409) {
-          setEmailErr("User with this Email already exists");
-          toast.error("User with this Email already exists");
+          setEmailErr("มีบัญชีในระบบแล้ว");
+          toast.error("มีบัญชีในระบบแล้ว");
         } else {
           console.error("Server Error:", responseData.error || responseData);
           toast.error("Oops Something Went wrong");
@@ -60,7 +60,7 @@ export default function RegisterForm() {
       setLoading(false);
       dispatch(isLoading(false));
       console.error("Network Error:", error);
-      toast.error("Something Went wrong, Please Try Again");
+      toast.error("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
     }
   }
   return (

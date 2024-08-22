@@ -35,12 +35,12 @@ export default function LoginForm() {
         ...data,
         redirect: false,
       });
-      console.log("SignIn response:", loginData);
+      // console.log("SignIn response:", loginData);
   
       if (loginData?.error) {
         setLoading(false);
         dispatch(isLoading(false));
-        toast.error(`Sign-in error: ${loginData.error}`);
+        toast.error(`เข้าสู่ระบบไม่สำเร็จ: ${loginData.error}`);
       } 
 
       else {
@@ -51,13 +51,13 @@ export default function LoginForm() {
         onSuccess()
         
         dispatch(isLoading(false));
-        toast.success("Login Successful");
+        toast.success("เข้าสู่ระบบสำเร็จ");
       }
     } catch (error) {
       setLoading(false);
       dispatch(isLoading(false));
       console.error("Network Error:", error);
-      toast.error("Its seems something is wrong with your Network");
+      toast.error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
     }
   }
 
@@ -73,7 +73,7 @@ export default function LoginForm() {
           name="email"
           id="email"
           className=""
-          placeholder="your@gmail.com"
+          placeholder="ใส่ email"
         />
         {errors.email && (
           <small className="text-red-600 text-sm ">

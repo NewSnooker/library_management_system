@@ -13,7 +13,6 @@ import { makePutRequest } from "@/lib/apiRequest";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
 import { queryClient } from "@/lib/react-query-client";
 
 export default function ActionStatusColumn({
@@ -30,7 +29,7 @@ export default function ActionStatusColumn({
     return toast.error("Id Admin ไม่ถูกต้อง");
   }
   const dispatch = useDispatch();
-  const router = useRouter();
+
 
   const bookStatuses = {
     AVAILABLE: "พร้อมให้ยืม",

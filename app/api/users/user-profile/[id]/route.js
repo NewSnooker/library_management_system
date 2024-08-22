@@ -79,6 +79,16 @@ export async function PUT(request, { params: { id } }) {
         profileImage,
       },
     });
+    const updateUser = await db.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        username,
+        email: emailAddress,
+      },
+    });
+    console.log(updateUser);
     return NextResponse.json(updatedUserProfile);
   } catch (error) {
     console.log(error);

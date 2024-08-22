@@ -10,6 +10,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
 import { useDispatch } from "react-redux";
+import { queryClient } from "@/lib/react-query-client";
 export default function LoginForm() {
   const router = useRouter();
   const {
@@ -20,7 +21,11 @@ export default function LoginForm() {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
+  const onSuccess = () => {
+    queryClient.invalidateQueries(["userProfile"]);
+    router.push("/home");
+    router.refresh();
+  };
   async function onSubmit(data) {
     try {
       setLoading(true);
@@ -43,9 +48,7 @@ export default function LoginForm() {
         reset();
         router.push("/home");
         setLoading(false);
-        setTimeout(()=>{
-          window.location.reload();
-        }, 2000);
+        onSuccess()
         
         dispatch(isLoading(false));
         toast.success("Login Successful");

@@ -54,6 +54,8 @@ export async function PUT(request) {
       },
       data: {
         emailVerified: true,
+        username,
+        email: emailAddress,
       },
     });
 

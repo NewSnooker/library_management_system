@@ -1,5 +1,5 @@
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -15,28 +15,35 @@ import {
 import Image from "next/image";
 import { getData } from "@/lib/getData";
 import { generateInitials } from "@/lib/generateInitials";
-import Link from "next/link";
 import SwitchTheme from "@/components/SwitchTheme";
 import SignOutButton from "../SignOutButton";
 import { BorderBeam } from "@/components/magicui/border-beam";
-export async function NavAvatar({ session }) {
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@/components/ui/skeleton";
+
+export function NavAvatar({ session }) {
   const { id, role } = session?.user;
+
   const {
-    username,
-    emailAddress,
-    prefix,
-    fullName,
-    codeNumber,
-    phoneNumber,
-    educationLevel,
-    educationYear,
-    description,
-    profileImage,
-  } = await getData(`users/user-profile/${id}`);
+    data: userProfile,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["userProfile"],
+    queryFn: () => getData(`users/user-profile/${id}`),
+  });
+
+  const username = userProfile?.username || "";
+  const emailAddress = userProfile?.emailAddress || "";
+  const fullName = userProfile?.fullName || "";
+  const codeNumber = userProfile?.codeNumber || "";
+  const phoneNumber = userProfile?.phoneNumber || "";
+  const description = userProfile?.description || "";
+  const profileImage = userProfile?.profileImage || "";
+  const initial = generateInitials(username);
   const roleAdmin = role === "ADMIN";
 
-  const initial = generateInitials(username);
-
+  if (isLoading) return <Skeleton className="w-[40px] h-[40px] rounded-full border" />;
   return (
     <Sheet>
       <SheetTrigger>
@@ -74,7 +81,9 @@ export async function NavAvatar({ session }) {
             </div>
           </div>
           <div className="flex justify-center items-center pb-4">
-            <SheetTitle>{roleAdmin?("Admin"):""} {username}</SheetTitle>
+            <SheetTitle>
+              {roleAdmin ? "Admin" : ""} {username}
+            </SheetTitle>
           </div>
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>

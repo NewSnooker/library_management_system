@@ -14,9 +14,12 @@ import SelectInput from "@/components/formInputs/SelectInput";
 import TextAreaInput from "@/components/formInputs/TextArealInput";
 import { getData } from "@/lib/getData";
 import { useDispatch } from "react-redux";
+import { queryClient } from "@/lib/react-query-client";
+import { useQuery } from "@tanstack/react-query";
 import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
 export default function SettingProfile({ params: { id } }) {
   const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -55,23 +58,33 @@ export default function SettingProfile({ params: { id } }) {
     }
   }, [selectedEducationLevel]);
 
-  async function fetchProfileData() {
-    try {
-      dispatch(isLoading(true));
-      const data = await getData(`users/user-profile/${id}`);
-      setImageUrl(data?.profileImage);
-      reset(data);
+  const {
+    data: userProfile,
+    error,
+  } = useQuery({
+    queryKey: ["userProfile"],
+    queryFn: () => getData(`users/user-profile/${id}`),
+  });
+
+  useEffect(() => {
+    dispatch(isLoading(true));
+    if (userProfile) {
+      setImageUrl(userProfile.profileImage);
+      reset(userProfile);
       dispatch(isLoading(false));
-    } catch (error) {
-      console.error("Error fetching profile data:", error);
-      dispatch(isLoading(false));
-      toast.error("Failed to load profile data");
     }
-  }
+  }, [userProfile, reset]);
+
   useEffect(() => {
     AOS.init();
-    fetchProfileData();
   }, []);
+
+  const onSuccess = () => {
+    queryClient.invalidateQueries(["userProfile"]);
+    router.push("/home");
+    router.refresh();
+  };
+
 
   async function onSubmit(data) {
     try {
@@ -90,12 +103,9 @@ export default function SettingProfile({ params: { id } }) {
       if (response.ok) {
         setLoading(false);
         dispatch(isLoading(false));
-        toast.success("User Profile Updated Successfully");
         reset();
-        router.push(`/home`);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
+        onSuccess()
+        toast.success("User Profile Updated Successfully");
       } else {
         setLoading(false);
         dispatch(isLoading(false));

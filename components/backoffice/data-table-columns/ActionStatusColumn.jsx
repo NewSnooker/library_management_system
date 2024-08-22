@@ -51,14 +51,9 @@ export default function ActionStatusColumn({
     DAMAGED: "text-red-600 dark:text-red-500",
     LOST: "text-red-600 dark:text-red-500",
   };
-  const redirect = async () => {
-    window.location.reload();
-    router.refresh();
-  }
+
   const onSuccess = () => {
     queryClient.invalidateQueries(["books"]);
-    router.push("/dashboard/books");
-    router.refresh();
   };
 
   const onSubmit = async (data) => {

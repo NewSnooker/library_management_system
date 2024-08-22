@@ -7,7 +7,6 @@ import DateCreatedColumnCell from "@/components/backoffice/data-table-columns/Da
 import DateUpdatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnUpdatedCell";
 import ImageColumn from "@/components/backoffice/data-table-columns/ImageColumn";
 import NumberColumn from "@/components/backoffice/data-table-columns/NumberColumn";
-import StatusColumn from "@/components/backoffice/data-table-columns/StatusColumn";
 import TitleColumn from "@/components/backoffice/data-table-columns/TitleColumn";
 
 export const columns = [

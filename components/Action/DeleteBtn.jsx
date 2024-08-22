@@ -36,8 +36,8 @@ export default function DeleteBtn({ endpoint, title ,refreshQueryKey}) {
           method: "DELETE",
         });
         if (res.ok) {
-          setLoading(false);
           onSuccess();
+          setLoading(false);
           dispatch(isLoading(false));
           // window.location.reload();
           toast.success(`ลบ${title} สำเร็จ`);

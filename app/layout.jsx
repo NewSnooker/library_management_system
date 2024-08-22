@@ -1,7 +1,7 @@
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import Providers from "@/context/Providers";
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,8 +22,7 @@ export default function RootLayout({ children }) {
           fontSans.variable
         )}
       >
-        
-        <Providers attribute="class" defaultTheme="system" enableSystem>
+        <Providers>
           {children}
         </Providers>
       </body>

@@ -40,9 +40,9 @@ export default function LoginForm() {
 
       else {
         // Sign-in was successful
-        setLoading(false);
         reset();
         router.push("/home");
+        setLoading(false);
         setTimeout(()=>{
           window.location.reload();
         }, 2000);

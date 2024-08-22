@@ -13,8 +13,8 @@ import { makePutRequest } from "@/lib/apiRequest";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
 import { useRouter } from "next/navigation";
+import { queryClient } from "@/lib/react-query-client";
 
 export default function ActionStatusColumn({
   row,
@@ -23,7 +23,6 @@ export default function ActionStatusColumn({
   bookId,
 }) {
   const status = row.getValue(`${accessorKey}`);
-  //   console.log(status);
 
   const { data: session } = useSession();
   const adminId = session?.user?.id;
@@ -56,17 +55,22 @@ export default function ActionStatusColumn({
     window.location.reload();
     router.refresh();
   }
+  const onSuccess = () => {
+    queryClient.invalidateQueries(["books"]);
+    router.push("/dashboard/books");
+    router.refresh();
+  };
+
   const onSubmit = async (data) => {
     data.adminId = adminId;
     console.log(data);
 
     makePutRequest(
-      () => {}, // No-op setLoading function
       `api/admin/books/status/${bookId}`,
       data,
       "สถานะหนังสือ",
+      onSuccess,
       () => {}, // No-op reset function
-      redirect, // No-op  function
       dispatch
     );
     

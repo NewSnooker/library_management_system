@@ -1,22 +1,71 @@
 "use client";
-import { getData } from "@/lib/getData";
 import React, { useEffect, useState } from "react";
-import TextInput from "../formInputs/TextInput";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import SelectInput from "../formInputs/SelectInput";
 import { Button } from "../ui/button";
-import { makePutRequest } from "@/lib/apiRequest";
-import { CircleChevronRight } from "lucide-react";
+import SelectInput from "../formInputs/SelectInput";
+import TextInput from "../formInputs/TextInput";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
+import { getData } from "@/lib/getData";
+import { makePutRequest } from "@/lib/apiRequest";
+
+// Fetch user data
+const fetchUser = async (id) => {
+  const userResponse = await getData(`users/${id}`);
+  if (userResponse.status === 500) {
+    throw new Error("ID ของคุณไม่ถูกต้อง");
+  }
+  return userResponse;
+};
 
 export default function OnboardingForm({ id }) {
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
+  const [availableYears, setAvailableYears] = useState([]);
 
+  // Query to fetch user data
+  const {
+    data: user,
+    isLoading: userLoading,
+    error: userError,
+  } = useQuery({
+    queryKey: ["user", id],
+    queryFn: () => fetchUser(id),
+    onSuccess: (data) => {
+      reset({
+        username: data.username,
+        emailAddress: data.email,
+      });
+    },
+    onError: (error) => {
+      dispatch(isLoading(false));
+      toast.error(error.message || "ID ของคุณไม่ถูกต้อง");
+    },
+  });
+
+  // Mutation to update user data
+  const mutation = useMutation({
+    mutationFn: (data) => {
+      return makePutRequest(data, "api/users/user-profile", "User Profile");
+    },
+    onSuccess: () => {
+      toast.success("Profile updated successfully");
+      router.replace("/login");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to update profile");
+    },
+  });
 
   const prefix = [
     { id: "นาย", title: "นาย" },
@@ -34,69 +83,31 @@ export default function OnboardingForm({ id }) {
     { id: "3", title: "3" },
   ];
 
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm();
-
-  const [availableYears, setAvailableYears] = useState(educationYear);
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
-  const getUser = async () => {
-    try {
-      dispatch(isLoading(true));
-      const userResponse = await getData(`users/${id}`);
-      if (userResponse.status === 500) {
-        console.error("ID ของคุณไม่ถูกต้อง");
-        toast.error("ID ของคุณไม่ถูกต้อง");
-        dispatch(isLoading(false));
-        return;
-      }
-      reset({
-        username: userResponse.username,
-        emailAddress: userResponse.email,
-      });
-      dispatch(isLoading(false));
-    } catch (error) {
-      dispatch(isLoading(false));
-      console.error("ID ของคุณไม่ถูกต้อง", error);
-      toast.error("ID ของคุณไม่ถูกต้อง");
-    }
-  };
-
   const selectedEducationLevel = watch("educationLevel");
+
   useEffect(() => {
     if (selectedEducationLevel === "ปวช") {
-      setAvailableYears(educationYear); // สามารถเลือกปี 1, 2, 3
-    } else if (selectedEducationLevel === "ปวส") {
-      setAvailableYears(educationYear.slice(0, 2)); // สามารถเลือกปี 1, 2
-    } else if (selectedEducationLevel === "ป.ตรี") {
-      setAvailableYears(educationYear.slice(0, 2)); // สามารถเลือกปี 1, 2
+      setAvailableYears(educationYear);
+    } else if (
+      selectedEducationLevel === "ปวส" ||
+      selectedEducationLevel === "ป.ตรี"
+    ) {
+      setAvailableYears(educationYear.slice(0, 2));
     }
   }, [selectedEducationLevel]);
 
-  const redirect = () => {
-    router.replace("/login");
+  const onSubmit = (data) => {
+    data.userId = id;
+    mutation.mutate(data);
   };
 
-  const onSubmit = async (data) => {
-    data.userId = id;
-     makePutRequest(
-      setLoading,
-      "api/users/user-profile",
-      data,
-      "User Profile",
-      reset,
-      redirect,
-      dispatch
-    );
-  };
+  if (userLoading) {
+    return <div>Loading user data...</div>;
+  }
+
+  if (userError) {
+    return <div>Error: {userError.message}</div>;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -172,8 +183,8 @@ export default function OnboardingForm({ id }) {
         />
       </div>
       <div className="flex justify-end mt-4">
-        {loading ? (
-          <Button type="button" disabled className="btn btn-active   ">
+        {mutation.isLoading ? (
+          <Button type="button" disabled className="btn btn-active">
             <svg
               aria-hidden="true"
               role="status"
@@ -194,9 +205,7 @@ export default function OnboardingForm({ id }) {
             กำลังดำเนินการ
           </Button>
         ) : (
-          <Button type="submit" className="">
-            ยืนยัน
-          </Button>
+          <Button type="submit">ยืนยัน</Button>
         )}
       </div>
     </form>

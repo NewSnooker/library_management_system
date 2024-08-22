@@ -11,11 +11,12 @@ import SelectInput from "@/components/formInputs/SelectInput";
 import SubmitButton from "@/components/formInputs/SubmitButton";
 import TextAreaInput from "@/components/formInputs/TextArealInput";
 import TextInput from "@/components/formInputs/TextInput";
+import { queryClient } from "@/lib/react-query-client";
+import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
 
 export default function BookForm({
   updateData = {},
   categories,
-  setLoading,
   loading,
   adminId,
 }) {
@@ -23,6 +24,10 @@ export default function BookForm({
   const initialImageUrls = updateData?.imageUrls ?? "";
   const id = updateData?.id ?? "";
   const [imageUrls, setImageUrls] = useState(initialImageUrls);
+
+  if(loading){
+    dispatch(isLoading(true));
+  }
 
   const {
     register,
@@ -37,16 +42,15 @@ export default function BookForm({
   });
 
   const router = useRouter();
-  const redirect = () => {
+  const onSuccess = () => {
+    queryClient.invalidateQueries(["books"]);
     router.push("/dashboard/books");
     router.refresh();
   };
 
   const onSubmit = async (data) => {
-    setLoading(true);
     if (imageUrls === undefined || imageUrls.length === 0) {
       toast.error("กรุณาเลือกรูปภาพ");
-      setLoading(false);
       return;
     }
 
@@ -57,26 +61,23 @@ export default function BookForm({
 
     if (id) {
       makePutRequest(
-        setLoading,
         `api/admin/books/${id}`,
         data,
         "หนังสือ",
+        onSuccess,
         reset,
-        redirect,
         dispatch
       );
     } else {
       makePostRequest(
-        setLoading,
         "api/admin/books",
         data,
         "หนังสือ",
+        onSuccess,
         reset,
-        redirect,
         dispatch
       );
     }
-
     setImageUrls("");
   };
   return (
@@ -153,9 +154,7 @@ export default function BookForm({
 
         <div className="col-span-full flex justify-end">
           <SubmitButton
-            isLoading={loading}
             buttonTitle={id ? "อัพเดตหนังสือ" : "เพิ่มหนังสือ"}
-            LoadingButtonTitle={id ? "กำลังอัพเดตหนังสือ" : "กำลังเพิ่มหนังสือ"}
           />
         </div>
       </div>

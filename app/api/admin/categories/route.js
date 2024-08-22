@@ -48,7 +48,7 @@ export async function GET(request) {
   try {
     const category = await db.category.findMany({
       orderBy: {
-        title: "desc",
+        createdAt: "desc",
       },
       include: {
         book: true,

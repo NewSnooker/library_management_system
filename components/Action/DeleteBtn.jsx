@@ -1,5 +1,6 @@
 "use client";
 import { deleteImage } from "@/app/server/deleteImage";
+import { queryClient } from "@/lib/react-query-client";
 import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -8,11 +9,15 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 
-export default function DeleteBtn({ endpoint, title, imagesUrl }) {
+export default function DeleteBtn({ endpoint, title ,refreshQueryKey}) {
   const [loading, setLoading] = useState(false);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const router = useRouter();
   const dispatch = useDispatch();
+  const onSuccess = () => {
+    queryClient.invalidateQueries([`${refreshQueryKey}`]);
+    router.refresh();
+  };
   async function handleDelete() {
     setLoading(true);
     Swal.fire({
@@ -31,10 +36,10 @@ export default function DeleteBtn({ endpoint, title, imagesUrl }) {
           method: "DELETE",
         });
         if (res.ok) {
-          dispatch(isLoading(false));
-          router.refresh();
           setLoading(false);
-          window.location.reload();
+          onSuccess();
+          dispatch(isLoading(false));
+          // window.location.reload();
           toast.success(`ลบ${title} สำเร็จ`);
         }
       } else {

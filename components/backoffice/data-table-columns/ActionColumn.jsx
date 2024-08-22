@@ -12,7 +12,7 @@ import { MoreHorizontal } from "lucide-react";
 import DeleteBtn from "@/components/Action/DeleteBtn";
 import EditBtn from "@/components/Action/EditBtn";
 
-export default function ActionColumn({ row, title, endpoint, editEndpoint,imagesUrl }) {
+export default function ActionColumn({ row, title, endpoint, editEndpoint,refreshQueryKey }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,7 +25,7 @@ export default function ActionColumn({ row, title, endpoint, editEndpoint,images
         <DropdownMenuLabel>{title}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <DeleteBtn endpoint={endpoint} title={title} imagesUrl={imagesUrl}/>
+          <DeleteBtn endpoint={endpoint} title={title} refreshQuery={refreshQueryKey}/>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <EditBtn editEndpoint={editEndpoint} title={title} />

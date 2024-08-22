@@ -9,15 +9,17 @@ import ImageInput from "@/components/formInputs/ImageInput";
 import SubmitButton from "@/components/formInputs/SubmitButton";
 import TextAreaInput from "@/components/formInputs/TextArealInput";
 import TextInput from "@/components/formInputs/TextInput";
+import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
+import { queryClient } from "@/lib/react-query-client";
 
-export default function CategoryForm({ updateData = {}, adminId }) {
+export default function CategoryForm({ updateData = {}, loading, adminId }) {
   const dispatch = useDispatch();
   const initialImageUrl = updateData?.imageUrl ?? "";
   const id = updateData?.id ?? "";
-
   const [imageUrl, setImageUrl] = useState(initialImageUrl);
-  const [loading, setLoading] = useState(false);
-
+  if(loading){
+    dispatch(isLoading(true));
+  }
   const {
     register,
     reset,
@@ -31,13 +33,13 @@ export default function CategoryForm({ updateData = {}, adminId }) {
   });
 
   const router = useRouter();
-  const redirect = () => {
+  const onSuccess = () => {
+    queryClient.invalidateQueries(["categories"]);
     router.push("/dashboard/categories");
     router.refresh();
   };
 
   const onSubmit = async (data) => {
-    setLoading(true);
     const slug = generateSlug(data.title);
     data.slug = slug;
     data.imageUrl = imageUrl;
@@ -46,26 +48,23 @@ export default function CategoryForm({ updateData = {}, adminId }) {
 
     if (id) {
       makePutRequest(
-        setLoading,
         `api/admin/categories/${id}`,
         data,
         "หมู่หมวดหมู่",
+        onSuccess,
         reset,
-        redirect,
         dispatch
       );
     } else {
       makePostRequest(
-        setLoading,
         "api/admin/categories",
         data,
         "หมู่หมวดหมู่",
+        onSuccess,
         reset,
-        redirect,
         dispatch
       );
     }
-
     setImageUrl("");
   };
   return (
@@ -97,13 +96,7 @@ export default function CategoryForm({ updateData = {}, adminId }) {
         />
 
         <div className="col-span-full flex justify-end">
-          <SubmitButton
-            isLoading={loading}
-            buttonTitle={id ? "อัพเดตหมวดหมู่" : "สร้างหมวดหมู่"}
-            LoadingButtonTitle={
-              id ? "กำลังอัพเดตหมวดหมู่" : "กำลังสร้างหมวดหมู่"
-            }
-          />
+          <SubmitButton buttonTitle={id ? "อัพเดตหมวดหมู่" : "สร้างหมวดหมู่"} />
         </div>
       </div>
     </form>

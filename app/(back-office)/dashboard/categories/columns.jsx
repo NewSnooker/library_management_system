@@ -58,6 +58,7 @@ export const columns = [
         <ActionColumn
           row={row}
           title="จัดการ"
+          refreshQueryKey="categories"
           endpoint={`admin/categories/${category.id}`}
           editEndpoint={`categories/update/${category.id}`}
         />

@@ -1,50 +1,39 @@
 "use client";
+
+import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import FormHeader from "@/components/backoffice/FormHeader";
 import BookForm from "@/components/backoffice/form/BookForm";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getData } from "@/lib/getData";
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 
 export default function UpdateBook({ params: { id } }) {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const adminId = session?.user?.id;
 
-  const [loading, setLoading] = useState(true);
-  const [books, setBooks] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const { data: book, isLoading: isBookLoading } = useQuery({
+    queryKey: ["book", id],
+    queryFn: () => getData(`admin/books/${id}`),
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const data = await getData(`admin/books/${id}`);
-        setBooks(data);
-        const category = await getData("admin/categories");
-        setCategories(category);
-        setLoading(true);
-        // console.log(data);
-      } catch (error) {
-        console.error("เกิดความเสียบางอย่างเกี่ยวกับข้อมูล:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const { data: categories, isLoading: isCategoriesLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () => getData("admin/categories"),
+  });
 
-    fetchData();
-  }, []);
+  const isLoading = isBookLoading || isCategoriesLoading;
+
   return (
     <div>
-      <FormHeader title="แก้ไขหนังสือ" loading={loading} />
-      {loading ? (
-        <Skeleton className="w-full h-96 mb-2 " />
+      <FormHeader title="แก้ไขหนังสือ" loading={isLoading} />
+      {isLoading ? (
+        <Skeleton className="w-full h-96 mb-2" />
       ) : (
         <BookForm
           adminId={adminId}
-          loading={loading}
-          updateData={books}
+          loading={isLoading}
+          updateData={book}
           categories={categories}
-          setLoading={setLoading}
         />
       )}
     </div>

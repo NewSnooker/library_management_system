@@ -62,6 +62,7 @@ export default function MultipleImageInput({
                 alt="Item image"
                 width={1000}
                 height={667}
+                loading="lazy"
                 className="w-full h-auto sm:h-32 object-cover rounded-sm"
               />
             </div>

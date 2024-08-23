@@ -20,7 +20,7 @@ export default async function Navbar({ className }) {
       <div className="block lg:hidden">
         <HamburgerMenu />
       </div>
-      <Link href="/" className="text-3xl flex items-center gap-2">
+      <Link href="/home" className="text-3xl flex items-center gap-2">
         <BookOpen width={26} height={26} className="text-custom-text" />
         <SparklesTextDemo text={"LMS"} />
       </Link>

@@ -43,7 +43,8 @@ export function NavAvatar({ session }) {
   const initial = generateInitials(username);
   const roleAdmin = role === "ADMIN";
 
-  if (isLoading) return <Skeleton className="w-[40px] h-[40px] rounded-full border" />;
+  if (isLoading)
+    return <Skeleton className="w-[40px] h-[40px] rounded-full border" />;
   return (
     <Sheet>
       <SheetTrigger>

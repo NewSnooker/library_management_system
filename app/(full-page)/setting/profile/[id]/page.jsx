@@ -105,7 +105,7 @@ export default function SettingProfile({ params: { id } }) {
         dispatch(isLoading(false));
         reset();
         onSuccess()
-        toast.success("User Profile Updated Successfully");
+        toast.success("อัพเดตโปร์ไฟล์สําเร็จ");
       } else {
         setLoading(false);
         dispatch(isLoading(false));

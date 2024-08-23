@@ -30,16 +30,16 @@ export const columns = [
     cell: ({ row }) => <NumberColumn row={row} accessorKey="quantity" />,
   },
   {
-    accessorKey: "status",
+    accessorKey: "active",
     header: ({ column }) => <TitleColumn column={column} title="สถานะ" />,
-    id: "status",
+    id: "active",
     cell: ({ row }) => {
       const book = row.original;
       return (
         <ActionStatusColumn
           row={row}
           title="สถานะ"
-          accessorKey="status"
+          accessorKey="active"
           bookId={book.id}
         />
       );
@@ -88,7 +88,7 @@ export const columns = [
       return (
         <ActionColumn
           row={row}
-          title="จัดการ"
+          title="หนังสือ"
           refreshQueryKey="books"
           endpoint={`admin/books/${book.id}`}
           editEndpoint={`books/update/${book.id}`}

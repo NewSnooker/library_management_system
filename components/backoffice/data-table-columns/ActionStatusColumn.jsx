@@ -30,25 +30,16 @@ export default function ActionStatusColumn({
   }
   const dispatch = useDispatch();
 
-
   const bookStatuses = {
-    AVAILABLE: "พร้อมให้ยืม",
-    BORROWED: "ถูกยืมไปแล้ว",
-    NOT_AVAILABLE: "ไม่พร้อมยืม",
-    OVERDUE: "ค้างคืนเกินกำหนด",
-    DAMAGED: "ชำรุดเสียหาย",
-    LOST: "สูญหาย",
+    true: "พร้อมให้ยืม",
+    false: "ยังไม่พร้อมให้ยืม",
   };
 
   const statusLabel = bookStatuses[status] || "ไม่พบสถานะ";
 
   const statusColors = {
-    AVAILABLE: "text-green-700 dark:text-green-500",
-    BORROWED: "text-yellow-600 dark:text-yellow-500",
-    NOT_AVAILABLE: "text-zinc-500 dark:text-zinc-400",
-    OVERDUE: "text-red-600 dark:text-red-500",
-    DAMAGED: "text-red-600 dark:text-red-500",
-    LOST: "text-red-600 dark:text-red-500",
+    true: "text-green-700 dark:text-green-500",
+    false: "text-red-600 dark:text-red-500",
   };
 
   const onSuccess = () => {

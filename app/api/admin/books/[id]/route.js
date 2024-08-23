@@ -8,9 +8,7 @@ export async function GET(request, { params: { id } }) {
         id,
       },
       include: {
-        category: true,
-        creator: true,
-        updater: true,
+        activities:true
       },
     });
     if (!existingBook) {
@@ -107,10 +105,17 @@ export async function PUT(request, { params: { id } }) {
         imageUrls,
         description,
         categoryId,
-        updaterId: adminId,
-
       }
     });
+    
+    await db.activity.create({
+      data: {
+        type: "UPDATE_BOOK",
+        bookId: updateBook.id,
+        userProfileId: adminId,
+      },
+    });
+    console.log("UPDATE_BOOK");
     return NextResponse.json(updateBook);
   } catch (error) {
     console.log(error);

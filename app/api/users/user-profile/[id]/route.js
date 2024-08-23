@@ -8,10 +8,7 @@ export async function GET(request, { params: { id } }) {
         userId: id,
       },
       include: {
-        updaterBook: true,
-        creatorBook: true,
-        updaterCategory: true,
-        creatorCategory: true,
+        activities: true,
       },
     });
     if (!userProfile) {

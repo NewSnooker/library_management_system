@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 
-export default function DeleteBtn({ endpoint, title ,refreshQueryKey}) {
+export default function DeleteBtn({ endpoint, title, refreshQueryKey }) {
   const [loading, setLoading] = useState(false);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const router = useRouter();
@@ -35,6 +35,18 @@ export default function DeleteBtn({ endpoint, title ,refreshQueryKey}) {
         const res = await fetch(`${baseUrl}/api/${endpoint}`, {
           method: "DELETE",
         });
+        if (res.status === 409) {
+          const data = await res.json();
+          toast.error(data.message);
+          setLoading(false);
+          dispatch(isLoading(false));
+        }
+        if (res.status === 404) {
+          const data = await res.json();
+          toast.error(data.message);
+          setLoading(false);
+          dispatch(isLoading(false));
+        }
         if (res.ok) {
           onSuccess();
           setLoading(false);

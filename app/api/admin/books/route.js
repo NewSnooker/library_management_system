@@ -26,7 +26,6 @@ export async function POST(request) {
       imageUrls,
       description,
       categoryId,
-      creatorId: adminId,
     };
 
     const exitingBook = await db.book.findUnique({
@@ -46,6 +45,14 @@ export async function POST(request) {
     const res = await db.book.create({
       data: newBook,
     });
+    await db.activity.create({
+      data: {
+        type: "CREATE_BOOK",
+        userProfileId: adminId,
+        bookId: res.id,
+      },
+    });
+    console.log("CREATE_BOOK");
     return NextResponse.json(res);
   } catch (error) {
     console.log(error);
@@ -62,18 +69,30 @@ export async function GET(request) {
       orderBy: {
         createdAt: "desc",
       },
-      include:{
-        category: true,
-        creator: true,
-        updater: true,
-      }
+      include: {
+        activities: {
+          include: {
+            userProfile: true,
+          },
+        },
+      },
     });
-    const processedBooks = books.map(item => ({
-      ...item,
-      creator: item.creator?.username || null,
-      updater: item.updater?.username || null,
-    }));
-    return NextResponse.json(processedBooks);
+    const filterBooks = books.map((item) => {
+      const creatorActivity = item.activities.find(
+        (activity) => activity.type === "CREATE_BOOK"
+      );
+      const updaterActivity = item.activities.find(
+        (activity) => activity.type === "UPDATE_BOOK"
+      );
+
+      return {
+        ...item,
+        creator: creatorActivity?.userProfile?.username || null,
+        updater: updaterActivity?.userProfile?.username || null,
+      };
+    });
+
+    return NextResponse.json(filterBooks);
   } catch (error) {
     console.log(error);
     return NextResponse.json(

@@ -27,14 +27,23 @@ Table UserProfile {
   educationYear String
   description String
   profileImage String
-  updaterBook Book [not null]
-  creatorBook Book [not null]
-  creatorCategory Category [not null]
-  updaterCategory Category [not null]
   userId String [unique, not null]
   user User [not null]
+  activities Activity [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
+}
+
+Table Activity {
+  id String [pk]
+  type ActivityType [not null]
+  userProfileId String [not null]
+  userProfile UserProfile [not null]
+  bookId String
+  book Book
+  categoryId String
+  category Category
+  createdAt DateTime [default: `now()`, not null]
 }
 
 Table Category {
@@ -43,11 +52,9 @@ Table Category {
   slug String [unique, not null]
   imageUrl String
   description String
-  book Book [not null]
   creatorId String
-  updaterId String
-  creator UserProfile
-  updater UserProfile
+  book Book [not null]
+  activities Activity [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
 }
@@ -60,18 +67,15 @@ Table Book {
   quantity Int [not null]
   remaining Int [not null]
   author String [not null]
-  status BookStatus [not null, default: 'AVAILABLE']
+  active Boolean [not null, default: true]
   imageUrl String
   imageUrls String[] [not null]
   description String
-  updaterId String
+  activities Activity [not null]
   categoryId String [not null]
-  creatorId String
-  creator UserProfile
-  updater UserProfile
+  category Category [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
-  category Category [not null]
 }
 
 Enum UserRole {
@@ -79,23 +83,19 @@ Enum UserRole {
   USER
 }
 
-Enum BookStatus {
-  AVAILABLE
-  BORROWED
-  OVERDUE
-  LOST
-  DAMAGED
-  NOT_AVAILABLE
+Enum ActivityType {
+  CREATE_BOOK
+  UPDATE_BOOK
+  CREATE_CATEGORY
+  UPDATE_CATEGORY
 }
 
 Ref: UserProfile.userId - User.id [delete: Cascade]
 
-Ref: Category.creatorId > UserProfile.userId
+Ref: Activity.userProfileId > UserProfile.userId
 
-Ref: Category.updaterId > UserProfile.userId
+Ref: Activity.bookId > Book.id
 
-Ref: Book.creatorId > UserProfile.userId
-
-Ref: Book.updaterId > UserProfile.userId
+Ref: Activity.categoryId > Category.id
 
 Ref: Book.categoryId > Category.id

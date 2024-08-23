@@ -1,12 +1,9 @@
 "use client";
 
-import ActionColumn from "@/components/backoffice/data-table-columns/ActionColumn";
-import ActionStatusColumn from "@/components/backoffice/data-table-columns/ActionStatusColumn";
 import DateCreatedColumn from "@/components/backoffice/data-table-columns/DateCreatedColumn";
 import DateCreatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnCell";
-import DateUpdatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnUpdatedCell";
 import ImageColumn from "@/components/backoffice/data-table-columns/ImageColumn";
-import NumberColumn from "@/components/backoffice/data-table-columns/NumberColumn";
+import IsMeColumn from "@/components/backoffice/data-table-columns/IsMeColumn";
 import TitleColumn from "@/components/backoffice/data-table-columns/TitleColumn";
 
 export const columns = [
@@ -21,8 +18,10 @@ export const columns = [
   },
   {
     accessorKey: "fullName",
-    header: ({ column }) => <TitleColumn column={column} title="ชื่อ-นามสกุล" />,
+    header: ({ column }) => <TitleColumn column={column} title="ชื่อ-นามสกุล"/> ,
+    cell: ({ row }) => <IsMeColumn row={row} accessorKey="fullName"  />,
   },
+
   {
     accessorKey: "educationLevel",
     header: ({ column }) => <TitleColumn column={column} title="ระดับ" />,

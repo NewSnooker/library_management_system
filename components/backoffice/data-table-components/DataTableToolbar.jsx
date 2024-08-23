@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { Cross2Icon } from "@radix-ui/react-icons"
+import { Cross2Icon } from "@radix-ui/react-icons";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { DataTableViewOptions } from "./DataTableViewOptions"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { DataTableViewOptions } from "./DataTableViewOptions";
 
 export function DataTableToolbar({ table, filterKeys }) {
   const isFiltered = filterKeys.some(
@@ -17,7 +17,7 @@ export function DataTableToolbar({ table, filterKeys }) {
 
   const handleResetClick = () => {
     filterKeys.forEach((key) => {
-      table.getColumn(key)?.setFilterValue('');
+      table.getColumn(key)?.setFilterValue("");
     });
   };
 
@@ -28,7 +28,7 @@ export function DataTableToolbar({ table, filterKeys }) {
           <Input
             key={key}
             placeholder={`Filter ${key}...`}
-            value={table.getColumn(key)?.getFilterValue() ?? ''}
+            value={table.getColumn(key)?.getFilterValue() ?? ""}
             onChange={(event) => handleInputChange(key, event.target.value)}
             className="h-8 w-[100px] sm:w-[150px]  lg:w-[250px]"
           />
@@ -44,6 +44,11 @@ export function DataTableToolbar({ table, filterKeys }) {
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
+      </div>
+      <div className="text-sm mx-4 space-x-1">
+        <span className="text-muted-foreground ">ทั้งหมด</span>
+        <span className="font-semibold">{table.getFilteredRowModel().rows.length}</span>
+        <span className="text-muted-foreground ">รายการ</span>
       </div>
       <DataTableViewOptions table={table} />
     </div>

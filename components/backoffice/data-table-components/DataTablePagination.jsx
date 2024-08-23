@@ -20,7 +20,8 @@ export function DataTablePagination({ table }) {
     <div className="flex items-center justify-end px-2">
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
-          <p className="hidden sm:block text-sm font-medium">แถว</p>
+        
+          <p className="hidden sm:block text-sm font-medium">รายการ</p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={(value) => {

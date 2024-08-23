@@ -6,7 +6,7 @@ export async function GET(request) {
     const userProfiles = await db.userProfile.findMany({
       where: {
         user: {
-          role: "USER", // เชื่อมโยงและกรอง role ของผู้ใช้
+          role: "ADMIN", 
         },
       },
       orderBy: {

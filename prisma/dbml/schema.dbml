@@ -43,6 +43,8 @@ Table Activity {
   book Book
   categoryId String
   category Category
+  bannerId String
+  banner Banner
   createdAt DateTime [default: `now()`, not null]
 }
 
@@ -78,6 +80,12 @@ Table Book {
   updatedAt DateTime
 }
 
+Table Banner {
+  id String [pk]
+  imageUrls String[] [not null]
+  activities Activity [not null]
+}
+
 Enum UserRole {
   ADMIN
   USER
@@ -88,6 +96,8 @@ Enum ActivityType {
   UPDATE_BOOK
   CREATE_CATEGORY
   UPDATE_CATEGORY
+  CREATE_BANNER
+  UPDATE_BANNER
 }
 
 Ref: UserProfile.userId - User.id [delete: Cascade]
@@ -97,5 +107,7 @@ Ref: Activity.userProfileId > UserProfile.userId
 Ref: Activity.bookId > Book.id
 
 Ref: Activity.categoryId > Category.id
+
+Ref: Activity.bannerId > Banner.id
 
 Ref: Book.categoryId > Category.id

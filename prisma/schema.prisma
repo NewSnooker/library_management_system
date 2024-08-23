@@ -64,6 +64,8 @@ enum ActivityType {
   UPDATE_BOOK
   CREATE_CATEGORY
   UPDATE_CATEGORY
+  CREATE_BANNER
+  UPDATE_BANNER
 }
 
 model Activity {
@@ -75,6 +77,8 @@ model Activity {
   book          Book?        @relation(fields: [bookId], references: [id])
   categoryId    String?      @db.ObjectId
   category      Category?    @relation(fields: [categoryId], references: [id])
+  bannerId      String?      @db.ObjectId
+  banner        Banner?      @relation(fields: [bannerId], references: [id])
 
   createdAt DateTime @default(now())
 }
@@ -114,4 +118,10 @@ model Book {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+}
+
+model Banner {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  imageUrls  String[]
+  activities Activity[]
 }

@@ -20,8 +20,8 @@ export default function page() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["banners_admin"],
-    queryFn: () => getData("admin/banners"),
+    queryKey: ["banners"],
+    queryFn: () => getData("banners"),
   });
 
   const [imageUrls, setImageUrls] = useState();

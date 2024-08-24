@@ -15,8 +15,8 @@ export default function Banner() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["banners_admin"],
-    queryFn: () => getData("admin/banners"),
+    queryKey: ["banners"],
+    queryFn: () => getData("banners"),
   });
   if (isLoading)
     return (

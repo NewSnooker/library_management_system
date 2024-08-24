@@ -7,12 +7,17 @@ import { getData } from "@/lib/getData";
 import { useQuery } from "@tanstack/react-query";
 import { BookText } from "lucide-react";
 
-const ITEMS_PER_PAGE = 10; // กำหนดค่านี้
+const ITEMS_PER_PAGE = 1; // กำหนดค่านี้
 
-export default function Page() { // เปลี่ยนชื่อฟังก์ชันเป็นตัวพิมพ์ใหญ่
+export default function Page() {
+  // เปลี่ยนชื่อฟังก์ชันเป็นตัวพิมพ์ใหญ่
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data: books, isLoading, error } = useQuery({
+  const {
+    data: books,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["books_home"],
     queryFn: () => getData("books"),
   });
@@ -30,11 +35,12 @@ export default function Page() { // เปลี่ยนชื่อฟัง�
     <div className="">
       <HeadTitleBreadcrumb icon={BookText} />
       <div className="border bg-card py-2 px-4 rounded-sm">
-        <HorizontalCard books={currentBooks} isLoading={isLoading} /> {/* ใช้ currentBooks แทน books */}
-        <PaginationDemo 
-          totalPages={totalPages} 
-          handlePageChange={handlePageChange} 
-          currentPage={currentPage} 
+        <HorizontalCard books={currentBooks} isLoading={isLoading} />{" "}
+        {/* ใช้ currentBooks แทน books */}
+        <PaginationDemo
+          totalPages={totalPages}
+          handlePageChange={handlePageChange}
+          currentPage={currentPage}
         />
       </div>
     </div>

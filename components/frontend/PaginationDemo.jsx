@@ -53,6 +53,7 @@ export function PaginationDemo({handlePageChange, currentPage, totalPages}) {
           <PaginationPrevious 
             onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
+            className={currentPage === 1 ? "cursor-not-allowed select-none" : "cursor-pointer select-none"}
           />
         </PaginationItem>
         {getPageNumbers().map((pageNumber, index) => (
@@ -74,6 +75,7 @@ export function PaginationDemo({handlePageChange, currentPage, totalPages}) {
           <PaginationNext 
             onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
+            className={currentPage === totalPages ? "cursor-not-allowed select-none" : "cursor-pointer select-none"}
           />
         </PaginationItem>
       </PaginationContent>

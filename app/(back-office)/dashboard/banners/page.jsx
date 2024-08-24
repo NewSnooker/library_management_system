@@ -2,6 +2,7 @@
 import PageHeaderNoAdd from "@/components/backoffice/PageHeaderNoAdd";
 import MultipleImageInput from "@/components/formInputs/MultipleImageInput";
 import SubmitButton from "@/components/formInputs/SubmitButton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { getData } from "@/lib/getData";
 import { queryClient } from "@/lib/react-query-client";
@@ -31,6 +32,7 @@ export default function page() {
       setImageUrls(banners.imageUrls);
     }
   }, [banners]);
+
   const {
     register,
     reset,
@@ -38,6 +40,13 @@ export default function page() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  if (isLoading)
+    return (
+      <div className="w-full mb-4 border bg-card rounded-sm">
+        <Skeleton className="w-full h-96 mb-2 " />
+      </div>
+    );
 
   const onSuccess = () => {
     queryClient.invalidateQueries(["banners"]);

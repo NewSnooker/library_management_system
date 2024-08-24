@@ -15,8 +15,8 @@ export default function Banner() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["banners"],
-    queryFn: () => getData("banners"),
+    queryKey: ["banners_admin"],
+    queryFn: () => getData("admin/banners"),
   });
   if (isLoading)
     return (
@@ -24,6 +24,7 @@ export default function Banner() {
         <Skeleton className=" h-36 sm:h-96 rounded-sm" />
       </div>
     );
+console.log(banners.imageUrls);
 
   return (
     // <div className="relative ">
@@ -41,9 +42,9 @@ export default function Banner() {
       modules={[Scrollbar, Autoplay]}
       className="mb-4"
     >
-      {banners &&
-        banners.length > 0 &&
-        banners.map((imageUrl, i) => (
+      {banners.imageUrls &&
+        banners.imageUrls.length > 0 &&
+        banners.imageUrls.map((imageUrl, i) => (
           <SwiperSlide key={i}>
             {" "}
             <div className="border bg-card h-36 sm:h-96 rounded-sm overflow-hidden">

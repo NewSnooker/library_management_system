@@ -36,11 +36,15 @@ export default function Page() {
       <div className="border bg-card py-2 px-4 rounded-sm">
         <HorizontalCard books={currentBooks} isLoading={isLoading} />{" "}
         {/* ใช้ currentBooks แทน books */}
-        <PaginationDemo
-          totalPages={totalPages}
-          handlePageChange={handlePageChange}
-          currentPage={currentPage}
-        />
+        {
+          totalPages > 1 ? (
+            <PaginationDemo
+              totalPages={totalPages}
+              handlePageChange={handlePageChange}
+              currentPage={currentPage}
+            />
+          ) : null
+        }
       </div>
     </div>
   );

@@ -11,13 +11,14 @@ import {
   SquareLibrary,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { sidebarLinks } from "@/lib/sidebarLink";
 import { Skeleton } from "../ui/skeleton";
-// import { useRouter } from 'next/router';
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,10 +32,12 @@ export default function Sidebar() {
         <Skeleton className="w-full h-56 rounded-sm" />
       </div>
     );
-  // const router = useRouter();
-  return ( 
+  return (
     <div className=" border bg-card py-2 px-4 rounded-sm sticky top-20 ">
-      <h2 className="text-lg font-bold flex items-center justify-start border-b pb-2 text-custom-text">
+      <h2
+        className="text-lg font-bold flex items-center justify-start border-b pb-2 text-custom-text cursor-pointer"
+        onClick={() => router.push("/home")}
+      >
         <BookText className="mr-1 w-4 " /> UDVC
       </h2>
       <div className="mt-2">

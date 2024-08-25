@@ -1,4 +1,5 @@
 "use client";
+import CategorySidebar from "@/components/frontend/CategorySidebar";
 import Sidebar from "@/components/frontend/Sidebar";
 import React from "react";
 
@@ -10,6 +11,9 @@ export default function Layout({ children }) {
           <Sidebar />
         </div>
         <div className="lg:col-span-8">{children}</div>
+        <div className="hidden lg:block lg:col-span-2 relative">
+          <CategorySidebar />
+        </div>
       </div>
     </div>
   );

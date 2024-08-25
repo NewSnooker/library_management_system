@@ -7,10 +7,9 @@ import { getData } from "@/lib/getData";
 import { useQuery } from "@tanstack/react-query";
 import { BookText } from "lucide-react";
 
-const ITEMS_PER_PAGE = 1; // กำหนดค่านี้
+const ITEMS_PER_PAGE = 20; // กำหนดค่านี้
 
 export default function Page() {
-  // เปลี่ยนชื่อฟังก์ชันเป็นตัวพิมพ์ใหญ่
   const [currentPage, setCurrentPage] = useState(1);
 
   const {

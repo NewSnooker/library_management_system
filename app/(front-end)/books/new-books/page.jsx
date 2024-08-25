@@ -1,16 +1,26 @@
+"use client";
 import HeadTitleBreadcrumb from "@/components/frontend/HeadTitleBreadcrumb";
 import HorizontalCard from "@/components/frontend/HorizontalCard";
-import { PaginationDemo } from "@/components/frontend/PaginationDemo";
-import { books } from "@/lib/books";
-import { Book, BookCheck, BookText } from "lucide-react";
-import React from "react";
+import { Book } from "lucide-react";
+import React, { useState } from "react";
+import { getData } from "@/lib/getData";
+import { useQuery } from "@tanstack/react-query";
+
 export default function page() {
+  const {
+    data: books,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["books_new_books"],
+    queryFn: () => getData("books/new-books"),
+  });
+
   return (
     <div className="">
       <HeadTitleBreadcrumb icon={Book} />
       <div className="border bg-card py-2 px-4 rounded-sm">
-        <HorizontalCard books={books} />
-        <PaginationDemo />
+        <HorizontalCard books={books} isLoading={isLoading} />
       </div>
     </div>
   );

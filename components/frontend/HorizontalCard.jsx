@@ -6,10 +6,12 @@ export default function HorizontalCard({ books, isLoading }) {
   if (isLoading) {
     return (
       <div className="mt-2 ">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 items-center ">
-        {Array.from({ length: 20 }, (_, i) => (
-          <Skeleton key={i} className="w-28 h-36  mb-6 rounded-sm" />
-        ))}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 items-center justify-center gap-4 ">
+          {Array.from({ length: 20 }, (_, i) => (
+            <div key={i} className="flex justify-center mb-6">
+              <Skeleton className="w-28 h-36 rounded-sm" />
+            </div>
+          ))}
         </div>
       </div>
     );

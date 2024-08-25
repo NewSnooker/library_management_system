@@ -26,8 +26,13 @@ export const columns = [
   },
   {
     accessorKey: "quantity",
-    header: ({ column }) => <TitleColumn column={column} title="จํานวน" />,
+    header: ({ column }) => <TitleColumn column={column} title="ทั้งหมด" />,
     cell: ({ row }) => <NumberColumn row={row} accessorKey="quantity" />,
+  },
+  {
+    accessorKey: "remaining",
+    header: ({ column }) => <TitleColumn column={column} title="คงเหลือ" />,
+    cell: ({ row }) => <NumberColumn row={row} accessorKey="remaining" />,
   },
   {
     accessorKey: "active",

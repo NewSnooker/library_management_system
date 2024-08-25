@@ -3,16 +3,16 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
   try {
-    const books = await db.book.findMany({
-      where: {
-        active: true,
-      },
+    const categories = await db.category.findMany({
       orderBy: {
         title: "desc",
       },
+      include: {
+        book: true,
+      },
     });
     // console.log(books);
-    return NextResponse.json(books);
+    return NextResponse.json(categories);
   } catch (error) {
     console.log(error);
     return NextResponse.json(

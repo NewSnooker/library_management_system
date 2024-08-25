@@ -3,15 +3,22 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
   try {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
     const books = await db.book.findMany({
       where: {
+        createdAt: {
+          gte: sevenDaysAgo,
+        },
         active: true,
       },
       orderBy: {
-        title: "desc",
+        createdAt: "desc",
       },
+      take: 10,
     });
-    // console.log(books);
+
     return NextResponse.json(books);
   } catch (error) {
     console.log(error);

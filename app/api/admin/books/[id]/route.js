@@ -8,7 +8,7 @@ export async function GET(request, { params: { id } }) {
         id,
       },
       include: {
-        activities:true
+        activities: true,
       },
     });
     if (!existingBook) {
@@ -69,7 +69,6 @@ export async function PUT(request, { params: { id } }) {
       remaining,
       author,
       imageUrls,
-      imageUrl = imageUrls[0],
       description,
       categoryId,
       adminId,
@@ -93,7 +92,7 @@ export async function PUT(request, { params: { id } }) {
       where: {
         id,
       },
-      data:{
+      data: {
         title,
         slug,
         price: parseInt(price),
@@ -101,13 +100,13 @@ export async function PUT(request, { params: { id } }) {
         remaining: parseInt(remaining),
         author,
         // status,
-        imageUrl,
+        imageUrl: imageUrls[0],
         imageUrls,
         description,
         categoryId,
-      }
+      },
     });
-    
+
     await db.activity.create({
       data: {
         type: "UPDATE_BOOK",

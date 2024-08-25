@@ -18,9 +18,17 @@ export default function HorizontalCard({ books, isLoading }) {
   }
   return (
     <div className="mt-2  ">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 items-center">
-        {books && books.map((book, i) => <BookCard key={i} book={book} />)}
-      </div>
+      {books.length > 1 ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 items-center">
+          {books.map((book, i) => (
+            <BookCard key={i} book={book} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex justify-center items-center h-60">
+          <div className="text-zinc-500">ไม่มีข้อมูลหนังสือ</div>
+        </div>
+      )}
     </div>
   );
 }

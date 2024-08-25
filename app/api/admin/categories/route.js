@@ -63,9 +63,6 @@ export async function GET(request) {
           include: {
             userProfile: true,
           },
-          orderBy: {
-            updatedAt: "desc",
-          },
         },
       },
     });
@@ -73,9 +70,10 @@ export async function GET(request) {
       const creatorActivity = item.activities.find(
         (activity) => activity.type === "CREATE_CATEGORY"
       );
-      const updaterActivity = item.activities.find(
-        (activity) => activity.type === "UPDATE_CATEGORY"
-      );
+      const updaterActivity = item.activities
+      .filter((activity) => activity.type === "UPDATE_CATEGORY")
+      .sort((a, b) => (b.updatedAt ?? b.createdAt) - (a.updatedAt ?? a.createdAt))[0];
+
 
       return {
         ...item,

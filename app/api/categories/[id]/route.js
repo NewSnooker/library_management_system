@@ -13,7 +13,7 @@ export async function GET(request, { params: { id } }) {
             active: true,
           },
           orderBy: {
-            title: "desc",
+            title: "asc",
           },
           take: 10,// จำกัดจำนวนหนังสือที่ดึงมา
         },

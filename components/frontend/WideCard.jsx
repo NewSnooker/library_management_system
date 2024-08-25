@@ -27,7 +27,7 @@ export default function WideCard({ title, books, isLoading, href }) {
       ) : (
         <div className="w-full">
           <div className="flex justify-between items-center mb-4 w-full">
-          <h1 className="text-lg sm:text-xl ml-4">{title}</h1>
+            <h1 className="text-lg sm:text-xl ml-4">{title}</h1>
             <Link href={href}>
               <Button
                 size="sm"
@@ -39,10 +39,12 @@ export default function WideCard({ title, books, isLoading, href }) {
             </Link>
           </div>
           <div className="">
-          {books && books.length > 0 ? ( // ถ้ามีข้อมูลหนังสือ ให้แสดง Carousel
+            {books && books.length > 0 ? ( // ถ้ามีข้อมูลหนังสือ ให้แสดง Carousel
               <WideCardCarousel books={books} />
             ) : (
-              <div>ไม่มีข้อมูลหนังสือ</div> // ถ้าไม่มีข้อมูลหนังสือ ให้แสดงข้อความว่าไม่มีข้อมูล
+              <div className="flex justify-center items-center h-60">
+                <div className="text-zinc-500">ไม่มีข้อมูลหนังสือ</div>
+              </div> // ถ้าไม่มีข้อมูลหนังสือ ให้แสดงข้อความว่าไม่มีข้อมูล
             )}
           </div>
         </div>

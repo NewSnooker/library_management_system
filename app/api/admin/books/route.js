@@ -10,7 +10,6 @@ export async function POST(request) {
       quantity,
       author,
       imageUrls,
-      imageUrl = imageUrls[0],
       description,
       categoryId,
       adminId,
@@ -22,8 +21,8 @@ export async function POST(request) {
       quantity: parseInt(quantity),
       remaining: parseInt(quantity),
       author,
-      imageUrl,
       imageUrls,
+      imageUrl : imageUrls[0],
       description,
       categoryId,
     };
@@ -74,9 +73,6 @@ export async function GET(request) {
           include: {
             userProfile: true,
           },
-          orderBy: {
-            updatedAt: "desc",
-          },
         },
       },
     });
@@ -84,9 +80,9 @@ export async function GET(request) {
       const creatorActivity = item.activities.find(
         (activity) => activity.type === "CREATE_BOOK"
       );
-      const updaterActivity = item.activities.find(
-        (activity) => activity.type === "UPDATE_BOOK"
-      );
+      const updaterActivity = item.activities
+      .filter((activity) => activity.type === "UPDATE_BOOK")
+      .sort((a, b) => (b.updatedAt ?? b.createdAt) - (a.updatedAt ?? a.createdAt))[0];
 
       return {
         ...item,

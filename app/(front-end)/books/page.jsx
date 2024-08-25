@@ -20,7 +20,9 @@ export default function Page() {
     queryKey: ["books_all"],
     queryFn: () => getData("books"),
   });
-
+  if (error) {
+    <div className=""> Error: {error.message}</div>;
+  }
   const totalPages = books ? Math.ceil(books.length / ITEMS_PER_PAGE) : 0;
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -36,15 +38,13 @@ export default function Page() {
       <div className="border bg-card py-2 px-4 rounded-sm">
         <HorizontalCard books={currentBooks} isLoading={isLoading} />{" "}
         {/* ใช้ currentBooks แทน books */}
-        {
-          totalPages > 1 ? (
-            <PaginationDemo
-              totalPages={totalPages}
-              handlePageChange={handlePageChange}
-              currentPage={currentPage}
-            />
-          ) : null
-        }
+        {totalPages > 1 ? (
+          <PaginationDemo
+            totalPages={totalPages}
+            handlePageChange={handlePageChange}
+            currentPage={currentPage}
+          />
+        ) : null}
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export async function GET(request) {
         active: true,
       },
       orderBy: {
-        title: "desc",
+        title: "asc",
       },
     });
     // console.log(books);

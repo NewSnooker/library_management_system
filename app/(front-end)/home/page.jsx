@@ -2,7 +2,6 @@
 // import Banner from "@/components/fontend/Banner";
 import WideCard from "@/components/frontend/WideCard";
 import React from "react";
-import { books } from "@/lib/books";
 import { getData } from "@/lib/getData";
 import { useQuery } from "@tanstack/react-query";
 

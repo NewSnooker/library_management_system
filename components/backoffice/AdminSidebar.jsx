@@ -11,7 +11,7 @@ import {
   SquareLibrary,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Skeleton } from "../ui/skeleton";
 import { adminSidebarLinks } from "@/lib/adminSidebarLinks";
@@ -19,6 +19,7 @@ import { adminSidebarLinks } from "@/lib/adminSidebarLinks";
 
 export default function AdminSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,7 +36,9 @@ export default function AdminSidebar() {
   // const router = useRouter();
   return ( 
     <div className=" border bg-card py-2 px-4 rounded-sm sticky top-20 ">
-      <h2 className="text-lg font-bold flex items-center justify-start border-b pb-2 text-custom-text">
+      <h2 className="text-lg font-bold flex items-center justify-start border-b pb-2 text-custom-text cursor-pointer"
+         onClick={() => router.push("/home")}
+      >
         <BookText className="mr-1 w-4 " /> UDVC
       </h2>
       <div className="mt-2">

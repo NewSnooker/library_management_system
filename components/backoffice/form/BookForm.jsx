@@ -25,7 +25,7 @@ export default function BookForm({
   const id = updateData?.id ?? "";
   const [imageUrls, setImageUrls] = useState(initialImageUrls);
 
-  if(loading){
+  if (loading) {
     dispatch(isLoading(true));
   }
 
@@ -43,9 +43,7 @@ export default function BookForm({
 
   const router = useRouter();
   const onSuccess = () => {
-    queryClient.invalidateQueries(["books"]);
-    queryClient.invalidateQueries(["books_all"]);
-    queryClient.invalidateQueries(["books_new_books"]);
+    queryClient.invalidateQueries(["books", "books_all", "books_new_books"]);
     router.push("/dashboard/books");
     router.refresh();
   };
@@ -155,9 +153,7 @@ export default function BookForm({
         />
 
         <div className="col-span-full flex justify-end">
-          <SubmitButton
-            buttonTitle={id ? "อัพเดตหนังสือ" : "เพิ่มหนังสือ"}
-          />
+          <SubmitButton buttonTitle={id ? "อัพเดตหนังสือ" : "เพิ่มหนังสือ"} />
         </div>
       </div>
     </form>

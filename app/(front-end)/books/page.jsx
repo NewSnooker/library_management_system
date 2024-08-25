@@ -17,7 +17,7 @@ export default function Page() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["books_home"],
+    queryKey: ["books_all"],
     queryFn: () => getData("books"),
   });
 

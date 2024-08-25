@@ -24,7 +24,6 @@ export default function Banner() {
         <Skeleton className=" h-36 sm:h-96 rounded-sm" />
       </div>
     );
-console.log(banners.imageUrls);
 
   return (
     // <div className="relative ">

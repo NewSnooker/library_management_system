@@ -7,7 +7,7 @@ import "swiper/css";
 import Image from "next/image";
 import Link from "next/link";
 export default function WideCardCarousel({ books }) {
-  
+  const booksLimited = books.slice(0, 10);
   return (
     <Swiper
       slidesPerView={2}
@@ -32,7 +32,7 @@ export default function WideCardCarousel({ books }) {
       }}
       className="mb-6 mySwiper"
     >
-      {books.map((book, i) => {
+      {booksLimited.map((book, i) => {
 
         return(
           <SwiperSlide key={i}>

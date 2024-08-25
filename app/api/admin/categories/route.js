@@ -41,7 +41,7 @@ export async function POST(request) {
       },
     });
     console.log("CREATE_CATEGORY");
-    
+
     return NextResponse.json(category);
   } catch (error) {
     console.log(error);
@@ -63,12 +63,19 @@ export async function GET(request) {
           include: {
             userProfile: true,
           },
+          orderBy: {
+            updatedAt: "desc",
+          },
         },
       },
-    });  
-      const filterCategories = categories.map((item) => {
-      const creatorActivity = item.activities.find((activity) => activity.type === "CREATE_CATEGORY");
-      const updaterActivity = item.activities.find((activity) => activity.type === "UPDATE_CATEGORY");
+    });
+    const filterCategories = categories.map((item) => {
+      const creatorActivity = item.activities.find(
+        (activity) => activity.type === "CREATE_CATEGORY"
+      );
+      const updaterActivity = item.activities.find(
+        (activity) => activity.type === "UPDATE_CATEGORY"
+      );
 
       return {
         ...item,

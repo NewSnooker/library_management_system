@@ -74,6 +74,9 @@ export async function GET(request) {
           include: {
             userProfile: true,
           },
+          orderBy: {
+            updatedAt: "desc",
+          },
         },
       },
     });

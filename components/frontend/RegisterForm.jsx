@@ -20,7 +20,11 @@ export default function RegisterForm() {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const [emailErr, setEmailErr] = useState("");
-
+  const onSuccess = async () => {
+    await queryClient.invalidateQueries(["admin/users/admin"]);
+    await queryClient.invalidateQueries(["admin/users"]);
+    router.push(`/verify-email`);
+  };
   async function onSubmit(data) {
     try {
       setLoading(true);
@@ -43,8 +47,9 @@ export default function RegisterForm() {
         setLoading(false);
         dispatch(isLoading(false));
         toast.success("สร้างบัญชีผู้ใช้สําเร็จ");
+        onSuccess();
         reset();
-        router.push(`/verify-email`);
+
       } else {
         setLoading(false);
         dispatch(isLoading(false));

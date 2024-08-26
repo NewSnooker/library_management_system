@@ -8,6 +8,7 @@ import { store } from "@/redux/store";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/react-query-client";
 import LoadingFullScreen from "@/components/LoadingFullScreen";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export default function Providers({ children }) {
   return (
@@ -17,6 +18,7 @@ export default function Providers({ children }) {
         <ReduxProvider store={store}>
           <QueryClientProvider client={queryClient}>
             <LoadingFullScreen>{children}</LoadingFullScreen>
+            <ReactQueryDevtools initialIsOpen={true} />
           </QueryClientProvider>
         </ReduxProvider>
       </SessionProvider>

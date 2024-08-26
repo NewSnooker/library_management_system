@@ -46,14 +46,6 @@ export default function BookForm({
     await queryClient.invalidateQueries(["books"]);
     await queryClient.invalidateQueries(["books_all"]);
     await queryClient.invalidateQueries(["books_new_books"]);
-    
-    // รอให้การ invalidate เสร็จสิ้นก่อนที่จะเปลี่ยนหน้า
-    await Promise.all([
-      queryClient.refetchQueries(["books"]),
-      queryClient.refetchQueries(["books_all"]),
-      queryClient.refetchQueries(["books_new_books"])
-    ]);
-  
     router.push("/dashboard/books");
   };
 

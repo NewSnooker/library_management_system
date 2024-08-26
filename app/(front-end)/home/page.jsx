@@ -12,11 +12,12 @@ export default function page() {
     error: errorAll,
   } = useQuery({
     queryKey: ["booksAll"],
-    queryFn: async() => await getData("books"),
-    staleTime: 10 * 1000,
-    cacheTime: 15 * 60 * 1000,
-    refetchInterval: 30 * 1000,
-    refetchOnWindowFocus: true,
+    queryFn: async() => {
+      console.log("Fetching booksAll data");
+      const data = await getData("books")
+      console.log("booksAll data fetched", data);
+      return data;
+    }
   });
   
   const {

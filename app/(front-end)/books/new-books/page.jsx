@@ -12,8 +12,12 @@ export default function page() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["books_new_books"],
+    queryKey: ["booksNewBooks"],
     queryFn: () => getData("books/new-books"),
+    staleTime: 10 * 1000,
+    cacheTime: 15 * 60 * 1000,
+    refetchInterval: 30 * 1000,
+    refetchOnWindowFocus: true,
   });
 
   return (

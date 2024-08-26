@@ -17,8 +17,12 @@ export default function Page() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["books_all"],
+    queryKey: ["booksAll"],
     queryFn: () => getData("books"),
+    staleTime: 10 * 1000,
+    cacheTime: 15 * 60 * 1000,
+    refetchInterval: 30 * 1000,
+    refetchOnWindowFocus: true,
   });
   if (error) {
     <div className=""> Error: {error.message}</div>;

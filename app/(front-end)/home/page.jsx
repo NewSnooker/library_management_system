@@ -11,8 +11,12 @@ export default function page() {
     isLoading: isLoadingAll,
     error: errorAll,
   } = useQuery({
-    queryKey: ["books_all"],
+    queryKey: ["booksAll"],
     queryFn: () => getData("books"),
+    staleTime: 10 * 1000,
+    cacheTime: 15 * 60 * 1000,
+    refetchInterval: 30 * 1000,
+    refetchOnWindowFocus: true,
   });
   
   const {
@@ -20,8 +24,12 @@ export default function page() {
     isLoading: isLoadingNewBooks,
     error: errorNewBooks,
   } = useQuery({
-    queryKey: ["books_new_books"],
+    queryKey: ["booksNewBooks"],
     queryFn: () => getData("books/new-books"),
+    staleTime: 10 * 1000,
+    cacheTime: 15 * 60 * 1000,
+    refetchInterval: 30 * 1000,
+    refetchOnWindowFocus: true,
   });
   
   if (errorAll || errorNewBooks) return <div>error</div>;

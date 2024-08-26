@@ -14,8 +14,12 @@ export default function CategorySidebar() {
     isLoading: isCategoriesLoading,
     error: categoriesError,
   } = useQuery({
-    queryKey: [`categories`],
+    queryKey: [`categoriesAll`],
     queryFn: () => getData(`categories`),
+    staleTime: 10 * 1000,
+    cacheTime: 15 * 60 * 1000,
+    refetchInterval: 30 * 1000,
+    refetchOnWindowFocus: true,
   });
 
   if (categoriesError) return <div>Error: {categoriesError.message}</div>;

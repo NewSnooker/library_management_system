@@ -12,9 +12,7 @@ export async function GET(request) {
       },
     });
     // console.log(books);
-    return NextResponse.json(books, {
-      headers: { "Cache-Control": "no-cache" },
-    });
+    return NextResponse.json(books);
   } catch (error) {
     console.log(error);
     return NextResponse.json(

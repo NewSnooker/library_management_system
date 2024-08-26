@@ -42,8 +42,8 @@ export default function BookForm({
   });
 
   const router = useRouter();
-  const onSuccess = () => {
-    queryClient.invalidateQueries(["books", "booksAll", "booksNewBooks"]);
+  const onSuccess = async() => {
+    await queryClient.invalidateQueries(["books", "booksAll", "booksNewBooks"]);
     router.push("/dashboard/books");
     router.refresh();
   };

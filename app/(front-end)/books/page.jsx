@@ -19,10 +19,9 @@ export default function Page() {
   } = useQuery({
     queryKey: ["booksAll"],
     queryFn: () => getData("books"),
-    staleTime: 10 * 1000,
-    cacheTime: 15 * 60 * 1000,
-    refetchInterval: 30 * 1000,
-    refetchOnWindowFocus: true,
+    refetchInterval: 5000, // Refetch ทุก 5 วินาที
+    refetchOnWindowFocus: true, // Refetch เมื่อ focus กลับมาที่ window
+    staleTime: 0, // ถือว่าข้อมูลเก่าทันทีหลังจากได้รับ
   });
   if (error) {
     <div className=""> Error: {error.message}</div>;

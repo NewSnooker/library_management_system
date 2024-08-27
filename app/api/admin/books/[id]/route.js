@@ -115,7 +115,7 @@ export async function PUT(request, { params: { id } }) {
       },
     });
     console.log("UPDATE_BOOK");
-    return NextResponse.json(updateBook);
+    return NextResponse.json(updateBook,{ status: 200 });
   } catch (error) {
     console.log(error);
     return NextResponse.json(

@@ -61,7 +61,7 @@ export async function POST(request) {
     );
   }
 }
-
+// api/admin/books
 export async function GET(request) {
   try {
     const books = await db.book.findMany({

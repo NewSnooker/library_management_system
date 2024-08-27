@@ -1,3 +1,4 @@
+// api/books
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 
@@ -12,7 +13,11 @@ export async function GET(request) {
       },
     });
     // console.log(books);
-    return NextResponse.json(books);
+    return NextResponse.json(books, {
+      headers: {
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    });
   } catch (error) {
     console.log(error);
     return NextResponse.json(

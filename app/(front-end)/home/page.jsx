@@ -12,12 +12,7 @@ export default function page() {
     error: errorAll,
   } = useQuery({
     queryKey: ["booksAll"],
-    queryFn: async() => {
-      console.log("Fetching booksAll data");
-      const data = await getData("books")
-      console.log("booksAll data fetched", data);
-      return data;
-    }
+    queryFn: () => getData("books"),
   });
   
   const {
@@ -27,10 +22,6 @@ export default function page() {
   } = useQuery({
     queryKey: ["booksNewBooks"],
     queryFn: () => getData("books/new-books"),
-    staleTime: 10 * 1000,
-    cacheTime: 15 * 60 * 1000,
-    refetchInterval: 30 * 1000,
-    refetchOnWindowFocus: true,
   });
   
   if (errorAll || errorNewBooks) return <div>error</div>;

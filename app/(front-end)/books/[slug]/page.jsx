@@ -14,7 +14,7 @@ export default function page({ params: { slug } }) {
     error: bookError,
   } = useQuery({
     queryKey: [`books_${slug}`],
-    queryFn: () => getData(`books/${slug}`),
+    queryFn: () => getData(`all/books/${slug}`),
   });
 
   const {
@@ -23,7 +23,7 @@ export default function page({ params: { slug } }) {
     error: categoriesError,
   } = useQuery({
     queryKey: [`categories/${book?.category?.id}`],
-    queryFn: () => getData(`categories/${book?.category?.id}`),
+    queryFn: () => getData(`all/categories/${book?.category?.id}`),
     enabled: !!book?.category?.id,
   });
   if (bookError || categoriesError) {

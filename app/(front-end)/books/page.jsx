@@ -18,10 +18,8 @@ export default function Page() {
     error,
   } = useQuery({
     queryKey: ["booksAll"],
-    queryFn: () => getData("books"),
-    refetchInterval: 5000, // Refetch ทุก 5 วินาที
-    refetchOnWindowFocus: true, // Refetch เมื่อ focus กลับมาที่ window
-    staleTime: 0, // ถือว่าข้อมูลเก่าทันทีหลังจากได้รับ
+    queryFn: () => getData("all/books"),
+
   });
   if (error) {
     <div className=""> Error: {error.message}</div>;

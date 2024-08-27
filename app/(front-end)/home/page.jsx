@@ -12,7 +12,7 @@ export default function page() {
     error: errorAll,
   } = useQuery({
     queryKey: ["booksAll"],
-    queryFn: () => getData("books"),
+    queryFn: () => getData("all/books"),
   });
   
   const {
@@ -21,7 +21,7 @@ export default function page() {
     error: errorNewBooks,
   } = useQuery({
     queryKey: ["booksNewBooks"],
-    queryFn: () => getData("books/new-books"),
+    queryFn: () => getData("all/books/new-books"),
   });
   
   if (errorAll || errorNewBooks) return <div>error</div>;

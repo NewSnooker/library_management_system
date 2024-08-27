@@ -16,7 +16,7 @@ export default function Banner() {
     error,
   } = useQuery({
     queryKey: ["banners"],
-    queryFn: () => getData("banners"),
+    queryFn: () => getData("all/banners"),
   });
   if (isLoading)
     return (
@@ -24,7 +24,7 @@ export default function Banner() {
         <Skeleton className=" h-36 sm:h-96 rounded-sm" />
       </div>
     );
-
+    if (error) return <div>{error.message}</div>;
   return (
     // <div className="relative ">
     <Swiper

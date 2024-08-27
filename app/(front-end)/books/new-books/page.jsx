@@ -13,12 +13,9 @@ export default function page() {
     error,
   } = useQuery({
     queryKey: ["booksNewBooks"],
-    queryFn: () => getData("books/new-books"),
-    staleTime: 10 * 1000,
-    cacheTime: 15 * 60 * 1000,
-    refetchInterval: 30 * 1000,
-    refetchOnWindowFocus: true,
+    queryFn: () => getData("all/books/new-books"),
   });
+  if(error) return <div>{error.message}</div>
 
   return (
     <div className="">

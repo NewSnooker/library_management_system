@@ -45,7 +45,6 @@ export default function ActionStatusColumn({
   const onSuccess = () => {
     queryClient.invalidateQueries(["books"]);
     queryClient.invalidateQueries(["booksAll"]);
-    toast.success("สถานะหนังสืออัพเดทเรียบร้อยแล้ว");
   };
 
   const onSubmit = async (data) => {

@@ -21,7 +21,7 @@ export default function page() {
     error,
   } = useQuery({
     queryKey: ["banners"],
-    queryFn: () => getData("banners"),
+    queryFn: () => getData("all/banners"),
   });
 
   const [imageUrls, setImageUrls] = useState();
@@ -47,7 +47,7 @@ export default function page() {
         <Skeleton className="w-full h-96 mb-2 " />
       </div>
     );
-
+  if (error) return <div>{error.message}</div>;
   const onSuccess = () => {
     queryClient.invalidateQueries(["banners"]);
   };

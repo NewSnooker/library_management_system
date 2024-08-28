@@ -6,6 +6,7 @@ import { PaginationDemo } from "@/components/frontend/PaginationDemo";
 import { getData } from "@/lib/getData";
 import { useQuery } from "@tanstack/react-query";
 import { BookText } from "lucide-react";
+export const dynamic = 'force-dynamic';
 
 const ITEMS_PER_PAGE = 20; // กำหนดค่านี้
 

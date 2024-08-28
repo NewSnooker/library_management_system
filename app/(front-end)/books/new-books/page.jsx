@@ -5,6 +5,7 @@ import { Book } from "lucide-react";
 import React, { useState } from "react";
 import { getData } from "@/lib/getData";
 import { useQuery } from "@tanstack/react-query";
+export const dynamic = 'force-dynamic';
 
 export default function page() {
   const {

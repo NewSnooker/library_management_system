@@ -14,6 +14,8 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { queryClient } from "@/lib/react-query-client";
+import { useRouter } from "next/navigation";
+
 
 export default function ActionStatusColumn({
   row,
@@ -21,6 +23,7 @@ export default function ActionStatusColumn({
   accessorKey,
   bookId,
 }) {
+  const router = useRouter();
   const status = row.getValue(`${accessorKey}`);
 
   const { data: session } = useSession();
@@ -45,6 +48,8 @@ export default function ActionStatusColumn({
   const onSuccess = () => {
     queryClient.invalidateQueries(["books"]);
     queryClient.invalidateQueries(["booksAll"]);
+    router.push("/books");
+    router.refresh();
   };
 
   const onSubmit = async (data) => {

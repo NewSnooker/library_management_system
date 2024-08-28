@@ -12,9 +12,14 @@ export async function GET(request) {
         title: "asc",
       },
     });
-    // console.log(books);
+
     return NextResponse.json(books, {
-      headers: { "Cache-Control": "no-cache" },
+      status: 200,
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        "CDN-Cache-Control": "no-store",
+        "Vercel-CDN-Cache-Control": "no-store",
+      },
     });
   } catch (error) {
     console.log(error);

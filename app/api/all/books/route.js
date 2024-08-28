@@ -6,7 +6,7 @@ export async function GET(request) {
   try {
     const books = await db.book.findMany({
       where: {
-        active: false,
+        active: true,
       },
       orderBy: {
         title: "asc",

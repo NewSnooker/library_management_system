@@ -16,7 +16,6 @@ import { useDispatch } from "react-redux";
 import { queryClient } from "@/lib/react-query-client";
 import { useRouter } from "next/navigation";
 
-
 export default function ActionStatusColumn({
   row,
   title,
@@ -48,7 +47,6 @@ export default function ActionStatusColumn({
   const onSuccess = () => {
     queryClient.invalidateQueries(["books"]);
     queryClient.invalidateQueries(["booksAll"]);
-    router.push("/books");
     router.refresh();
   };
 

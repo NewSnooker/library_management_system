@@ -16,9 +16,9 @@ export async function GET(request) {
     return NextResponse.json(books, {
       status: 200,
       headers: {
-        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-        "CDN-Cache-Control": "no-store",
-        "Vercel-CDN-Cache-Control": "no-store",
+        'Cache-Control': 'public, s-maxage=0',
+        'CDN-Cache-Control': 'public, s-maxage=0',
+        'Vercel-CDN-Cache-Control': 'public, s-maxage=0',
       },
     });
   } catch (error) {

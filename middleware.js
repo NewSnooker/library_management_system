@@ -7,6 +7,6 @@ export default withAuth({
   export const config = {
     matcher: [
       "/dashboard/:path*", // Match all routes under /dashboard
-      "/api/admin/:path*" // Match all admin API routes
+      // "/api/admin/:path*" // Match all admin API routes
     ],
   };

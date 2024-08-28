@@ -14,9 +14,7 @@ export async function GET(request) {
     });
     // console.log(books);
     return NextResponse.json(books, {
-      headers: {
-        'Cache-Control': 'no-store, max-age=0',
-      },
+      headers: { "Cache-Control": "no-cache" },
     });
   } catch (error) {
     console.log(error);

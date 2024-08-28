@@ -1,5 +1,6 @@
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
+export const fetchCache = "force-no-store";
 
 export async function GET(request) {
   try {
@@ -19,7 +20,9 @@ export async function GET(request) {
       take: 10,
     });
 
-    return NextResponse.json(books);
+    return NextResponse.json(books, {
+      headers: { "Cache-Control": "no-cache" },
+    });
   } catch (error) {
     console.log(error);
     return NextResponse.json(

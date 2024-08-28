@@ -7,7 +7,7 @@ import "swiper/css";
 import Image from "next/image";
 import Link from "next/link";
 export default function WideCardCarousel({ books }) {
-  const booksLimited = books.slice(0, 10);
+  const booksLimited = books.slice(0, 8);
   return (
     <Swiper
       slidesPerView={2}

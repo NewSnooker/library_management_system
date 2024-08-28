@@ -1,3 +1,4 @@
+import { books } from "@/lib/books";
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 export const fetchCache = "force-no-store";
@@ -10,7 +11,12 @@ export async function GET(request) {
         title: "asc",
       },
       include: {
-        book: true,
+        book: {
+          where:{
+            active: true,
+          },
+          take: 8,
+        },
       },
     });
     // console.log(books);

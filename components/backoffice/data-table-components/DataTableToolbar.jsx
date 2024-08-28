@@ -46,7 +46,7 @@ export function DataTableToolbar({ table, filterKeys }) {
         )}
       </div>
       <div className="text-sm mx-4 space-x-1">
-        <span className="text-muted-foreground ">ทั้งหมด</span>
+        <span className="hidden sm:inline text-muted-foreground ">ทั้งหมด</span>
         <span className="font-semibold">{table.getFilteredRowModel().rows.length}</span>
         <span className="text-muted-foreground ">รายการ</span>
       </div>

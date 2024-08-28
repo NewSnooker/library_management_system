@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { Skeleton } from "../ui/skeleton";
 
-export default function WideCard({ title, books, isLoading, href }) {
+export default function WideCard({ title, books, isLoading = false, href }) {
   return (
     <div className="mt-2 mb-10">
       {isLoading ? (

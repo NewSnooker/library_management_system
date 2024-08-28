@@ -18,7 +18,7 @@ export default function HorizontalCard({ books, isLoading }) {
   }
   return (
     <div className="mt-2  ">
-      {books.length > 1 ? (
+      {books.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 items-center">
           {books.map((book, i) => (
             <BookCard key={i} book={book} />

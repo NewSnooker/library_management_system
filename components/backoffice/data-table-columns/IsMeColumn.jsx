@@ -16,7 +16,7 @@ export default function IsMeColumn({ row, accessorKey }) {
   });
   const title = row.getValue(`${accessorKey}`);
 
-  const isMe = userProfile.fullName === title 
+  const isMe = userProfile?.fullName === title 
 
   return (
     <div className="space-x-1">

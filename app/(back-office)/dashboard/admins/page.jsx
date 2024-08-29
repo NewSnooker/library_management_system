@@ -11,7 +11,7 @@ import PageHeaderNoAdd from "@/components/backoffice/PageHeaderNoAdd";
 
 const Page = () => {
   const { data: books, isLoading, error } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["admin_users"],
     queryFn: () => getData("admin/users/admin"),
   });
 

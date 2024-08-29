@@ -55,8 +55,21 @@ model UserProfile {
 
   activities Activity[]
 
+  favoriteBooks FavoriteBook[]
+
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+}
+
+model FavoriteBook {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String      @db.ObjectId
+  bookId    String      @db.ObjectId
+
+  book      Book        @relation(fields: [bookId], references: [id])
+  user      UserProfile @relation(fields: [userId], references: [userId])
+  
+  createdAt DateTime    @default(now())
 }
 
 enum ActivityType {
@@ -80,9 +93,8 @@ model Activity {
   bannerId      String?      @db.ObjectId
   banner        Banner?      @relation(fields: [bannerId], references: [id])
 
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-
 }
 
 model Category {
@@ -114,6 +126,7 @@ model Book {
   description String?
 
   activities Activity[]
+  favoriteBy FavoriteBook[]
 
   categoryId String   @db.ObjectId
   category   Category @relation(fields: [categoryId], references: [id])
@@ -127,3 +140,5 @@ model Banner {
   imageUrls  String[]
   activities Activity[]
 }
+
+

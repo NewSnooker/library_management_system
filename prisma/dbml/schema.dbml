@@ -30,8 +30,18 @@ Table UserProfile {
   userId String [unique, not null]
   user User [not null]
   activities Activity [not null]
+  favoriteBooks FavoriteBook [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
+}
+
+Table FavoriteBook {
+  id String [pk]
+  userId String [not null]
+  bookId String [not null]
+  book Book [not null]
+  user UserProfile [not null]
+  createdAt DateTime [default: `now()`, not null]
 }
 
 Table Activity {
@@ -46,6 +56,7 @@ Table Activity {
   bannerId String
   banner Banner
   createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime
 }
 
 Table Category {
@@ -74,6 +85,7 @@ Table Book {
   imageUrls String[] [not null]
   description String
   activities Activity [not null]
+  favoriteBy FavoriteBook [not null]
   categoryId String [not null]
   category Category [not null]
   createdAt DateTime [default: `now()`, not null]
@@ -101,6 +113,10 @@ Enum ActivityType {
 }
 
 Ref: UserProfile.userId - User.id [delete: Cascade]
+
+Ref: FavoriteBook.bookId > Book.id
+
+Ref: FavoriteBook.userId > UserProfile.userId
 
 Ref: Activity.userProfileId > UserProfile.userId
 

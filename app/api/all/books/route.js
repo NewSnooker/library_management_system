@@ -2,7 +2,7 @@
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 export const fetchCache = "force-no-store";
-export const revalidate = 0;
+// export const revalidate = 0;
 
 export async function GET(request) {
   try {

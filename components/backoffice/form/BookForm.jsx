@@ -42,7 +42,7 @@ export default function BookForm({
   });
 
   const router = useRouter();
-  const onSuccess = async() => {
+  const onSuccess = async () => {
     await queryClient.invalidateQueries(["books", "booksAll", "booksNewBooks"]);
     router.push("/dashboard/books");
     router.refresh();
@@ -143,6 +143,7 @@ export default function BookForm({
           className="sm:col-span-2"
           register={register}
           errors={errors}
+          isRequired={false}
         />
         <MultipleImageInput
           label="ภาพหมวดหมู่"

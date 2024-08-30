@@ -46,14 +46,14 @@ export default function Banner() {
         banners.imageUrls.map((imageUrl, i) => (
           <SwiperSlide key={i}>
             {" "}
-            <div className="border bg-card h-36 sm:h-96 rounded-sm overflow-hidden">
+            <div className="border bg-card rounded-sm overflow-hidden">
               <Image
                 src={imageUrl}
                 alt={imageUrl}
-                width={1400}
-                height={400}
+                width={1280}
+                height={450}
                 loading="lazy"
-                className="object-cover rounded-sm"
+                className="object-cover h-36 sm:h-[450px] w-full rounded-sm"
               />
             </div>
           </SwiperSlide>

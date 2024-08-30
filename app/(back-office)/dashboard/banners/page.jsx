@@ -8,6 +8,7 @@ import { getData } from "@/lib/getData";
 import { queryClient } from "@/lib/react-query-client";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -26,6 +27,7 @@ export default function page() {
 
   const [imageUrls, setImageUrls] = useState();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     if (banners) {
@@ -50,6 +52,8 @@ export default function page() {
   if (error) return <div>{error.message}</div>;
   const onSuccess = () => {
     queryClient.invalidateQueries(["banners"]);
+    router.push("/home");
+    router.refresh();
   };
 
   const onSubmit = async (data) => {

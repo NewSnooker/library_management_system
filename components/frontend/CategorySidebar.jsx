@@ -48,7 +48,7 @@ export default function CategorySidebar() {
               ))
             ) : (
               <div className="flex justify-center items-center h-60">
-                <div className="text-zinc-500">ไม่มีข้อมูลหนังสือ</div>
+                <div className="text-zinc-500">ไม่มีข้อมูลหมวดหมู่</div>
               </div>
             )}
           </div>

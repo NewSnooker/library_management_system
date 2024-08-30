@@ -12,11 +12,14 @@ import { Heart, X } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { CoolMode } from "@/components/magicui/cool-mode";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function page({ params: { slug } }) {
   const { data: session } = useSession();
   const userId = session?.user?.id;
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const {
     data: book,
@@ -47,6 +50,7 @@ export default function page({ params: { slug } }) {
     enabled: !!book?.category?.id,
   });
 
+
   if (isBookLoading || isFavoriteBooksLoading || isCategoriesLoading) {
     return (
       <div className="bg-card py-4 px-4 rounded-sm w-full">
@@ -72,6 +76,10 @@ export default function page({ params: { slug } }) {
   };
 
   const addToFavorite = () => {
+    if (!userId) {
+      router.push("/login");
+      return;
+    }
     const data = {
       userId: userId,
       bookId: book.id,
@@ -96,6 +104,8 @@ export default function page({ params: { slug } }) {
       );
     }
   };
+
+
 
   return (
     <div className="">

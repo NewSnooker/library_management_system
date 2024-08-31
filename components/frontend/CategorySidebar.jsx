@@ -43,7 +43,7 @@ export default function CategorySidebar() {
                   key={category.id}
                   className="flex items-center p-2  rounded-md"
                 >
-                  <span>{category.title}</span>
+                  <span className="line-clamp-1">{category.title}</span>
                 </Link>
               ))
             ) : (

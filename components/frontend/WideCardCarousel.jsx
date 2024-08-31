@@ -48,10 +48,8 @@ export default function WideCardCarousel({ books }) {
               loading="lazy"
               className="object-cover w-28 h-36 rounded-sm "
             />
-            <p className="text-sm sm:text-lg line-clamp-1 mt-2">{book.title}</p>
-            <p className="text-sm line-clamp-1 text-muted-foreground ">
-              {book.categoryBook}
-            </p>
+            <p className="text-sm line-clamp-1 mt-2 mx-4 text-muted-foreground">{book.title}</p>
+
           </Link>
         </SwiperSlide>
         )

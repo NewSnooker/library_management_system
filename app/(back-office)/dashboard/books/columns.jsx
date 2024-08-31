@@ -17,7 +17,7 @@ export const columns = [
   },
   {
     accessorKey: "title",
-    header: ({ column }) => <TitleColumn column={column} title="ชื่อหนังสือ" />,
+    header: ({ column }) => <TitleColumn column={column} title="ชื่อ-หนังสือ" />,
   },
   {
     accessorKey: "price",

@@ -79,7 +79,7 @@ export default function ActionStatusColumn({
         <DropdownMenuLabel>{title}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {Object.keys(bookStatuses).map((key) => (
-          <DropdownMenuItem key={key} onClick={() => onSubmit({ status: key })}>
+          <DropdownMenuItem key={key} className="z-20" onClick={() => onSubmit({ status: key })}>
             <span className={statusColors[key]}>{bookStatuses[key]}</span>
           </DropdownMenuItem>
         ))}

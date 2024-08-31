@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { selectBorrowUserId } from "@/redux/slices/SelectBorrowUserSlice";
+import { selectBorrowUserId } from "@/redux/slices/selectBorrowUserSlice";
 import React from "react";
 import { useDispatch } from "react-redux";
 

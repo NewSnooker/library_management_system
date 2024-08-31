@@ -129,8 +129,7 @@ export default function page({ params: { slug } }) {
                 หมวดหมู่ {book.category.title}
               </span>
             </div>
-            <div className="w-full flex sm:items-center justify-end sm:justify-start gap-2">
-              <Button>ยืมหนังสือ</Button>
+            <div className="w-full flex sm:items-center sm:justify-start gap-2">
               <CoolMode
                 options={
                   {
@@ -143,7 +142,7 @@ export default function page({ params: { slug } }) {
                 <Button
                   variant="outline"
                   onClick={() => addToFavorite()}
-                  className={`transition-colors duration-200 ${
+                  className={`w-full sm:w-auto transition-colors duration-200 ${
                     isFavorite ? "text-white bg-pink-600 dark:bg-pink-800" : ""
                   }`}
                 >

@@ -83,7 +83,6 @@ enum ActivityType {
   CREATE_BANNER
   UPDATE_BANNER
   APPROVE_BORROW_REQUEST
-  REJECT_BORROW_REQUEST
   RETURN_APPROVALS
   FINE_APPROVALS
   CREATE_FINE_RATE
@@ -154,18 +153,11 @@ model Banner {
 }
 
 enum BorrowingStatus {
-  PENDING_APPROVAL
-  APPROVED
-  REJECTED
   BORROWED
   RETURNED
   OVERDUE
   FINE_PAID
 }
-
-// PENDING_APPROVAL: กำลังส่งคำขอ (รอการอนุมัติ)
-// APPROVED: คำขอได้รับการอนุมัติ (แต่ยังไม่ได้รับหนังสือ)
-// REJECTED: คำขอถูกปฏิเสธ
 // BORROWED: กำลังยืม
 // RETURNED: ส่งคืนแล้ว
 // OVERDUE: เกินกำหนดส่ง
@@ -189,7 +181,7 @@ model Borrowing {
   returnDate DateTime?
   isReturned Boolean         @default(false)
   fine       Float           @default(0)
-  status     BorrowingStatus @default(PENDING_APPROVAL)
+  status     BorrowingStatus @default(BORROWED)
   activities Activity[]
 
   createdAt DateTime  @default(now())

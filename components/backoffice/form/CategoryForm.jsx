@@ -35,7 +35,7 @@ export default function CategoryForm({ updateData = {}, loading, adminId }) {
   const router = useRouter();
   const onSuccess = () => {
     queryClient.invalidateQueries(["categoriesAll"]);
-    router.push("/dashboard/categories");
+    router.replace("/dashboard/categories");
     router.refresh();
   };
 

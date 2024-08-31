@@ -13,7 +13,7 @@ import {
 export function PaginationDemo({handlePageChange, currentPage, totalPages}) {
   const getPageNumbers = () => {
     const pageNumbers = [];
-    const maxVisiblePages = 5; // จำนวนหน้าที่จะแสดงสูงสุด (ไม่รวมปุ่ม Previous และ Next)
+    const maxVisiblePages = 4; // จำนวนหน้าที่จะแสดงสูงสุด (ไม่รวมปุ่ม Previous และ Next)
     
     if (totalPages <= maxVisiblePages) {
       // ถ้ามีหน้าน้อยกว่าหรือเท่ากับ maxVisiblePages แสดงทั้งหมด

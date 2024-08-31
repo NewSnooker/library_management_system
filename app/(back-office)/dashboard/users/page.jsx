@@ -9,7 +9,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import PageHeaderNoAdd from "@/components/backoffice/PageHeaderNoAdd";
 
 const Page = () => {
-  const { data: books, isLoading, error } = useQuery({
+  const {
+    data: users,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["users"],
     queryFn: () => getData("admin/users"),
   });
@@ -17,10 +21,7 @@ const Page = () => {
   return (
     <div>
       {/* Header */}
-      <PageHeaderNoAdd
-        loading={isLoading}
-        heading="ข้อมูลผู้ใช้งาน"
-      />
+      <PageHeaderNoAdd loading={isLoading} heading="ข้อมูลผู้ใช้งาน" />
       <div className="py-2">
         {isLoading ? (
           <Skeleton className="w-full h-96 mb-2 " />
@@ -28,9 +29,9 @@ const Page = () => {
           <div>เกิดข้อผิดพลาด: {error.message}</div>
         ) : (
           <DataTable
-            data={books || []}
+            data={users || []}
             columns={columns}
-            filterKeys={["username","fullName"]}
+            filterKeys={["username", "fullName"]}
           />
         )}
       </div>

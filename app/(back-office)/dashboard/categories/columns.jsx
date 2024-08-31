@@ -19,6 +19,22 @@ export const columns = [
     accessorKey: "title",
     header: ({ column }) => <TitleColumn column={column} title="ชื่อหมวดหมู่" />,
   },
+  {
+    header: "จัดการ",
+    id: "actions",
+    cell: ({ row }) => {
+      const category = row.original;
+      return (
+        <ActionColumn
+          row={row}
+          title="หมวดหมู่"
+          refreshQueryKey="categories"
+          endpoint={`admin/categories/${category.id}`}
+          editEndpoint={`categories/update/${category.id}`}
+        />
+      );
+    },
+  },
   // {
   //   accessorKey: "description",
   //   header: ({ column }) => <TitleColumn column={column} title="รายละเอียด" />,
@@ -37,10 +53,6 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "updater",
-    header: ({ column }) => <TitleColumn column={column} title="ผู้อัพเดท" />,
-  },
-  {
     accessorKey: "updatedAt",
     header: ({ column }) => (
       <DateCreatedColumn column={column} title="อัพเดท" />
@@ -50,19 +62,9 @@ export const columns = [
     ),
   },
   {
-    header: "จัดการ",
-    id: "actions",
-    cell: ({ row }) => {
-      const category = row.original;
-      return (
-        <ActionColumn
-          row={row}
-          title="หมวดหมู่"
-          refreshQueryKey="categories"
-          endpoint={`admin/categories/${category.id}`}
-          editEndpoint={`categories/update/${category.id}`}
-        />
-      );
-    },
+    accessorKey: "updater",
+    header: ({ column }) => <TitleColumn column={column} title="ผู้อัพเดท" />,
   },
+
+  
 ];

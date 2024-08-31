@@ -158,7 +158,7 @@ export default function SettingProfile({ params: { id } }) {
                     />
                     <div className="flex gap-2">
                       <SelectInput
-                        label="คำนำหน้า"
+                        label="คำนำ"
                         name="prefix"
                         register={register}
                         errors={errors}

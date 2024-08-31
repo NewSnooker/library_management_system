@@ -8,6 +8,8 @@ import DateUpdatedColumnCell from "@/components/backoffice/data-table-columns/Da
 import ImageColumn from "@/components/backoffice/data-table-columns/ImageColumn";
 import NumberColumn from "@/components/backoffice/data-table-columns/NumberColumn";
 import TitleColumn from "@/components/backoffice/data-table-columns/TitleColumn";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const columns = [
   {
@@ -17,7 +19,13 @@ export const columns = [
   },
   {
     accessorKey: "title",
-    header: ({ column }) => <TitleColumn column={column} title="ชื่อ-หนังสือ" />,
+    header: ({ column }) => (
+      <TitleColumn
+        column={column}
+        title="ชื่อ-หนังสือ"
+        className="-m-4 min-w-80"
+      />
+    ),
   },
   {
     accessorKey: "price",
@@ -50,41 +58,20 @@ export const columns = [
       );
     },
   },
-  // {
-  //   accessorKey: "status",
-  //   header: ({ column }) => <TitleColumn column={column} title="สถานะ" />,
-  //   cell: ({ row }) => <StatusColumn row={row} accessorKey="status" />,
-  // },
-
-  //   {
-  //   accessorKey: "author",
-  //   header: ({ column }) => <TitleColumn column={column} title="ชื่อผู้แต่ง" />,
-  // },
   {
-    accessorKey: "creator",
-    header: ({ column }) => <TitleColumn column={column} title="ผู้สร้าง" />,
+    header: ({ column }) => <TitleColumn column={column} title="ยืมหนังสือ" />,
+    id: "borrow",
+    cell: ({ row }) => {
+      const book = row.original;
+      return (
+        <Link href={`/dashboard/books/borrow/${book.id}`} className="w-full">
+          <Button variant="outline" className="min-w-20">
+            ยืม
+          </Button>
+        </Link>
+      );
+    },
   },
-  {
-    accessorKey: "createdAt",
-    header: ({ column }) => <DateCreatedColumn column={column} title="สร้าง" />,
-    cell: ({ row }) => (
-      <DateCreatedColumnCell row={row} accessorKey="createdAt" />
-    ),
-  },
-  {
-    accessorKey: "updater",
-    header: ({ column }) => <TitleColumn column={column} title="ผู้อัพเดท" />,
-  },
-  {
-    accessorKey: "updatedAt",
-    header: ({ column }) => (
-      <DateCreatedColumn column={column} title="อัพเดท" />
-    ),
-    cell: ({ row }) => (
-      <DateUpdatedColumnCell row={row} accessorKey="updatedAt" />
-    ),
-  },
-
   {
     header: "จัดการ",
     id: "actions",
@@ -100,5 +87,41 @@ export const columns = [
         />
       );
     },
+  },
+  // {
+  //   accessorKey: "status",
+  //   header: ({ column }) => <TitleColumn column={column} title="สถานะ" />,
+  //   cell: ({ row }) => <StatusColumn row={row} accessorKey="status" />,
+  // },
+
+  //   {
+  //   accessorKey: "author",
+  //   header: ({ column }) => <TitleColumn column={column} title="ชื่อผู้แต่ง" />,
+  // },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (
+      <DateCreatedColumn column={column} title="วันที่สร้าง" />
+    ),
+    cell: ({ row }) => (
+      <DateCreatedColumnCell row={row} accessorKey="createdAt" />
+    ),
+  },
+  {
+    accessorKey: "creator",
+    header: ({ column }) => <TitleColumn column={column} title="ผู้สร้าง" />,
+  },
+  {
+    accessorKey: "updatedAt",
+    header: ({ column }) => (
+      <DateCreatedColumn column={column} title="อัพเดท" />
+    ),
+    cell: ({ row }) => (
+      <DateUpdatedColumnCell row={row} accessorKey="updatedAt" />
+    ),
+  },
+  {
+    accessorKey: "updater",
+    header: ({ column }) => <TitleColumn column={column} title="ผู้อัพเดท" />,
   },
 ];

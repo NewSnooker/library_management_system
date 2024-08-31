@@ -70,7 +70,7 @@ export default function ActionStatusColumn({
       <DropdownMenuTrigger asChild>
         <Button
           className={`${statusColors[status]} -m-4 focus:ring-0`}
-          variant="ghost"
+          variant="outline"
         >
           {statusLabel}
         </Button>

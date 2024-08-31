@@ -115,7 +115,7 @@ export default function OnboardingForm({ id }) {
         />
         <div className="flex gap-2">
           <SelectInput
-            label="คำนำหน้า"
+            label="คำนำ"
             name="prefix"
             register={register}
             errors={errors}

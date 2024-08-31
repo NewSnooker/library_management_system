@@ -11,18 +11,29 @@ export default function UpdateBook({ params: { id } }) {
   const { data: session } = useSession();
   const adminId = session?.user?.id;
 
-  const { data: book, isLoading: isBookLoading } = useQuery({
+  const {
+    data: book,
+    isLoading: isBookLoading,
+    error: bookError,
+  } = useQuery({
     queryKey: ["book", id],
     queryFn: () => getData(`admin/books/${id}`),
   });
 
-  const { data: categories, isLoading: isCategoriesLoading } = useQuery({
+  const {
+    data: categories,
+    isLoading: isCategoriesLoading,
+    error: CategoriesError,
+  } = useQuery({
     queryKey: ["categories"],
     queryFn: () => getData("admin/categories"),
   });
 
   const isLoading = isBookLoading || isCategoriesLoading;
 
+  if (bookError || CategoriesError)
+    return <div> Error: {bookError.message || CategoriesError.message}</div>;
+  
   return (
     <div>
       <FormHeader title="แก้ไขหนังสือ" loading={isLoading} />

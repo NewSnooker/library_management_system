@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 
 import React from 'react'
 
-export default function TitleColumn({column,title}) {
+export default function TitleColumn({column,title,className="-m-4"}) {
     return (
         <Button
-          className=" -m-4"
+          className={className} 
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >

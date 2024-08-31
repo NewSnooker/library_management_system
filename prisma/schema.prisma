@@ -53,23 +53,26 @@ model UserProfile {
   userId String @unique @db.ObjectId
   user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
-  activities Activity[]
-
-  favoriteBooks FavoriteBook[]
+  activities      Activity[]
+  favoriteBooks   FavoriteBook[]
+  borrowings      Borrowing[]    @relation("borrower")
+  approvals       Borrowing[]    @relation("approver")
+  returnApprovals Borrowing[]    @relation("returnApprover")
+  fineApprover    Borrowing[]    @relation("fineApprover")
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 }
 
 model FavoriteBook {
-  id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String      @db.ObjectId
-  bookId    String      @db.ObjectId
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  bookId String @db.ObjectId
 
-  book      Book        @relation(fields: [bookId], references: [id])
-  user      UserProfile @relation(fields: [userId], references: [userId])
-  
-  createdAt DateTime    @default(now())
+  book Book        @relation(fields: [bookId], references: [id])
+  user UserProfile @relation(fields: [userId], references: [userId])
+
+  createdAt DateTime @default(now())
 }
 
 enum ActivityType {
@@ -79,6 +82,12 @@ enum ActivityType {
   UPDATE_CATEGORY
   CREATE_BANNER
   UPDATE_BANNER
+  APPROVE_BORROW_REQUEST
+  REJECT_BORROW_REQUEST
+  RETURN_APPROVALS
+  FINE_APPROVALS
+  CREATE_FINE_RATE
+  UPDATE_FINE_RATE
 }
 
 model Activity {
@@ -92,6 +101,8 @@ model Activity {
   category      Category?    @relation(fields: [categoryId], references: [id])
   bannerId      String?      @db.ObjectId
   banner        Banner?      @relation(fields: [bannerId], references: [id])
+  borrowingId   String?      @db.ObjectId
+  borrowing     Borrowing?   @relation(fields: [borrowingId], references: [id])
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
@@ -127,6 +138,7 @@ model Book {
 
   activities Activity[]
   favoriteBy FavoriteBook[]
+  borrowings Borrowing[]
 
   categoryId String   @db.ObjectId
   category   Category @relation(fields: [categoryId], references: [id])
@@ -141,4 +153,53 @@ model Banner {
   activities Activity[]
 }
 
+enum BorrowingStatus {
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  BORROWED
+  RETURNED
+  OVERDUE
+  FINE_PAID
+}
 
+// PENDING_APPROVAL: กำลังส่งคำขอ (รอการอนุมัติ)
+// APPROVED: คำขอได้รับการอนุมัติ (แต่ยังไม่ได้รับหนังสือ)
+// REJECTED: คำขอถูกปฏิเสธ
+// BORROWED: กำลังยืม
+// RETURNED: ส่งคืนแล้ว
+// OVERDUE: เกินกำหนดส่ง
+// FINE_PAID: จ่ายค่าปรับแล้ว
+
+model Borrowing {
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  bookId           String       @db.ObjectId
+  book             Book         @relation(fields: [bookId], references: [id])
+  borrowerId       String       @db.ObjectId
+  borrower         UserProfile  @relation("borrower", fields: [borrowerId], references: [userId])
+  approverId       String       @db.ObjectId
+  approver         UserProfile  @relation("approver", fields: [approverId], references: [userId])
+  returnApproverId String?      @db.ObjectId
+  returnApprover   UserProfile? @relation("returnApprover", fields: [returnApproverId], references: [userId])
+  fineApproverId   String?      @db.ObjectId
+  fineApprover     UserProfile? @relation("fineApprover", fields: [fineApproverId], references: [userId])
+
+  borrowDate DateTime        @default(now())
+  dueDate    DateTime
+  returnDate DateTime?
+  isReturned Boolean         @default(false)
+  fine       Float           @default(0)
+  status     BorrowingStatus @default(PENDING_APPROVAL)
+  activities Activity[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model FineRate {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  rate Float
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}

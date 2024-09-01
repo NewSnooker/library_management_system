@@ -55,10 +55,10 @@ model UserProfile {
 
   activities      Activity[]
   favoriteBooks   FavoriteBook[]
-  borrowings      Borrowing[]    @relation("borrower")
-  approvals       Borrowing[]    @relation("approver")
-  returnApprovals Borrowing[]    @relation("returnApprover")
-  fineApprover    Borrowing[]    @relation("fineApprover")
+  borrowings      Borrow[]    @relation("borrower")
+  approvals       Borrow[]    @relation("approver")
+  returnApprovals Borrow[]    @relation("returnApprover")
+  fineApprover    Borrow[]    @relation("fineApprover")
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
@@ -82,11 +82,8 @@ enum ActivityType {
   UPDATE_CATEGORY
   CREATE_BANNER
   UPDATE_BANNER
-  APPROVE_BORROW_REQUEST
+  CREATE_BORROW
   RETURN_APPROVALS
-  FINE_APPROVALS
-  CREATE_FINE_RATE
-  UPDATE_FINE_RATE
 }
 
 model Activity {
@@ -101,7 +98,7 @@ model Activity {
   bannerId      String?      @db.ObjectId
   banner        Banner?      @relation(fields: [bannerId], references: [id])
   borrowingId   String?      @db.ObjectId
-  borrowing     Borrowing?   @relation(fields: [borrowingId], references: [id])
+  borrowing     Borrow?   @relation(fields: [borrowingId], references: [id])
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
@@ -137,7 +134,7 @@ model Book {
 
   activities Activity[]
   favoriteBy FavoriteBook[]
-  borrowings Borrowing[]
+  borrowings Borrow[]
 
   categoryId String   @db.ObjectId
   category   Category @relation(fields: [categoryId], references: [id])
@@ -163,7 +160,7 @@ enum BorrowingStatus {
 // OVERDUE: เกินกำหนดส่ง
 // FINE_PAID: จ่ายค่าปรับแล้ว
 
-model Borrowing {
+model Borrow {
   id               String       @id @default(auto()) @map("_id") @db.ObjectId
   bookId           String       @db.ObjectId
   book             Book         @relation(fields: [bookId], references: [id])
@@ -179,6 +176,7 @@ model Borrowing {
   borrowDate DateTime        @default(now())
   dueDate    DateTime
   returnDate DateTime?
+  numberOfDays Int
   isReturned Boolean         @default(false)
   fine       Float           @default(0)
   status     BorrowingStatus @default(BORROWED)
@@ -188,10 +186,4 @@ model Borrowing {
   updatedAt DateTime? @updatedAt
 }
 
-model FineRate {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  rate Float
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
-}

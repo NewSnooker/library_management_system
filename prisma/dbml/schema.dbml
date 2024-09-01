@@ -31,10 +31,10 @@ Table UserProfile {
   user User [not null]
   activities Activity [not null]
   favoriteBooks FavoriteBook [not null]
-  borrowings Borrowing [not null]
-  approvals Borrowing [not null]
-  returnApprovals Borrowing [not null]
-  fineApprover Borrowing [not null]
+  borrowings Borrow [not null]
+  approvals Borrow [not null]
+  returnApprovals Borrow [not null]
+  fineApprover Borrow [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
 }
@@ -60,7 +60,7 @@ Table Activity {
   bannerId String
   banner Banner
   borrowingId String
-  borrowing Borrowing
+  borrowing Borrow
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
 }
@@ -92,7 +92,7 @@ Table Book {
   description String
   activities Activity [not null]
   favoriteBy FavoriteBook [not null]
-  borrowings Borrowing [not null]
+  borrowings Borrow [not null]
   categoryId String [not null]
   category Category [not null]
   createdAt DateTime [default: `now()`, not null]
@@ -105,7 +105,7 @@ Table Banner {
   activities Activity [not null]
 }
 
-Table Borrowing {
+Table Borrow {
   id String [pk]
   bookId String [not null]
   book Book [not null]
@@ -120,17 +120,11 @@ Table Borrowing {
   borrowDate DateTime [default: `now()`, not null]
   dueDate DateTime [not null]
   returnDate DateTime
+  numberOfDays Int [not null]
   isReturned Boolean [not null, default: false]
   fine Float [not null, default: 0]
   status BorrowingStatus [not null, default: 'BORROWED']
   activities Activity [not null]
-  createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime
-}
-
-Table FineRate {
-  id String [pk]
-  rate Float [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
 }
@@ -147,11 +141,8 @@ Enum ActivityType {
   UPDATE_CATEGORY
   CREATE_BANNER
   UPDATE_BANNER
-  APPROVE_BORROW_REQUEST
+  CREATE_BORROW
   RETURN_APPROVALS
-  FINE_APPROVALS
-  CREATE_FINE_RATE
-  UPDATE_FINE_RATE
 }
 
 Enum BorrowingStatus {
@@ -175,16 +166,16 @@ Ref: Activity.categoryId > Category.id
 
 Ref: Activity.bannerId > Banner.id
 
-Ref: Activity.borrowingId > Borrowing.id
+Ref: Activity.borrowingId > Borrow.id
 
 Ref: Book.categoryId > Category.id
 
-Ref: Borrowing.bookId > Book.id
+Ref: Borrow.bookId > Book.id
 
-Ref: Borrowing.borrowerId > UserProfile.userId
+Ref: Borrow.borrowerId > UserProfile.userId
 
-Ref: Borrowing.approverId > UserProfile.userId
+Ref: Borrow.approverId > UserProfile.userId
 
-Ref: Borrowing.returnApproverId > UserProfile.userId
+Ref: Borrow.returnApproverId > UserProfile.userId
 
-Ref: Borrowing.fineApproverId > UserProfile.userId
+Ref: Borrow.fineApproverId > UserProfile.userId

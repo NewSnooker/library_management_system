@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { columns } from "./columns";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 
 import { addDays, differenceInDays, format } from "date-fns";
@@ -19,9 +19,14 @@ import { th } from "date-fns/locale"; // นำเข้า locale ภาษา�
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { FINE_RATE } from "@/lib/constants";
 
+import Swal from "sweetalert2";
+import { isLoading } from "@/redux/slices/loadingFullScreenSlice";
+import toast from "react-hot-toast";
 export default function page({ params: { id } }) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const userId = useSelector((store) => store.selectBorrowUser.userId);
   const { data: admin } = useSession();
   const adminId = admin?.user?.id;
@@ -33,7 +38,9 @@ export default function page({ params: { id } }) {
   });
 
   const numberOfDays =
-    date?.from && date?.to ? differenceInDays(date.to, date.from) + 1 : 0; // คำนวณจำนวนวัน
+    date?.from && date?.to
+      ? Math.round(differenceInDays(date.to, date.from))
+      : 0;
 
   const {
     data: book,
@@ -60,9 +67,70 @@ export default function page({ params: { id } }) {
     queryFn: () => getData(`admin/users/${userId}`),
     enabled: !!userId,
   });
+
+  const bookPrice = book?.price; // สมมติว่าราคาหนังสือมีหน่วยเป็นบาท
+  const fineAmount = Math.round(bookPrice * FINE_RATE.DAY);
+
+  const onSuccess = () => {
+    router.push("/dashboard/history");
+    router.refresh();
+  };
+
   if (bookError) return <div> Error: {bookError.message}</div>;
   if (errorUsers) return <div> Error: {errorUsers.message}</div>;
   if (errorUserDetail) return <div> Error: {errorUserDetail.message}</div>;
+
+  const onSubmit = async () => {
+    Swal.fire({
+      title: "คุณแน่ใจมั้ย??",
+      text: "คุณต้องการยืมหนังสือเล่มนี้ใช่หรอไม่!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ใช่ ยืนยัน!",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const data = {};
+        data.bookId = id;
+        data.borrowerId = userId;
+        data.approverId = adminId;
+        data.borrowDate = date.from;
+        data.dueDate = date.to;
+        data.numberOfDays = numberOfDays;
+
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        dispatch(isLoading(true));
+        const res = await fetch(`${baseUrl}/api/admin/borrows`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        if (res.status === 400) {
+          const data = await res.json();
+          toast.error(data.message);
+          dispatch(isLoading(false));
+        }
+        if (res.status === 404) {
+          const data = await res.json();
+          toast.error(data.message);
+          dispatch(isLoading(false));
+        }
+        if (res.ok) {
+          onSuccess();
+          // window.location.reload();
+          toast.success(`ทำการยืมหนังสือสำเร็จ`);
+          dispatch(isLoading(false));
+        }
+      } else {
+        dispatch(isLoading(false));
+        router.refresh();
+      }
+    });
+  };
 
   return (
     <div className="">
@@ -113,7 +181,7 @@ export default function page({ params: { id } }) {
                 {isUserDetailLoading ? (
                   <Skeleton className="w-full h-6 mb-2" />
                 ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-3 items-stretch gap-4 w-full dark:text-muted-foreground ">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 items-stretch gap-x-10 w-full dark:text-muted-foreground ">
                     <div className="col-span-1">
                       <div className="text-lg font-semibold mb-3">
                         ข้อมูลผู้ยืม
@@ -135,9 +203,13 @@ export default function page({ params: { id } }) {
                         ข้อมูลหนังสือ
                       </div>
                       <div className="">ชื่อหนังสือ : {book.title}</div>
-                      <div className="">ราคาหนังสือ : {book.price} บาท</div>
-                      <div className="">จำนวนที่ยืม : 1 เล่ม</div>
                       <div className="">คงเหลือ : {book.remaining} เล่ม</div>
+                      <div className="">จำนวนที่ยืม : 1 เล่ม</div>
+                      <div className="">ราคาหนังสือ : {book.price} บาท</div>
+                      <div className="">ค่าสูญหาย : {book.price} บาท</div>
+                      <div className="">
+                        ราคาค่าปรับ : {fineAmount} บาท / วัน
+                      </div>
                     </div>
                     <div className="col-span-1">
                       <div className="text-lg font-semibold mb-3">
@@ -152,11 +224,12 @@ export default function page({ params: { id } }) {
                         {date?.from ? (
                           date.to ? (
                             <>
-                              วันที่{" "}
+                              วันที่ :{" "}
                               {format(date.from, "dd LLLL yyyy", {
                                 locale: th,
                               })}{" "}
-                              -{" "}
+                              <br />
+                              ถึง :{" "}
                               {format(date.to, "dd LLLL yyyy", {
                                 locale: th,
                               })}
@@ -169,7 +242,7 @@ export default function page({ params: { id } }) {
                       <div className="">เป็นจำนวน : {numberOfDays} วัน</div>
                     </div>
 
-                    <div className="col-span-1 sm:ml-4">
+                    <div className="col-span-1 ">
                       <div className={cn("grid gap-2")}>
                         <Button
                           id="date"
@@ -213,7 +286,7 @@ export default function page({ params: { id } }) {
                 )}
               </div>
               <div className="w-full flex justify-end mt-8 relative">
-                <Button >ยืนยันการยืม</Button>
+                <Button onClick={() => onSubmit()}>ยืนยันการยืม</Button>
               </div>
             </div>
           ) : null}

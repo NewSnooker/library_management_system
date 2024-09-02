@@ -27,7 +27,7 @@ export default function Page({ params: { id } }) {
   const today = new Date();
   const due = new Date(borrow?.dueDate);
   const difference = due - today;
-  const daysRemaining = Math.ceil(difference / (1000 * 60 * 60 * 24));
+  const daysRemaining = Math.round(difference / (1000 * 60 * 60 * 24));
   const overdueDays = daysRemaining < 0 ? Math.abs(daysRemaining) : 0;
   const totalFine = overdueDays * FINE_RATE.DAY;
 
@@ -124,10 +124,11 @@ export default function Page({ params: { id } }) {
                         : ""}
                     </span>
                   </p>
+                  
                   <p className="mt-5 sm:mt-10">
                     <strong>จำนวนวันที่เกินกำหนด: </strong>
                     <span className="text-red-800 dark:text-red-500">
-                      {overdueDays}
+                      {borrow.isReturned === false ? `${overdueDays}` : 0} {/*borrow.saveOverdueDays */}
                     </span>{" "}
                     วัน
                   </p>

@@ -55,10 +55,9 @@ model UserProfile {
 
   activities      Activity[]
   favoriteBooks   FavoriteBook[]
-  borrowings      Borrow[]    @relation("borrower")
-  approvals       Borrow[]    @relation("approver")
-  returnApprovals Borrow[]    @relation("returnApprover")
-  fineApprover    Borrow[]    @relation("fineApprover")
+  borrowings      Borrow[]       @relation("borrower")
+  approvals       Borrow[]       @relation("approver")
+  returnApprovals Borrow[]       @relation("returnApprover")
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
@@ -98,7 +97,7 @@ model Activity {
   bannerId      String?      @db.ObjectId
   banner        Banner?      @relation(fields: [bannerId], references: [id])
   borrowingId   String?      @db.ObjectId
-  borrowing     Borrow?   @relation(fields: [borrowingId], references: [id])
+  borrowing     Borrow?      @relation(fields: [borrowingId], references: [id])
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
@@ -153,12 +152,13 @@ enum BorrowingStatus {
   BORROWED
   RETURNED
   OVERDUE
-  FINE_PAID
+  LOST
 }
+
 // BORROWED: กำลังยืม
 // RETURNED: ส่งคืนแล้ว
 // OVERDUE: เกินกำหนดส่ง
-// FINE_PAID: จ่ายค่าปรับแล้ว
+// LOST: สูญหาย
 
 model Borrow {
   id               String       @id @default(auto()) @map("_id") @db.ObjectId
@@ -170,20 +170,16 @@ model Borrow {
   approver         UserProfile  @relation("approver", fields: [approverId], references: [userId])
   returnApproverId String?      @db.ObjectId
   returnApprover   UserProfile? @relation("returnApprover", fields: [returnApproverId], references: [userId])
-  fineApproverId   String?      @db.ObjectId
-  fineApprover     UserProfile? @relation("fineApprover", fields: [fineApproverId], references: [userId])
 
-  borrowDate DateTime        @default(now())
-  dueDate    DateTime
-  returnDate DateTime?
+  borrowDate   DateTime        @default(now())
+  dueDate      DateTime
+  returnDate   DateTime?
   numberOfDays Int
-  isReturned Boolean         @default(false)
-  fine       Float           @default(0)
-  status     BorrowingStatus @default(BORROWED)
-  activities Activity[]
+  isReturned   Boolean         @default(false)
+  fine         Float           @default(0)
+  status       BorrowingStatus @default(BORROWED)
+  activities   Activity[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 }
-
-

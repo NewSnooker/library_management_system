@@ -1,6 +1,5 @@
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
-import { ActivityType } from "@prisma/client"; // นำเข้า enum จาก Prisma schema ของคุณ
 
 export async function POST(request) {
   try {
@@ -77,7 +76,7 @@ export async function GET(request) {
   try {
     const borrows = await db.borrow.findMany({
       orderBy: {
-        borrowDate: "desc",
+        createdAt: "desc",
       },
       include: {
         book: true, // Assuming you want to include book details
@@ -90,7 +89,7 @@ export async function GET(request) {
       return {
         ...item,
         bookTitle: item.book?.title || "",
-        borrowerName: `${item.borrower?.prefix || ""}${item.borrower?.fullName || ""}`.trim(),
+        borrowerName: `${item.borrower?.prefix || ""} ${item.borrower?.fullName || ""}`.trim(),
         borrowerProfileImage: item.borrower?.profileImage || "",
         borrowerEducation: `${item.borrower?.educationLevel || ""} ${
           item.borrower?.educationYear || ""

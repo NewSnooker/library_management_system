@@ -34,7 +34,6 @@ Table UserProfile {
   borrowings Borrow [not null]
   approvals Borrow [not null]
   returnApprovals Borrow [not null]
-  fineApprover Borrow [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
 }
@@ -115,8 +114,6 @@ Table Borrow {
   approver UserProfile [not null]
   returnApproverId String
   returnApprover UserProfile
-  fineApproverId String
-  fineApprover UserProfile
   borrowDate DateTime [default: `now()`, not null]
   dueDate DateTime [not null]
   returnDate DateTime
@@ -149,6 +146,7 @@ Enum BorrowingStatus {
   BORROWED
   RETURNED
   OVERDUE
+  LOST
   FINE_PAID
 }
 
@@ -177,5 +175,3 @@ Ref: Borrow.borrowerId > UserProfile.userId
 Ref: Borrow.approverId > UserProfile.userId
 
 Ref: Borrow.returnApproverId > UserProfile.userId
-
-Ref: Borrow.fineApproverId > UserProfile.userId

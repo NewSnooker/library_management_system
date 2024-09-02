@@ -7,7 +7,10 @@ import DateCreatedColumnCell from "@/components/backoffice/data-table-columns/Da
 import DateUpdatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnUpdatedCell";
 import ImageColumn from "@/components/backoffice/data-table-columns/ImageColumn";
 import NumberColumn from "@/components/backoffice/data-table-columns/NumberColumn";
+import StatusColumn from "@/components/backoffice/data-table-columns/StatusColumn";
 import TitleColumn from "@/components/backoffice/data-table-columns/TitleColumn";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const columns = [
   {
@@ -23,7 +26,7 @@ export const columns = [
       <TitleColumn
         column={column}
         title="ชื่อผู้ยืม"
-        className="-m-4 min-w-52"
+        className="-m-4 min-w-44"
       />
     ),
   },
@@ -33,7 +36,7 @@ export const columns = [
       <TitleColumn
         column={column}
         title="ชื่อหนังสือ"
-        className="-m-4 min-w-40"
+        className="-m-4 min-w-32"
       />
     ),
   },
@@ -62,6 +65,7 @@ export const columns = [
   },
   {
     accessorKey: "dueDate",
+    id: "daysRemaining",
     header: ({ column }) => (
       <DateCreatedColumn column={column} title="เหลือ / วัน" />
     ),
@@ -70,9 +74,28 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "approverName",
-    header: ({ column }) => <TitleColumn column={column} title="ผู้อนุมัติ" />,
+    accessorKey: "status",
+    header: ({ column }) => <TitleColumn column={column} title="สถานะ" />,
+    cell: ({ row }) => <StatusColumn row={row} accessorKey="status" />,
   },
+  {
+    header: ({ column }) => <TitleColumn column={column} title="เพิ่มเติม" />,
+    id: "borrow",
+    cell: ({ row }) => {
+      const book = row.original;
+      return (
+        <Link href={`/dashboard/history/borrow/${book.id}`} className="w-full">
+          <Button variant="outline" className="min-w-20">
+            รายละเอียด
+          </Button>
+        </Link>
+      );
+    },
+  },
+  // {
+  //   accessorKey: "approverName",
+  //   header: ({ column }) => <TitleColumn column={column} title="ผู้อนุมัติ" />,
+  // },
 
   // {
   //   accessorKey: "updatedAt",

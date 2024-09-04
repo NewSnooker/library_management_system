@@ -92,6 +92,7 @@ export default function page({ params: { id } }) {
       cancelButtonText: "ยกเลิก",
     }).then(async (result) => {
       if (result.isConfirmed) {
+        window.scrollTo({ top: 0 });
         const data = {};
         data.bookId = id;
         data.borrowerId = userId;

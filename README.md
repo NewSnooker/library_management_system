@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ER Diagram
 
-## Getting Started
+````mermaid
+erDiagram
+    User {
+        String id PK
+        String username
+        String email
+        String password
+        Boolean emailVerified
+        String verificationToken
+        UserRole role
+        DateTime createdAt
+        DateTime updatedAt
+    }
+    UserProfile {
+        String id PK
+        String username
+        String emailAddress
+        String prefix
+        String fullName
+        String codeNumber
+        String phoneNumber
+        String educationLevel
+        String educationYear
+        String description
+        String profileImage
+        String userId
+        DateTime createdAt
+        DateTime updatedAt
+    }
+    FavoriteBook {
+        String id PK
+        String userId
+        String bookId
+        DateTime createdAt
+    }
+    Activity {
+        String id PK
+        ActivityType type
+        String userProfileId
+        String bookId
+        String categoryId
+        String bannerId
+        String borrowingId
+        DateTime createdAt
+        DateTime updatedAt
+    }
+    Category {
+        String id PK
+        String title
+        String slug
+        String imageUrl
+        String description
+        String creatorId
+        DateTime createdAt
+        DateTime updatedAt
+    }
+    Book {
+        String id PK
+        String title
+        String slug
+        Int price
+        Int quantity
+        Int remaining
+        String author
+        Boolean active
+        String imageUrl
+        String[] imageUrls
+        String description
+        DateTime createdAt
+        DateTime updatedAt
+    }
+    Banner {
+        String id PK
+        String[] imageUrls
+    }
+    Borrow {
+        String id PK
+        String bookId
+        String borrowerId
+        String approverId
+        String returnApproverId
+        DateTime borrowDate
+        DateTime dueDate
+        DateTime returnDate
+        Int numberOfDays
+        Boolean isReturned
+        Float fine
+        BorrowingStatus status
+        DateTime createdAt
+        DateTime updatedAt
+    }
 
-First, run the development server:
+    User ||--o{ UserProfile : "has"
+    UserProfile ||--o{ FavoriteBook : "favorites"
+    UserProfile ||--o{ Activity : "performs"
+    UserProfile ||--o{ Borrow : "borrows"
+    FavoriteBook }o--|| Book : "favorites"
+    Activity }o--|| Book : "involves"
+    Activity }o--|| Category : "involves"
+    Activity }o--|| Banner : "involves"
+    Activity }o--|| Borrow : "involves"
+    Category ||--o{ Book : "includes"
+    Borrow }o--|| Book : "involves"
+````
+# ER Diagram
+```mermaid
+graph TD
+    User((ผู้ใช้))
+    LibrarySystem[ระบบห้องสมุด]
+    BookDB[(ฐานข้อมูลหนังสือ)]
+    BorrowDB[(ฐานข้อมูลการยืม-คืน)]
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    User -->|ข้อมูลการยืม| LibrarySystem
+    User -->|ข้อมูลการคืน| LibrarySystem
+    LibrarySystem -->|ตรวจสอบ/อัพเดตสถานะหนังสือ| BookDB
+    LibrarySystem -->|บันทึก/อัพเดตข้อมูลการยืม-คืน| BorrowDB
+    LibrarySystem -->|ข้อมูลยืนยัน/ค่าปรับ| User
+    BookDB -->|ข้อมูลหนังสือ| LibrarySystem
+    BorrowDB -->|ข้อมูลการยืม| LibrarySystem
+````

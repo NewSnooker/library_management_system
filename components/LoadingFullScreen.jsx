@@ -7,9 +7,9 @@ export default function LoadingFullScreen({ children }) {
   return (
     <>
       {loadingFull ? (
-        <div className="relative w-full h-screen overflow-hidden">
+        <div className="relative w-full h-full overflow-hidden overscroll-none no-scrollbar">
           {children}
-          <div className="absolute flex justify-center items-center inset-0 bg-zinc-900 z-50 opacity-85 ">
+          <div className="absolute no-scrollbar flex justify-center items-center inset-0 bg-zinc-900 z-50 opacity-85  h-full">
             
             <div role="status" className="pb-32 sm:pb-8">
               <svg

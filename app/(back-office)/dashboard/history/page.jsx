@@ -27,7 +27,7 @@ const Page = () => {
           <DataTable
             data={borrows}
             columns={columns}
-            filterKeys={["borrowerName","bookTitle",]}
+            filterKeys={["borrowerName","bookTitle","borrowDate"]}
           />
         )}
       </div>

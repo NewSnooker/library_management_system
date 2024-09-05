@@ -118,6 +118,7 @@ Table Borrow {
   dueDate DateTime [not null]
   returnDate DateTime
   numberOfDays Int [not null]
+  damaged Int
   isReturned Boolean [not null, default: false]
   fine Float [not null, default: 0]
   status BorrowingStatus [not null, default: 'BORROWED']
@@ -147,7 +148,6 @@ Enum BorrowingStatus {
   RETURNED
   OVERDUE
   LOST
-  FINE_PAID
 }
 
 Ref: UserProfile.userId - User.id [delete: Cascade]

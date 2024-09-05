@@ -82,6 +82,7 @@ export async function GET(request) {
         book: true, // Assuming you want to include book details
         borrower: true, // Assuming you want to include borrower details
         approver: true, // Assuming you want to include approver details
+        returnApprover: true, // Assuming you want to include approver details
       },
     });
 

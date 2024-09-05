@@ -104,19 +104,80 @@ erDiagram
     Category ||--o{ Book : "includes"
     Borrow }o--|| Book : "involves"
 ````
-# ER Diagram
+# Data Flow Diagram
+```mermaid
+graph TD
+    User((ผู้ใช้))
+    Admin((บรรณารักษ์))
+    LibrarySystem[ระบบห้องสมุด]
+    BookDB[(ฐานข้อมูลหนังสือ)]
+    UserDB[(ฐานข้อมูลผู้ใช้)]
+    BorrowDB[(ฐานข้อมูลการยืม-คืน)]
+
+    User -->|ค้นหาหนังสือในห้องสมุด| Admin
+    Admin -->|ค้นหาหนังสือในระบบ| LibrarySystem
+    LibrarySystem -->|ตรวจสอบหนังสือ| BookDB
+    Admin -->|ค้นหาผู้ใช้ในระบบ| LibrarySystem
+    LibrarySystem -->|ข้อมูลผู้ใช้| UserDB
+    Admin -->|บันทึกข้อมูลการยืม| LibrarySystem
+    LibrarySystem -->|อัพเดตสถานะหนังสือ| BookDB
+    LibrarySystem -->|บันทึกข้อมูลการยืม| BorrowDB
+    BorrowDB -->|ส่งข้อมูลการยืม| User
+    BookDB -->|ข้อมูลหนังสือปัจจุบัน| LibrarySystem
+
+
+````
+
+# Data Flow Diagram
+
+```mermaid
+graph TD
+    User((ผู้ใช้))
+    Librarian((แอดมิน/บรรณารักษ์))
+    LibrarySystem[ระบบห้องสมุด]
+    BorrowDB[(ฐานข้อมูลการยืมคืน)]
+
+    User -->|นำหนังสือมาคืน| Librarian
+    Librarian -->|ค้นหาข้อมูลการยืมในระบบ| LibrarySystem
+    LibrarySystem -->|ดึงข้อมูลการยืม| BorrowDB
+    Librarian -->|ตรวจสอบข้อมูลการยืม| LibrarySystem
+    LibrarySystem -->|ตรวจสอบสถานะคืน/เกินกำหนด| BorrowDB
+    Librarian -->|ยืนยันสถานะการคืนและค่าปรับ| LibrarySystem
+    LibrarySystem -->|อัปเดตข้อมูลการคืนและค่าปรับ| BorrowDB
+    LibrarySystem -->|อัปเดตสถานะหนังสือ| BorrowDB
+    BorrowDB -->|ยืนยันข้อมูลคืนหนังสือ| User
+
+````
+# Data Flow Diagram
+
 ```mermaid
 graph TD
     User((ผู้ใช้))
     LibrarySystem[ระบบห้องสมุด]
-    BookDB[(ฐานข้อมูลหนังสือ)]
-    BorrowDB[(ฐานข้อมูลการยืม-คืน)]
+    EmailService[บริการอีเมล]
+    UserDB[(ฐานข้อมูลผู้ใช้)]
 
-    User -->|ข้อมูลการยืม| LibrarySystem
-    User -->|ข้อมูลการคืน| LibrarySystem
-    LibrarySystem -->|ตรวจสอบ/อัพเดตสถานะหนังสือ| BookDB
-    LibrarySystem -->|บันทึก/อัพเดตข้อมูลการยืม-คืน| BorrowDB
-    LibrarySystem -->|ข้อมูลยืนยัน/ค่าปรับ| User
-    BookDB -->|ข้อมูลหนังสือ| LibrarySystem
-    BorrowDB -->|ข้อมูลการยืม| LibrarySystem
+    User -->|สมัครสมาชิก| LibrarySystem
+    LibrarySystem -->|บันทึกข้อมูลผู้ใช้| UserDB
+    LibrarySystem -->|ส่งอีเมลยืนยันตัวตน| EmailService
+    EmailService -->|ส่งอีเมลยืนยัน| User
+    User -->|คลิกลิงก์ยืนยันและกรอกข้อมูลเพิ่มเติม| LibrarySystem
+    LibrarySystem -->|อัปเดตข้อมูลผู้ใช้ในระบบ| UserDB
+
+
+````
+```mermaid
+graph TD
+    User((ผู้ใช้))
+    LibrarySystem[ระบบห้องสมุด]
+    AuthService[บริการตรวจสอบสิทธิ์]
+    UserDB[(ฐานข้อมูลผู้ใช้)]
+
+    User -->|กรอกข้อมูลล็อกอิน| LibrarySystem
+    LibrarySystem -->|ตรวจสอบข้อมูลล็อกอิน| AuthService
+    AuthService -->|ตรวจสอบข้อมูลผู้ใช้| UserDB
+    AuthService -->|ยืนยันสิทธิ์| LibrarySystem
+    LibrarySystem -->|อนุญาตให้เข้าสู่ระบบ| User
+
+
 ````

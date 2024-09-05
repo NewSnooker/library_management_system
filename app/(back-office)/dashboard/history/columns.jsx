@@ -6,6 +6,7 @@ import DateCreatedColumn from "@/components/backoffice/data-table-columns/DateCr
 import DateCreatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnCell";
 import DateUpdatedColumnCell from "@/components/backoffice/data-table-columns/DateCreatedColumnUpdatedCell";
 import ImageColumn from "@/components/backoffice/data-table-columns/ImageColumn";
+import IsReturnColumn from "@/components/backoffice/data-table-columns/IsReturnColumn";
 import NumberColumn from "@/components/backoffice/data-table-columns/NumberColumn";
 import StatusColumn from "@/components/backoffice/data-table-columns/StatusColumn";
 import TitleColumn from "@/components/backoffice/data-table-columns/TitleColumn";
@@ -63,20 +64,25 @@ export const columns = [
     header: ({ column }) => <TitleColumn column={column} title="รวม / วัน" />,
     cell: ({ row }) => <NumberColumn row={row} accessorKey="numberOfDays" />,
   },
-  {
-    accessorKey: "dueDate",
-    id: "daysRemaining",
-    header: ({ column }) => (
-      <DateCreatedColumn column={column} title="เหลือ / วัน" />
-    ),
-    cell: ({ row }) => (
-      <CalculateDaysRemainingColumn row={row} accessorKey="dueDate" />
-    ),
-  },
+  // {
+  //   accessorKey: "dueDate",
+  //   id: "daysRemaining",
+  //   header: ({ column }) => (
+  //     <DateCreatedColumn column={column} title="เหลือ / วัน" />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <CalculateDaysRemainingColumn row={row} accessorKey="dueDate" />
+  //   ),
+  // },
   {
     accessorKey: "status",
     header: ({ column }) => <TitleColumn column={column} title="สถานะ" />,
     cell: ({ row }) => <StatusColumn row={row} accessorKey="status" />,
+  },
+  {
+    accessorKey: "isReturned",
+    header: ({ column }) => <TitleColumn column={column} title="รับคืน" />,
+    cell: ({ row }) => <IsReturnColumn row={row} accessorKey="isReturned" />,
   },
   {
     header: ({ column }) => <TitleColumn column={column} title="เพิ่มเติม" />,
@@ -84,9 +90,16 @@ export const columns = [
     cell: ({ row }) => {
       const book = row.original;
       return (
-        <Link href={`/dashboard/history/borrow/${book.id}`} className="w-full">
+        <Link
+          href={
+            book.isReturned
+              ? `/dashboard/history/borrow/return/${book.id}`
+              : `/dashboard/history/borrow/${book.id}`
+          }
+          className="w-full"
+        >
           <Button variant="outline" className="min-w-20">
-            รายละเอียด
+            {book.isReturned ? "รายละเอียด" : "รายละเอียด"}
           </Button>
         </Link>
       );

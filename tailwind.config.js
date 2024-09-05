@@ -2,6 +2,9 @@
 const { withUt } = require("uploadthing/tw");
 module.exports = withUt({   
   darkMode: ["class"],
+  daisyui: {
+    themes: ["light" ],
+  },
   content: [
     "./pages/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}",
@@ -88,5 +91,5 @@ module.exports = withUt({
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"),require('daisyui'),],
 });

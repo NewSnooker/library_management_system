@@ -142,7 +142,7 @@ export function NavAvatar({ session }) {
           >
             <div className="flex gap-2">
               {roleAdmin && (
-                <a href={`/dashboard?username=${username}&?id=${id}`}>
+                <a href={`/dashboard/books?username=${username}&?id=${id}`}>
                   <div className="py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-800  dark:hover:bg-zinc-100 text-white dark:text-black text-sm font-semibold border">
                     แดชบอร์ด
                   </div>

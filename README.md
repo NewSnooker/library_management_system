@@ -32,7 +32,7 @@ Ensure you have the following installed on your machine:
 3. **Set up environment variables:**
    _Create a .env file at the root of the project and add your environment variables. For example:_
    ```bash
-   DATABASE_URL="postgresql://username:password@localhost:5432/mydb"
+   DATABASE_URL="mongodb+srv://username:password@localhost:5432"
    NEXTAUTH_SECRET="your-secret"
    NODEMAILER_USER="your-email"
    NODEMAILER_PASSWORD="your-app-password-email"
@@ -57,7 +57,7 @@ Ensure you have the following installed on your machine:
    yarn dev
    ```
    _The server should be running at http://localhost:3000_
-   
+
 
 # ER Diagram
 

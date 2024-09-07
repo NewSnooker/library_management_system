@@ -49,8 +49,8 @@ export function NavAvatar({ session }) {
     <Sheet>
       <SheetTrigger>
         <Avatar>
-          <AvatarImage src={profileImage} alt={username} />
-          <AvatarFallback className="text-xl border">{initial}</AvatarFallback>
+          <AvatarImage src={profileImage} alt={username} className="object-cover" />
+          <AvatarFallback className="text-xl border object-cover">{initial}</AvatarFallback>
         </Avatar>
       </SheetTrigger>
       <SheetContent side="right">

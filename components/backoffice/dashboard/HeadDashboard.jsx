@@ -46,7 +46,7 @@ export default function HeadDashboard({
           <div className="text-center">
             <h1 className="text-sm font-medium">หนังสือที่พร้อมยืม</h1>
             <div className="text-3xl font-bold m-2">
-              {totalBooks.toLocaleString()} <span className=" text-lg sm:text-3xl ">/</span> {totalActive.toLocaleString()}
+              {totalActive.toLocaleString()} <span className=" text-lg sm:text-3xl ">/</span> {totalBooks.toLocaleString()}
             </div>
             <div>เล่ม</div>
           </div>

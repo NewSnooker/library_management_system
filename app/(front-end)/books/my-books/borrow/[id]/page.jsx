@@ -90,10 +90,7 @@ export default function Page({ params: { id } }) {
                     <strong>วันที่ส่งคืน :</strong>{" "}
                     {moment(borrow?.returnDate).format("lll")}
                   </p>
-                  <p>
-                   จำนวนวันที่กำหนดยืม :{" "}
-                   {borrow.numberOfDays} วัน
-                  </p>
+                  <p>จำนวนวันที่กำหนดยืม : {borrow.numberOfDays} วัน</p>
                   {/* <p>
                     <strong>จำนวนวันที่ยืม :</strong>  {borrow.returnDate ? differenceInDays(new Date(borrow.returnDate), new Date(borrow.borrowDate)) : "ไม่ระบุ"} วัน
                   </p> */}
@@ -159,17 +156,15 @@ export default function Page({ params: { id } }) {
                     <span>{fineAmount.toLocaleString()}</span> บาท / วัน
                   </p>
                   <p className="flex items-center">
-                    <strong>ค่าเสียหาย :  </strong>  
+                    <strong>ค่าเสียหาย : </strong>
                     <span className="text-red-800 dark:text-red-500 font-bold mx-2">
-                      {borrow.damaged.toLocaleString()}
+                      {borrow?.damaged.toLocaleString() || 0}
                     </span>
                     บาท
                   </p>
 
-       
-
                   <p>
-                    <strong>ค่าปรับรวม :</strong> 
+                    <strong>ค่าปรับรวม :</strong>
                     <span className="text-red-800 dark:text-red-500 font-bold mx-2">
                       {borrow.fine.toLocaleString()}
                     </span>
@@ -242,34 +237,38 @@ export default function Page({ params: { id } }) {
                   </p>
                 </div>
               </div>
-              <div className="py-4 sm:py-6 px-6 border rounded-sm">
-                <div className="text-lg font-semibold mb-3 text-center">
-                  ข้อมูลผู้อนุมัติการคืน
-                </div>
-                <div>
-                  <div className=" flex justify-center">
-                    {borrow.returnApprover.profileImage &&
-                    borrow.returnApprover.profileImage.length > 0 ? (
-                      <Image
-                        src={borrow.returnApprover.profileImage}
-                        width={100}
-                        height={100}
-                        alt="profile image"
-                        className="mb-3 rounded-sm object-cover"
-                      />
-                    ) : null}
+              {borrow.returnApprover && (
+                <div className="py-4 sm:py-6 px-6 border rounded-sm">
+                  <div className="text-lg font-semibold mb-3 text-center">
+                    ข้อมูลผู้อนุมัติการคืน
                   </div>
-                  <p>
-                    <strong>ชื่อ :</strong> {borrow.returnApprover.prefix}{" "}
-                    {borrow.returnApprover.fullName}
-                  </p>
-                  {/* <p><strong>เบอร์โทร:</strong> {borrow.returnApprover.phoneNumber}</p> */}
-                  <p>
-                    <strong>หมายเลขประจำตัว :</strong>{" "}
-                    {borrow.returnApprover.codeNumber}
-                  </p>
+                  <div>
+                    <>
+                      <div className=" flex justify-center">
+                        {borrow.returnApprover.profileImage &&
+                        borrow.returnApprover.profileImage.length > 0 ? (
+                          <Image
+                            src={borrow.returnApprover.profileImage}
+                            width={100}
+                            height={100}
+                            alt="profile image"
+                            className="mb-3 rounded-sm object-cover"
+                          />
+                        ) : null}
+                      </div>
+                      <p>
+                        <strong>ชื่อ :</strong> {borrow.returnApprover.prefix}{" "}
+                        {borrow.returnApprover.fullName}
+                      </p>
+                      {/* <p><strong>เบอร์โทร:</strong> {borrow.returnApprover.phoneNumber}</p> */}
+                      <p>
+                        <strong>หมายเลขประจำตัว :</strong>{" "}
+                        {borrow.returnApprover.codeNumber}
+                      </p>
+                    </>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

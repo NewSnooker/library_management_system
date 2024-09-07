@@ -175,7 +175,7 @@ model Borrow {
   dueDate      DateTime
   returnDate   DateTime?
   numberOfDays Int
-  damaged      Int?
+  damaged      Int           @default(0)
   isReturned   Boolean         @default(false)
   fine         Float           @default(0)
   status       BorrowingStatus @default(BORROWED)

@@ -118,7 +118,7 @@ Table Borrow {
   dueDate DateTime [not null]
   returnDate DateTime
   numberOfDays Int [not null]
-  damaged Int
+  damaged Int [not null, default: 0]
   isReturned Boolean [not null, default: false]
   fine Float [not null, default: 0]
   status BorrowingStatus [not null, default: 'BORROWED']

@@ -3,6 +3,7 @@ import { BarChartDemo } from "@/components/backoffice/dashboard/BarChart";
 import HeadDashboard from "@/components/backoffice/dashboard/HeadDashboard";
 import RecentBorrows from "@/components/backoffice/dashboard/RecentBorrows";
 import PageHeaderNoAdd from "@/components/backoffice/PageHeaderNoAdd";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getData } from "@/lib/getData";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
@@ -10,7 +11,7 @@ import React from "react";
 export default function page() {
   const {
     data: totalQuantity,
-    isTotalQuantityLoading,
+    isLoading:isTotalQuantityLoading,
     errorTotalQuantity,
   } = useQuery({
     queryKey: ["totalQuantity"],
@@ -18,7 +19,7 @@ export default function page() {
   });
   const {
     data: totalRemaining,
-    isTotalRemaining,
+    isLoading:isTotalRemainingLoading,
     errorRemaining,
   } = useQuery({
     queryKey: ["totalRemaining"],
@@ -26,7 +27,7 @@ export default function page() {
   });
   const {
     data: totalActiveBooks,
-    isTotalActiveBooks,
+    isLoading:isTotalActiveBooksLoading,
     errorTotalActiveBooks,
   } = useQuery({
     queryKey: ["totalActiveBooks"],
@@ -43,22 +44,34 @@ export default function page() {
   if (errorTotalActiveBooks) return <div>{errorTotalActiveBooks.message}</div>;
   return (
     <div className="px-4 sm:px-0">
-      <PageHeaderNoAdd loading={false} heading="Dashboard" />
-      <div className="mt-4">
-        <HeadDashboard
-          quantity={quantity}
-          remaining={remaining}
-          totalBooks={totalBooks}
-          totalActive={totalActive}
-          borrowCount={borrowCount}
-        />
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-        <div className="sm:col-span-1">
-          <BarChartDemo />
-        </div>
-        <div className="sm:col-span-1">
-          <RecentBorrows />
+      <PageHeaderNoAdd loading={isTotalRemainingLoading} heading="Dashboard" />
+
+      <div className="">
+        {isTotalQuantityLoading ||
+        isTotalRemainingLoading ||
+        isTotalActiveBooksLoading ||
+        !totalQuantity ||
+        !totalRemaining ||
+        !totalActiveBooks ? (
+          <Skeleton className="w-full h-32 mt-4 " />
+        ) : (
+          <div className="mt-4">
+            <HeadDashboard
+              quantity={quantity}
+              remaining={remaining}
+              totalBooks={totalBooks}
+              totalActive={totalActive}
+              borrowCount={borrowCount}
+            />
+          </div>
+        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+          <div className="sm:col-span-1">
+            <BarChartDemo />
+          </div>
+          <div className="sm:col-span-1">
+            <RecentBorrows />
+          </div>
         </div>
       </div>
     </div>

@@ -1,51 +1,75 @@
 "use client";
 
-import { Book, TrendingUp } from "lucide-react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
-
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import {
-  ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { getData } from "@/lib/getData"; // Adjust this import to your actual data fetching function
+import { Skeleton } from "@/components/ui/skeleton";
 
-export const description = " ";
-
-const chartData = [
-  { month: "ม.ค.", book: 186 },
-  { month: "ก.พ.", book: 305 },
-  { month: "มี.ค.", book: 237 },
-  { month: "เม.ย.", book: 73 },
-  { month: "พ.ค.", book: 209 },
-  { month: "มิ.ย.", book: 214 },
-];
-
-const chartConfig = {
-  book: {
-    label: "หนังสือ",
-    color: "hsl(var(--chart-1))",
-  },
-};
+const years = [2026, 2025, 2024, 2023, 2022]; // Add or adjust years as needed
 
 export function BarChartDemo() {
+  const [selectedYear, setSelectedYear] = useState(2024);
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["monthly-borrow-data", selectedYear],
+    queryFn: () => getData(`admin/borrows/monthly?year=${selectedYear}`), // Adjust the endpoint to match your API
+  });
+
+  if (isLoading)
+    return (
+      <div>
+        {" "}
+        <Skeleton className="w-full h-96 mb-2 " />
+      </div>
+    );
+  if (error) return <div>Error fetching data</div>;
+
+  const chartData = data || []; // Fallback to empty array if no data
+
+  const chartConfig = {
+    book: {
+      label: "หนังสือ",
+      color: "hsl(var(--chart-1))",
+    },
+  };
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>จำนวนการยืมหนังสือ</CardTitle>
-        <CardDescription> มกราคม - มิถุนายน 2024</CardDescription>
+        <div className="flex justify-between">
+          <CardDescription>1 มกราคม - 31 ธันวาคม </CardDescription>
+          <CardDescription>
+            <select
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))}
+              className="px-1 border rounded"
+            >
+              {years.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </CardDescription>
+        </div>
       </CardHeader>
       <CardContent className="p-3">
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <BarChart data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="month"
@@ -59,15 +83,10 @@ export function BarChartDemo() {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="book" fill="var(--color-book)" radius={8} />
+            <Bar dataKey="count" fill="var(--color-book)" radius={8} />
           </BarChart>
         </ChartContainer>
       </CardContent>
-      {/* <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none text-muted-foreground">
-          <Book className="h-3 w-3" /> จำนวนหนังสือ
-        </div>
-      </CardFooter> */}
     </Card>
   );
 }

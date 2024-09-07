@@ -69,7 +69,7 @@ export function NavAvatar({ session }) {
                   width={100}
                   height={100}
                   loading="lazy"
-                  className="rounded-full w-[100px] h-[100px] p-1"
+                  className="rounded-full w-[100px] h-[100px] p-1 object-cover"
                 />
               ) : (
                 <Avatar className="w-[100px] h-[100px]">

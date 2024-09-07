@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Book, TrendingUp } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 import {
   Card,
@@ -10,15 +10,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 
-export const description = " "
+export const description = " ";
 
 const chartData = [
   { month: "ม.ค.", book: 186 },
@@ -27,23 +27,23 @@ const chartData = [
   { month: "เม.ย.", book: 73 },
   { month: "พ.ค.", book: 209 },
   { month: "มิ.ย.", book: 214 },
-]
+];
 
 const chartConfig = {
   book: {
     label: "หนังสือ",
     color: "hsl(var(--chart-1))",
   },
-} 
+};
 
 export function BarChartDemo() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle> </CardTitle>
-        <CardDescription> มกราคม  - มิถุนายน  2024</CardDescription>
+        <CardTitle>จำนวนการยืมหนังสือ</CardTitle>
+        <CardDescription> มกราคม - มิถุนายน 2024</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-3">
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
@@ -64,15 +64,10 @@ export function BarChartDemo() {
         </ChartContainer>
       </CardContent>
       {/* <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-            5.2%  <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-            6  
+        <div className="flex gap-2 font-medium leading-none text-muted-foreground">
+          <Book className="h-3 w-3" /> จำนวนหนังสือ
         </div>
       </CardFooter> */}
     </Card>
-  )
+  );
 }
-
-

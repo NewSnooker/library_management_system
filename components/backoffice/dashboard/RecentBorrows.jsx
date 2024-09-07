@@ -1,87 +1,75 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Card, CardContent } from '@/components/ui/card'
-import React from 'react'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { getData } from "@/lib/getData";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
+import React from "react";
 
 export default function RecentBorrows() {
+  const {
+    data: recentBorrows,
+    isLoading: isRecentBorrowsLoading,
+    error: errorRecentBorrows,
+  } = useQuery({
+    queryKey: ["recent-borrows"],
+    queryFn: () => getData("/admin/borrows/recent-borrows"),
+  });
+
+  console.log(recentBorrows);
+
+  if (isRecentBorrowsLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (errorRecentBorrows) {
+    return <div>Error loading borrows</div>;
+  }
+
   return (
-    <Card x-chunk="dashboard-01-chunk-5">
-    <CardContent className="grid gap-8 pt-6">
-      <div className="flex items-center gap-4">
-        <Avatar className="hidden h-9 w-9 sm:flex">
-          <AvatarImage src="/avatars/01.png" alt="Avatar" />
-          <AvatarFallback>OM</AvatarFallback>
-        </Avatar>
-        <div className="grid gap-1">
-          <p className="text-sm font-medium leading-none">
-            Olivia Martin
-          </p>
-          <p className="text-sm text-muted-foreground">
-            olivia.martin@email.com
-          </p>
-        </div>
-        <div className="ml-auto font-medium">+$1,999.00</div>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar className="hidden h-9 w-9 sm:flex">
-          <AvatarImage src="/avatars/02.png" alt="Avatar" />
-          <AvatarFallback>JL</AvatarFallback>
-        </Avatar>
-        <div className="grid gap-1">
-          <p className="text-sm font-medium leading-none">
-            Jackson Lee
-          </p>
-          <p className="text-sm text-muted-foreground">
-            jackson.lee@email.com
-          </p>
-        </div>
-        <div className="ml-auto font-medium">+$39.00</div>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar className="hidden h-9 w-9 sm:flex">
-          <AvatarImage src="/avatars/03.png" alt="Avatar" />
-          <AvatarFallback>IN</AvatarFallback>
-        </Avatar>
-        <div className="grid gap-1">
-          <p className="text-sm font-medium leading-none">
-            Isabella Nguyen
-          </p>
-          <p className="text-sm text-muted-foreground">
-            isabella.nguyen@email.com
-          </p>
-        </div>
-        <div className="ml-auto font-medium">+$299.00</div>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar className="hidden h-9 w-9 sm:flex">
-          <AvatarImage src="/avatars/04.png" alt="Avatar" />
-          <AvatarFallback>WK</AvatarFallback>
-        </Avatar>
-        <div className="grid gap-1">
-          <p className="text-sm font-medium leading-none">
-            William Kim
-          </p>
-          <p className="text-sm text-muted-foreground">
-            will@email.com
-          </p>
-        </div>
-        <div className="ml-auto font-medium">+$99.00</div>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar className="hidden h-9 w-9 sm:flex">
-          <AvatarImage src="/avatars/05.png" alt="Avatar" />
-          <AvatarFallback>SD</AvatarFallback>
-        </Avatar>
-        <div className="grid gap-1">
-          <p className="text-sm font-medium leading-none">
-            Sofia Davis
-          </p>
-          <p className="text-sm text-muted-foreground">
-            sofia.davis@email.com
-          </p>
-        </div>
-        <div className="ml-auto font-medium">+$39.00</div>
-      </div>
-    </CardContent>
-  </Card>
-  )
+    <div>
+      {recentBorrows?.map((borrow) => (
+        <Link href={`/dashboard/history/borrow/return/${borrow.id}`}>
+        <Card key={borrow.id} className="mb-2">
+          <CardContent className="grid gap-8 p-4">
+            <div className="flex items-center gap-4">
+              <Avatar className="hidden h-9 w-9 sm:flex">
+                <AvatarImage
+                  src={borrow.borrower.profileImage }
+                  alt="Avatar"
+                  className=" object-cover"
+                />
+                <AvatarFallback>{borrow.borrower.fullName[0]}</AvatarFallback>
+              </Avatar>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">
+                  {borrow.borrower.fullName}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {borrow.borrower.emailAddress}
+                </p>
+              </div>
+              <div className="ml-auto font-medium">
+                {(() => {
+                  switch (borrow.status) {
+                    case "BORROWED":
+                      return <div className="text-yellow-800 dark:text-yellow-500">กำลังยืม</div>;
+                    case "OVERDUE":
+                      return <div className="text-orange-800 dark:text-orange-500">ค้างคืนเกินกำหนด</div>;
+                    case "LOST":
+                      return <div className="text-red-800 dark:text-red-500">สูญหาย</div>;
+                    case "RETURNED":
+                      return <div className="text-green-800 dark:text-green-500">ส่งคืนแล้ว</div>;
+                    default:
+                      return <div>{borrow.status}</div>;
+                  }
+                })()}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        </Link>
+      ))}
+    </div>
+  );
 }
+

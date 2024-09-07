@@ -1,6 +1,7 @@
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
-
+export const fetchCache = "force-no-store";
+export const revalidate = 0;
 // api/admin/books/total-remaining
 export async function GET(request) {
   try {

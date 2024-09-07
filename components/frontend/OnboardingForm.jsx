@@ -137,7 +137,7 @@ export default function OnboardingForm({ id }) {
               name="educationLevel"
               register={register}
               errors={errors}
-              className="w-9"
+              className="w-16"
               options={educationLevel}
             />
             <SelectInput

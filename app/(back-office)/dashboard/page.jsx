@@ -1,12 +1,13 @@
 import { BarChartDemo } from "@/components/backoffice/dashboard/BarChart";
 import HeadDashboard from "@/components/backoffice/dashboard/HeadDashboard";
 import RecentBorrows from "@/components/backoffice/dashboard/RecentBorrows";
+import PageHeaderNoAdd from "@/components/backoffice/PageHeaderNoAdd";
 import React from "react";
 
 export default function page() {
   return (
     <div className="px-4 sm:px-0">
-      <h1 className="text-3xl ">Dashboard</h1>
+      <PageHeaderNoAdd loading={false} heading="Dashboard" />
       <div className="mt-4">
         <HeadDashboard />
       </div>

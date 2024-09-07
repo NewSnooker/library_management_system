@@ -21,11 +21,26 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 import { Button } from "../ui/button";
-import { Search } from "lucide-react";
+import { Book, Search } from "lucide-react";
 import { DialogTitle } from "../ui/dialog";
+import { getData } from "@/lib/getData";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 
 export function CommandDialogDemo() {
   const [open, setOpen] = React.useState(false);
+
+  const {
+    data: books,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["booksAll"],
+    queryFn: () => getData("all/books"),
+  });
+  if (error) {
+    <div className=""> Error: {error.message}</div>;
+  }
 
   React.useEffect(() => {
     const down = (e) => {
@@ -42,13 +57,20 @@ export function CommandDialogDemo() {
   return (
     <>
       <p className="text-sm sm:text-muted-foreground flex gap-2 group">
-        <Button className="py-4 px-2.5  " variant="outline" onClick={() => setOpen(true)}>
-          {" "}
-          <Search className="w-4 sm:w-3 sm:mr-2 " /> <span className="hidden sm:inline">ค้นหาหนังสือ...</span>
-          <kbd className="hidden sm:inline-flex pointer-events-none group-hover:bg-white dark:group-hover:bg-black dark:group-hover:text-white  h-5 select-none items-center ml-2 gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-            <span className="text-xs ">⌘</span>J
-          </kbd>
-        </Button>
+        {books && (
+          <Button
+            className="py-4 px-2.5  "
+            variant="outline"
+            onClick={() => setOpen(true)}
+          >
+            {" "}
+            <Search className="w-4 sm:w-3 sm:mr-2 " />{" "}
+            <span className="hidden sm:inline">ค้นหาหนังสือ...</span>
+            <kbd className="hidden sm:inline-flex pointer-events-none group-hover:bg-white dark:group-hover:bg-black dark:group-hover:text-white  h-5 select-none items-center ml-2 gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+              <span className="text-xs ">⌘</span>J
+            </kbd>
+          </Button>
+        )}
       </p>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <DialogTitle></DialogTitle>
@@ -56,37 +78,21 @@ export function CommandDialogDemo() {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="คำที่ค้นหา">
-            <CommandItem>
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              <span>Calendar</span>
-            </CommandItem>
-            <CommandItem>
-              <FaceIcon className="mr-2 h-4 w-4" />
-              <span>Search Emoji</span>
-            </CommandItem>
-            <CommandItem>
-              <RocketIcon className="mr-2 h-4 w-4" />
-              <span>Launch</span>
-            </CommandItem>
+            {books?.map((book) => (
+              <Link
+                href={`/books/${book.slug}`}
+                className="cursor-pointer"
+                key={book.id}
+                onClick={() => setOpen(false)}
+              >
+                <CommandItem value={book.title}>
+                  <Book className="mr-2 h-4 w-4" />
+                  <span>{book.title}</span>
+                </CommandItem>
+              </Link>
+            ))}
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="ตั้งค่า">
-            <CommandItem>
-              <PersonIcon className="mr-2 h-4 w-4" />
-              <span>โปรไฟล์</span>
-              <CommandShortcut>⌘P</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
-              <span>อีเมล</span>
-              <CommandShortcut>⌘B</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <GearIcon className="mr-2 h-4 w-4" />
-              <span>ตั้งค่า</span>
-              <CommandShortcut>⌘S</CommandShortcut>
-            </CommandItem>
-          </CommandGroup>
         </CommandList>
       </CommandDialog>
     </>

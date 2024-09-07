@@ -15,20 +15,10 @@ import Link from "next/link";
 
 export const columns = [
   {
-    accessorKey: "borrowerProfileImage",
+    accessorKey: "bookImageUrl",
     header: "รูปภาพ",
     cell: ({ row }) => (
-      <ImageColumn row={row} accessorKey="borrowerProfileImage" />
-    ),
-  },
-  {
-    accessorKey: "borrowerName",
-    header: ({ column }) => (
-      <TitleColumn
-        column={column}
-        title="ชื่อผู้ยืม"
-        className="-m-4 min-w-44"
-      />
+      <ImageColumn row={row} accessorKey="bookImageUrl" />
     ),
   },
   {
@@ -39,15 +29,6 @@ export const columns = [
         title="ชื่อหนังสือ"
         className="-m-4 min-w-32"
       />
-    ),
-  },
-  {
-    accessorKey: "borrowDate",
-    header: ({ column }) => (
-      <DateCreatedColumn column={column} title="วันที่ยืม" />
-    ),
-    cell: ({ row }) => (
-      <DateCreatedColumnCell row={row} accessorKey="borrowDate" />
     ),
   },
   {
@@ -88,18 +69,15 @@ export const columns = [
     header: ({ column }) => <TitleColumn column={column} title="เพิ่มเติม" />,
     id: "borrow",
     cell: ({ row }) => {
-      const book = row.original;
+      const borrow = row.original;
       return (
         <Link
           href={
-            book.isReturned || book.status === "LOST"
-              ? `/dashboard/history/borrow/return/${book.id}`
-              : `/dashboard/history/borrow/${book.id}`
-          }
+             `/books/my-books/borrow/${borrow.id}` }
           className="w-full"
         >
           <Button variant="outline" className="min-w-20">
-            {book.isReturned || book.status === "LOST" ? "รายละเอียด" : "รายละเอียด"}
+           รายละเอียด
           </Button>
         </Link>
       );

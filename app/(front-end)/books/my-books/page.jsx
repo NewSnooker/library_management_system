@@ -1,18 +1,49 @@
+"use client";
 import HeadTitleBreadcrumb from "@/components/frontend/HeadTitleBreadcrumb";
-import HorizontalCard from "@/components/frontend/HorizontalCard";
-import { PaginationDemo } from "@/components/frontend/PaginationDemo";
-import { books } from "@/lib/books";
 import { Album, BookCheck, BookText } from "lucide-react";
+import { useSession } from "next-auth/react";
 import React from "react";
+import DataTable from "@/components/backoffice/data-table-components/DataTable";
+import { getData } from "@/lib/getData";
+import { columns } from "./columns";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useQuery } from "@tanstack/react-query";
+
 export default function page() {
+  const { data: session, status } = useSession();
+  const userId = session?.user?.id;
+  console.log(userId);
+  const { data: borrows, isLoading: isBorrowsLoading } = useQuery({
+    queryKey: ["borrows_my_books_borrower", userId],
+    queryFn: () => getData(`all/borrows/user/${userId}`),
+    enabled: !!userId,
+  });
+
   return (
-    <div className=""></div>
-    // <div className="">
-    //   <HeadTitleBreadcrumb icon={Album} />
-    //   <div className="border bg-card py-2 px-4 rounded-sm">
-    //     <HorizontalCard books={books} />
-    //     <PaginationDemo />
-    //   </div>
-    // </div>
+    <div className="">
+      <div className="">
+        <HeadTitleBreadcrumb icon={Album} />
+        <div className="border bg-card py-2 px-4 rounded-sm">
+          <div>
+            {/* Header */}
+            {/* <PageHeaderNoAdd
+              loading={isBorrowsLoading}
+              heading="ประวัติการยืมหนังสือ"
+            /> */}
+            <div className="py-2">
+              {isBorrowsLoading || !borrows ? (
+                <Skeleton className="w-full h-96 mb-2 " />
+              ) : (
+                <DataTable
+                  data={borrows}
+                  columns={columns}
+                  filterKeys={["bookTitle","dueDate"]}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

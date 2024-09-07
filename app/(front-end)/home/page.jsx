@@ -14,7 +14,7 @@ export default function page() {
     queryKey: ["booksAll"],
     queryFn: () => getData("all/books"),
   });
-  
+
   const {
     data: booksNewBooks,
     isLoading: isLoadingNewBooks,
@@ -23,7 +23,7 @@ export default function page() {
     queryKey: ["booksNewBooks"],
     queryFn: () => getData("all/books/new-books"),
   });
-  
+
   if (errorAll || errorNewBooks) return <div>error</div>;
 
   return (
@@ -32,16 +32,16 @@ export default function page() {
       <div className="border bg-card py-2 px-4 rounded-sm">
         {/* <WideCard title={"หนังสือยอดนิยม"} books={books} href="/books/popular-books" /> */}
         <WideCard
-          title={"หนังสือใหม่"}
-          books={booksNewBooks}
-          isLoading={isLoadingNewBooks}
-          href="/books/new-books"
-        />
-        <WideCard
           title={"หนังสือทั้งหมด"}
           books={booksAll}
           isLoading={isLoadingAll}
           href="/books"
+        />
+        <WideCard
+          title={"หนังสือใหม่"}
+          books={booksNewBooks}
+          isLoading={isLoadingNewBooks}
+          href="/books/new-books"
         />
       </div>
     </div>

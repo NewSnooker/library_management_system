@@ -32,6 +32,9 @@ export default function RecentBorrows() {
 
   return (
     <div>
+     {
+      recentBorrows?.length === 0 && <div>ยังไม่มีการยืมหนังสือ</div>
+     }
       {recentBorrows?.map((borrow) => (
         <Link href={`/dashboard/history/borrow/return/${borrow.id}`}>
           <Card key={borrow.id} className="mb-2">

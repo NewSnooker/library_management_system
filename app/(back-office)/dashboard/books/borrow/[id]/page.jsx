@@ -34,7 +34,7 @@ export default function page({ params: { id } }) {
 
   const [date, setDate] = React.useState({
     from: new Date(),
-    to: addDays(new Date(), 7),
+    to: addDays(new Date(), 3),
   });
 
   const numberOfDays =
@@ -225,18 +225,23 @@ export default function page({ params: { id } }) {
                         {date?.from ? (
                           date.to ? (
                             <>
-                              วันที่ :{" "}
-                              {format(date.from, "dd LLLL yyyy", {
-                                locale: th,
-                              })}{" "}
-                              <br />
-                              ถึง :{" "}
-                              {format(date.to, "dd LLLL yyyy", {
-                                locale: th,
-                              })}
+                              <div className="">
+                                วันที่ :{" "}
+                                {format(date.from, "dd LLLL yyyy HH:mm", {
+                                  locale: th,
+                                })}
+                              </div>
+                              <div className="">
+                                ถึง :{" "}
+                                {format(date.to, "dd LLLL yyyy HH:mm", {
+                                  locale: th,
+                                })}
+                              </div>
                             </>
                           ) : (
-                            format(date.from, "dd LLLL yyyy", { locale: th })
+                            format(date.from, "dd LLLL yyyy HH:mm", {
+                              locale: th,
+                            })
                           )
                         ) : null}
                       </div>
@@ -277,7 +282,31 @@ export default function page({ params: { id } }) {
                             initialFocus
                             mode="range"
                             selected={date}
-                            onSelect={setDate}
+                            onSelect={(range) => {
+                              if (range?.from && range?.to) {
+                                const now = new Date();
+
+                                // สร้างวันที่ใหม่จากวันที่ที่เลือกและตั้งเวลาเป็นเวลาปัจจุบัน
+                                const fromWithTime = new Date(range.from);
+                                fromWithTime.setHours(
+                                  now.getHours(),
+                                  now.getMinutes(),
+                                  now.getSeconds()
+                                );
+
+                                const toWithTime = new Date(range.to);
+                                toWithTime.setHours(
+                                  now.getHours(),
+                                  now.getMinutes(),
+                                  now.getSeconds()
+                                );
+
+                                // อัปเดตสถานะ `date` ด้วยวันที่ใหม่ที่มีเวลา
+                                setDate({ from: fromWithTime, to: toWithTime });
+                              } else {
+                                setDate(range);
+                              }
+                            }}
                             numberOfMonths={1}
                           />
                         </div>

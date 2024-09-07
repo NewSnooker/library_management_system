@@ -49,7 +49,7 @@ export function BarChartDemo() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>จำนวนการยืมหนังสือ</CardTitle>
+        <CardTitle>จำนวนการยืมหนังสือทั้งหมด</CardTitle>
         <div className="flex justify-between">
           <CardDescription>1 มกราคม - 31 ธันวาคม </CardDescription>
           <CardDescription>

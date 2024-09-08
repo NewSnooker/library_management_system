@@ -8,7 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { File, Menu } from "lucide-react";
 import { BookText } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -55,6 +55,15 @@ export default function HamburgerMenu() {
                 </Link>
               );
             })}
+            <Link
+              href="/คู่มือการใช้งานเว็บไซต์การยืม.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={"flex mb-1 cursor-pointer"}
+            >
+              <File className="mr-1 w-4 " />
+              <span>คู่มือใช้งาน</span>
+            </Link>
           </div>
         </div>
       </SheetContent>

@@ -5,6 +5,7 @@ import {
   Book,
   BookCheck,
   BookText,
+  File,
   Heart,
   House,
   MessageSquareText,
@@ -58,6 +59,15 @@ export default function Sidebar() {
             </Link>
           );
         })}
+        <Link
+          href="/คู่มือการใช้งานเว็บไซต์การยืม.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={"flex mb-1 cursor-pointer"}
+        >
+          <File className="mr-1 w-4 " />
+          <span>คู่มือใช้งาน</span>
+        </Link>
       </div>
     </div>
   );

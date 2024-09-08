@@ -8,7 +8,7 @@ Ensure you have the following installed on your machine:
 
 - **Node.js** (version 16.x or higher)
 - **npm** or **yarn** for package management
-- **MongDB** (or any database compatible with Prisma)
+- **MongoDB** (or any database compatible with Prisma)
 - **Git** for version control
 
 ### Steps
